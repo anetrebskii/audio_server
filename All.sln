@@ -14,24 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAudio.WindowsMediaFormat", "3rdParty\NAudio\NAudio.WindowsMediaFormat\NAudio.WindowsMediaFormat.csproj", "{1868FC77-FD6F-4881-9CF5-DE7451806BFA}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://aleks.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = 3rdParty\\NAudio\\NAudio.WindowsMediaFormat\\NAudio.WindowsMediaFormat.csproj
-		SccProjectTopLevelParentUniqueName1 = All.sln
-		SccProjectName1 = 3rdParty/NAudio/NAudio.WindowsMediaFormat
-		SccLocalPath1 = 3rdParty\\NAudio\\NAudio.WindowsMediaFormat
-		SccProjectUniqueName2 = 3rdParty\\NAudio\\NAudio\\NAudio.csproj
-		SccProjectTopLevelParentUniqueName2 = All.sln
-		SccProjectName2 = 3rdParty/NAudio/NAudio
-		SccLocalPath2 = 3rdParty\\NAudio\\NAudio
-		SccProjectUniqueName3 = AudioServer\\Alnet.AudioServer\\Alnet.AudioServer.csproj
-		SccProjectTopLevelParentUniqueName3 = All.sln
-		SccProjectName3 = AudioServer/Alnet.AudioServer
-		SccLocalPath3 = AudioServer\\Alnet.AudioServer
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
