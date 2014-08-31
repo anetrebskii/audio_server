@@ -140,43 +140,43 @@ namespace NAudio.Wave
         private void DoPlayback()
         {
             WaitHandle[] waitHandles = _waveOutManagers.Select(wout => wout.WaitHandle).ToArray();
-           int count = _waveOutManagers.Count;
+            int count = _waveOutManagers.Count;
             while (playbackState != PlaybackState.Stopped)
             {
-               if (count != _waveOutManagers.Count)
-               {
-                  waitHandles = _waveOutManagers.Select(wout => wout.WaitHandle).ToArray();
-               }
-               if (WaitHandle.WaitAny(waitHandles) == 0)
+                if (count != _waveOutManagers.Count)
                 {
-                   byte[] streamBuffer = new byte[0];
+                    waitHandles = _waveOutManagers.Select(wout => wout.WaitHandle).ToArray();
+                }
+                if (WaitHandle.WaitAny(waitHandles) == 0)
+                {
+                    byte[] streamBuffer = new byte[0];
                     // requeue any buffers returned to us
                     if (playbackState == PlaybackState.Playing)
                     {
 
-                       bool existsDataToPlay = false;
-                       for (int i = 0; i < NumberOfBuffers; i++)
-                       {
-                          if (_waveOutManagers.All(m => !m.IsInQueue(i)))
-                          {
-                             if (waveStreamReader.Read(out streamBuffer))
-                             {
-                                _bufferManager.Write(i, streamBuffer);
-                                _waveOutManagers.ForEach(m => m.SendToDevice(i));
+                        bool existsDataToPlay = false;
+                        for (int i = 0; i < NumberOfBuffers; i++)
+                        {
+                            if (_waveOutManagers.All(m => !m.IsInQueue(i)))
+                            {
+                                if (waveStreamReader.Read(out streamBuffer))
+                                {
+                                    _bufferManager.Write(i, streamBuffer);
+                                    _waveOutManagers.ForEach(m => m.SendToDevice(i));
+                                    existsDataToPlay = true;
+                                }
+                            }
+                            else
+                            {
                                 existsDataToPlay = true;
-                             }
-                          }
-                          else
-                          {
-                             existsDataToPlay = true;
-                          }
-                       }
-                 
-                       if (!existsDataToPlay)
-                       {
-                          // we got to the end
-                          this.playbackState = PlaybackState.Stopped;
-                       }
+                            }
+                        }
+
+                        if (!existsDataToPlay)
+                        {
+                            // we got to the end
+                            this.playbackState = PlaybackState.Stopped;
+                        }
                     }
                 }
             }

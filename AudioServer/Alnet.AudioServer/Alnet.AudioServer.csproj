@@ -45,6 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioPlayerController.cs" />
+    <Compile Include="AudioPlayerInfo.cs" />
+    <Compile Include="AudioPlayer\ISoundProvider.cs" />
+    <Compile Include="AudioPlayer\PlaylistAudioPlayer.cs" />
+    <Compile Include="AudioPlayer\Sound.cs" />
+    <Compile Include="AudioPlayer\SoundInfo.cs" />
+    <Compile Include="FileSoundProvider\FileSoundProvider.cs" />
+    <Compile Include="IAudioPlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -56,6 +64,9 @@
       <Project>{da4f02e3-0b5e-42cd-b8d9-5583fa51d66e}</Project>
       <Name>NAudio %283rdParty\NAudio\NAudio%29</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="VKSoundProvider\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

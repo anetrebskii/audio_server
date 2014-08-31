@@ -1,0 +1,13 @@
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\bin\Debug\NAudio.XML
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\bin\Debug\NAudio.dll
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\bin\Debug\NAudio.pdb
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.Gui.Fader.resources
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.Gui.PanSlider.resources
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.Gui.Pot.resources
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.Gui.VolumeSlider.resources
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.Gui.WaveViewer.resources
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.Utils.ProgressLog.resources
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.csproj.GenerateResource.Cache
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.dll
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.pdb
+D:\Documents\Projects\AudioServer\CODE\trunk\3rdParty\NAudio\NAudio\obj\Debug\NAudio.csprojResolveAssemblyReference.cache
