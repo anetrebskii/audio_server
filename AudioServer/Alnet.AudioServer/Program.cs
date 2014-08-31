@@ -66,50 +66,53 @@ namespace Alnet.AudioServer
         {
             AudioPlayerController controller = new AudioPlayerController();
             AudioPlayerInfo playerInfo = controller.CreateAudioPlayer("My", new FileSoundProvider.FileSoundProvider(@"D:\Music\VKMusic"));
-            playerInfo.Player.AddChannel(0);
+            playerInfo.Player.EnableSoundCard(0);
             playerInfo.Player.Play();
             Console.ReadLine();
-            playerInfo.Player.AddChannel(0);
+            playerInfo.Player.EnableSoundCard(0);
             Console.ReadLine();
-            playerInfo.Player.RemoveChannel(0);
-           //WaveOutEvent @out = new WaveOutEvent();
-           ////Mp3FileReader fileReader = new Mp3FileReader(@"D:\Music\Кристина\Тотал – Бьет по глазам Адреналин.mp3");
-           // Console.WriteLine(WaveOut.DeviceCount);
-           // for (int i = 0; i < WaveOut.DeviceCount; i++)
-           // {
-           //     Console.WriteLine(WaveOut.GetCapabilities(i).ProductName);
-           // }
+            playerInfo.Player.DisableSoundCard(0);
+            //WaveOutEvent @out = new WaveOutEvent();
+            //Mp3FileReader fileReader = new Mp3FileReader(@"D:\Music\VKMusic\2 Chainz (feat. Wiz Khalifa) – We Own It.mp3");
+            //Console.WriteLine(WaveOut.DeviceCount);
+            //for (int i = 0; i < WaveOut.DeviceCount; i++)
+            //{
+            //    Console.WriteLine(WaveOut.GetCapabilities(i).ProductName);
+            //}
 
-           //AudioProvider provider = new AudioProvider();
+            ////AudioProvider provider = new AudioProvider();
 
-           ////provider.SeekTo(provider.Length - );
+            ////provider.SeekTo(provider.Length - );
 
-           //@out.NumberOfBuffers = 2;
-           //@out.DesiredLatency = 300;
-           //@out.Init(provider);
-           //@out.AddWaveoutManager(0);
-           //@out.AddWaveoutManager(0);
-           ////@out.AddWaveoutManager(1);
+            //@out.NumberOfBuffers = 2;
+            //@out.DesiredLatency = 100;
+            //@out.Init(fileReader);
+            //@out.AddWaveoutManager(0);
+            //@out.Play();
 
-           
+            //Console.ReadLine();
+            //@out.AddWaveoutManager(0);
+            ////@out.AddWaveoutManager(1);
 
-           ////WaveOutEvent @out2 = new WaveOutEvent();
-           ////Mp3FileReader fileReader2 = new Mp3FileReader(@"D:\Music\Кристина\Ozon – Noma Numa Ye  D.mp3");
-           ////@out2.NumberOfBuffers = 3;
-           ////@out2.Init(fileReader2);
-           ////@out2.AddWaveoutManager(0);
-           
-            
-           // @out.Play();
-           // //Console.WriteLine(fileReader.Length);
-           // //@out2.Play();
-           // Console.ReadLine();
-           // @out.Pause();
-           
-            
 
-           // Console.ReadLine();
-           // @out.Play();
+
+            ////WaveOutEvent @out2 = new WaveOutEvent();
+            ////Mp3FileReader fileReader2 = new Mp3FileReader(@"D:\Music\Кристина\Ozon – Noma Numa Ye  D.mp3");
+            ////@out2.NumberOfBuffers = 3;
+            ////@out2.Init(fileReader2);
+            ////@out2.AddWaveoutManager(0);
+
+
+            ////@out.Play();
+            ////Console.WriteLine(fileReader.Length);
+            ////@out2.Play();
+            //Console.ReadLine();
+            //@out.Pause();
+
+
+
+            //Console.ReadLine();
+            //@out.Play();
 
 
 

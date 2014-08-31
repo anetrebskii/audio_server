@@ -94,7 +94,9 @@ namespace NAudio.Wave
 
        public void RemoveWaveoutManager(int deviceNumber)
        {
-          _waveOutManagers.Remove(_waveOutManagers.FirstOrDefault(s => s.DeviceNumber == deviceNumber));
+           WaveOutManager waveOutManager = _waveOutManagers.FirstOrDefault(s => s.DeviceNumber == deviceNumber);
+           _waveOutManagers.Remove(waveOutManager);
+           //waveOutManager.Dispose();
        }
 
         /// <summary>
@@ -147,7 +149,7 @@ namespace NAudio.Wave
                 {
                     waitHandles = _waveOutManagers.Select(wout => wout.WaitHandle).ToArray();
                 }
-                if (WaitHandle.WaitAny(waitHandles) == 0)
+                if (WaitHandle.WaitAny(waitHandles) > -1)
                 {
                     byte[] streamBuffer = new byte[0];
                     // requeue any buffers returned to us

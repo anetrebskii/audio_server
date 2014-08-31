@@ -64,7 +64,7 @@ namespace Alnet.AudioServer.AudioPlayer
             _currentSound.Stop();
         }
 
-        public void AddChannel(int index)
+        public void EnableSoundCard(int index)
         {
             if (_currentSound == null)
             {
@@ -74,7 +74,7 @@ namespace Alnet.AudioServer.AudioPlayer
             _currentSound.AddChannel(index);
         }
 
-        public void RemoveChannel(int index)
+        public void DisableSoundCard(int index)
         {
             if (_currentSound == null)
             {

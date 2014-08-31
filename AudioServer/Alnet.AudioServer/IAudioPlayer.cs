@@ -11,7 +11,7 @@ namespace Alnet.AudioServer
         void Play();
         void Stop();
 
-        void AddChannel(int index);
-        void RemoveChannel(int index);
+        void EnableSoundCard(int index);
+        void DisableSoundCard(int index);
     }
 }

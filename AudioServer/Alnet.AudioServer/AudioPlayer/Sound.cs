@@ -16,7 +16,7 @@ namespace Alnet.AudioServer.AudioPlayer
         public Sound(byte[] soundData)
         {
             _waveOut.NumberOfBuffers = 2;
-            _waveOut.DesiredLatency = 300;
+            _waveOut.DesiredLatency = 100;
             _mp3FileReader = new Mp3FileReader(new MemoryStream(soundData));
             _waveOut.Init(_mp3FileReader);            
             _waveOut.PlaybackStopped += waveOutOnPlaybackStopped;
