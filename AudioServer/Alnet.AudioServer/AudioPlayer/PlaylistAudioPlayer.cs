@@ -71,7 +71,7 @@ namespace Alnet.AudioServer.AudioPlayer
                 _currentSound = new Sound(_soundProvider.GetSoundData(_currentSoundIndex));
                 _currentSound.Completed += currentSoundOnCompleted;
             }
-            _currentSound.AddChannel(index);
+            _currentSound.EnableSoundCard(index);
         }
 
         public void DisableSoundCard(int index)
@@ -80,7 +80,7 @@ namespace Alnet.AudioServer.AudioPlayer
             {
                 return;
             }
-            _currentSound.RemoveChannel(index);
+            _currentSound.DisableSoundCard(index);
         }
 
         public void Dispose()

@@ -54,12 +54,12 @@ namespace Alnet.AudioServer.AudioPlayer
             _waveOut.Dispose();
         }
 
-        public void AddChannel(int index)
+        public void EnableSoundCard(int index)
         {
             _waveOut.AddWaveoutManager(index);
         }
 
-        public void RemoveChannel(int index)
+        public void DisableSoundCard(int index)
         {
             _waveOut.RemoveWaveoutManager(index);
         }
