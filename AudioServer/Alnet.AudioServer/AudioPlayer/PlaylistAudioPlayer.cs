@@ -7,7 +7,7 @@ using NAudio.Wave;
 
 namespace Alnet.AudioServer.AudioPlayer
 {
-    class PlaylistAudioPlayer : IAudioPlayer, IDisposable
+    class PlaylistAudioPlayer : IPlaylistAudioPlayer, IDisposable
     {
         private ISoundProvider _soundProvider = null;
         private int _currentSoundIndex;
@@ -42,12 +42,17 @@ namespace Alnet.AudioServer.AudioPlayer
 
         private void loadNextSound()
         {
-            _currentSoundIndex++;
-            if (_currentSoundIndex >= _soundList.Length)
+            int nextSoundIndex = _currentSoundIndex + 1;
+            if (nextSoundIndex >= _soundList.Length)
             {
-                _currentSoundIndex = 0;
+                nextSoundIndex = 0;
             }
+            loadSound(nextSoundIndex);
+        }
 
+        private void loadSound(int soundIndex)
+        {
+            _currentSoundIndex = soundIndex;
             _currentSound.Completed -= currentSoundOnCompleted;
             _currentSound.Dispose();
 
@@ -81,6 +86,12 @@ namespace Alnet.AudioServer.AudioPlayer
                 return;
             }
             _currentSound.DisableSoundCard(index);
+        }
+
+        public void Play(int index)
+        {
+            loadSound(index);
+            _currentSound.Play();
         }
 
         public void Dispose()

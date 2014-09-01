@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Alnet.AudioServer.AudioPlayer;
+using Alnet.AudioServerContract;
+using Alnet.AudioServerContract.DTO;
 
 namespace Alnet.AudioServer
 {
     class AudioPlayerController
     {
-        private List<AudioPlayerInfo> _audioPlayers = new List<AudioPlayerInfo>(); 
+        private readonly List<AudioPlayerInfo> _audioPlayers = new List<AudioPlayerInfo>(); 
 
         public AudioPlayerInfo CreateAudioPlayer(string name, ISoundProvider soundProvider)
         {
@@ -32,6 +34,11 @@ namespace Alnet.AudioServer
         {
             AudioPlayerInfo audioPlayerToRemove = _audioPlayers.Single(a => a.Id == id);
             _audioPlayers.Remove(audioPlayerToRemove);
+        }
+
+        public AudioPlayerInfo GetAudioPlayer(Guid id)
+        {
+            return _audioPlayers.Single(a => a.Id == id);
         }
     }
 }

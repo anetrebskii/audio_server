@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,7 +52,10 @@
     <Compile Include="AudioPlayer\PlaylistAudioPlayer.cs" />
     <Compile Include="AudioPlayer\Sound.cs" />
     <Compile Include="AudioPlayer\SoundInfo.cs" />
-    <Compile Include="FileSoundProvider\FileSoundProvider.cs" />
+    <Compile Include="Endpoints\IEndpoint.cs" />
+    <Compile Include="Endpoints\WCFEndpoint.cs" />
+    <Compile Include="IPlaylistAudioPlayer.cs" />
+    <Compile Include="SoundProiders\FileSoundProvider.cs" />
     <Compile Include="IAudioPlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,10 +68,12 @@
       <Project>{da4f02e3-0b5e-42cd-b8d9-5583fa51d66e}</Project>
       <Name>NAudio %283rdParty\NAudio\NAudio%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Alnet.AudioServerContract\Alnet.AudioServerContract.csproj">
+      <Project>{AB98AEC4-CA88-4137-8500-2350526D9F03}</Project>
+      <Name>Alnet.AudioServerContract</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="VKSoundProvider\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

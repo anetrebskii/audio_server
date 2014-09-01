@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAudio", "3rdParty\NAudio\N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAudio.WindowsMediaFormat", "3rdParty\NAudio\NAudio.WindowsMediaFormat\NAudio.WindowsMediaFormat.csproj", "{1868FC77-FD6F-4881-9CF5-DE7451806BFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alnet.AudioServer.Web", "AudioServer\Alnet.AudioServer.Web\Alnet.AudioServer.Web.csproj", "{67E8FD70-CE65-4755-B068-36FF7E0ECABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alnet.AudioServerContract", "AudioServer\Alnet.AudioServerContract\Alnet.AudioServerContract.csproj", "{AB98AEC4-CA88-4137-8500-2350526D9F03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,12 +35,22 @@ Global
 		{1868FC77-FD6F-4881-9CF5-DE7451806BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1868FC77-FD6F-4881-9CF5-DE7451806BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1868FC77-FD6F-4881-9CF5-DE7451806BFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E8FD70-CE65-4755-B068-36FF7E0ECABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E8FD70-CE65-4755-B068-36FF7E0ECABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E8FD70-CE65-4755-B068-36FF7E0ECABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E8FD70-CE65-4755-B068-36FF7E0ECABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB98AEC4-CA88-4137-8500-2350526D9F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB98AEC4-CA88-4137-8500-2350526D9F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB98AEC4-CA88-4137-8500-2350526D9F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB98AEC4-CA88-4137-8500-2350526D9F03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9C44B6C7-14B6-41CC-9C2F-A80305CFB495} = {8B5C2440-F21F-493E-8184-0CF0F9A01C80}
+		{67E8FD70-CE65-4755-B068-36FF7E0ECABE} = {8B5C2440-F21F-493E-8184-0CF0F9A01C80}
+		{AB98AEC4-CA88-4137-8500-2350526D9F03} = {8B5C2440-F21F-493E-8184-0CF0F9A01C80}
 		{1E53A91F-4B7E-497E-8B9E-D9A2F84C7112} = {15BEB4A7-2E94-4ADD-AFFB-2C3753A038D3}
 		{DA4F02E3-0B5E-42CD-B8D9-5583FA51D66E} = {1E53A91F-4B7E-497E-8B9E-D9A2F84C7112}
 		{1868FC77-FD6F-4881-9CF5-DE7451806BFA} = {1E53A91F-4B7E-497E-8B9E-D9A2F84C7112}

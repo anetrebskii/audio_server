@@ -6,6 +6,8 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Alnet.AudioServer.Endpoints;
+using Alnet.AudioServer.SoundProiders;
 using NAudio.Wave;
 
 namespace Alnet.AudioServer
@@ -64,8 +66,12 @@ namespace Alnet.AudioServer
     {
         static void Main(string[] args)
         {
+            IEndpoint endpoint = new WCFEndpoint();
+            endpoint.Start();
+            Console.ReadLine();
+            return;
             AudioPlayerController controller = new AudioPlayerController();
-            AudioPlayerInfo playerInfo = controller.CreateAudioPlayer("My", new FileSoundProvider.FileSoundProvider(@"D:\Music\VKMusic"));
+            AudioPlayerInfo playerInfo = controller.CreateAudioPlayer("My", new FileSoundProvider(@"D:\Music\VKMusic"));
             playerInfo.Player.EnableSoundCard(0);
             playerInfo.Player.Play();
             Console.ReadLine();
