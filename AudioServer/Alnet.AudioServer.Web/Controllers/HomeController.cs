@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Alnet.AudioServer.Web.Models;
 
 namespace Alnet.AudioServer.Web.Controllers
 {
@@ -10,9 +11,19 @@ namespace Alnet.AudioServer.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View();
+            ViewBag.Message = "Ау";
+            MainPageModel model = new MainPageModel();
+            model.Players = new List<PlayerModel>();
+            model.Players.Add(new PlayerModel()
+            {
+                Current = new SoundModel()
+                {
+                    Index = 1,
+                    Name = "Бандерос"
+                },
+                PlayerId = Guid.NewGuid()
+            });
+            return View(model);
         }
 
         public ActionResult About()

@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("New"))
+{
+    <h2>New</h2>
+    
+    @Html.TextBox("vkId", "1")
+
+    <input type="submit" value="Создать"/>
+}

@@ -1,0 +1,43 @@
+﻿@model Alnet.AudioServer.Web.Models.PlayerModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Плеер</h2>
+
+<p>
+    Сейчас играет:
+    <br />
+    @Model.Current.Name
+</p>
+
+<input type="button" value="<"/>
+<input type="button" value="Play"/>
+<input type="button" value=">"/>
+
+<label for="slider-1">Громкость:</label>
+<input type="range" name="slider-1" id="slider-1" min="0" max="100" value="50">
+
+<form>
+    <fieldset data-role="controlgroup" data-iconpos="left">
+        <legend>Комнаты:</legend>
+        @foreach (var room in Model.Rooms)
+        {
+            @Html.Label(room.Id.ToString(), room.Name, new { @for = room.Id.ToString() });
+            @Html.CheckBox(room.Id.ToString(), room.IsSelected, new { id = room.Id });
+        }
+    </fieldset>
+</form>
+
+<form>
+<ul data-role="listview" data-inset="true">
+    <li data-role="list-divider">Плей лист</li>
+    @foreach (var sound in Model.PlayList)
+    {
+        <li>@sound.Name</li>  
+    }
+</ul>
+</form>
+

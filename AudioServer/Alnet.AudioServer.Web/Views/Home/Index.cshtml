@@ -1,14 +1,20 @@
-﻿@{
+﻿@model Alnet.AudioServer.Web.Models.MainPageModel
+
+@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";  
 }
 
 <h2>@ViewBag.Message</h2>
 <p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+   
 </p>
 
 <ul data-role="listview" data-inset="true">
-    <li data-role="list-divider">Navigation</li>
-    <li>@Html.ActionLink("About", "About", "Home")</li>
-    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    <li data-role="list-divider">Плееры</li>
+    @foreach (var player in @Model.Players)
+    {
+        <li>@Html.ActionLink(player.Current.Name, "View", "Player", new { id = player.PlayerId }, null)</li>
+    }    
+    <li>@Html.ActionLink("Создать", "New", "Player")</li>
 </ul>

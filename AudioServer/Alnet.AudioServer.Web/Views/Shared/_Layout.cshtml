@@ -11,12 +11,7 @@
     <body>
         <div data-role="page" data-theme="b">
             <div data-role="header">
-                @if (IsSectionDefined("Header")) {
-                    @RenderSection("Header")
-                } else {
-                    <h1>@ViewBag.Title</h1>
-                    @Html.Partial("_LoginPartial")
-                }
+                 Аудио Сервер
             </div>
             <div data-role="content">
                 @RenderBody()
