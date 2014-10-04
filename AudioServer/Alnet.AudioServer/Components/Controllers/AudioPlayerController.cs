@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Alnet.AudioServer.AudioPlayer;
-using Alnet.AudioServerContract;
-using Alnet.AudioServerContract.DTO;
+using Alnet.AudioServer.Components.AudioPlayer;
 
-namespace Alnet.AudioServer
+namespace Alnet.AudioServer.Components.Controllers
 {
     class AudioPlayerController
     {

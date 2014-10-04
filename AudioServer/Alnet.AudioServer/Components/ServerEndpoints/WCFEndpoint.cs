@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using Alnet.AudioServer.SoundProiders;
+using Alnet.AudioServer.Components.AudioPlayer;
+using Alnet.AudioServer.Components.Controllers;
+using Alnet.AudioServer.Components.ServerEndpoints.Impl;
+using Alnet.AudioServer.Components.SoundProviders;
 using Alnet.AudioServerContract;
 using Alnet.AudioServerContract.DTO;
 
-namespace Alnet.AudioServer.Endpoints
+namespace Alnet.AudioServer.Components.ServerEndpoints
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     class WCFEndpoint : IAudioPlayerService, IEndpoint
@@ -36,7 +36,7 @@ namespace Alnet.AudioServer.Endpoints
 
         public AudioPlayerInfoDTO CreateFileAudioPlayer(string name, string directoryPath)
         {
-            AudioPlayerInfo newAudioPlayerInfo = _audioPlayerController.CreateAudioPlayer(name, new FileSoundProvider(directoryPath));
+            AudioPlayerInfo newAudioPlayerInfo = _audioPlayerController.CreateAudioPlayer(name, new DirectorySoundProvider(directoryPath));
             return convertToDTO(newAudioPlayerInfo);
         }
 

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NAudio.Wave;
 
-namespace Alnet.AudioServer.AudioPlayer
+namespace Alnet.AudioServer.Components.AudioPlayer
 {
     class Sound : IDisposable
     {

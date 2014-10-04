@@ -1,4 +1,4 @@
-namespace Alnet.AudioServer.AudioPlayer
+namespace Alnet.AudioServer.Components.AudioPlayer
 {
     internal interface ISoundProvider
     {

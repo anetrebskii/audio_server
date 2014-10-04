@@ -6,8 +6,10 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Alnet.AudioServer.Endpoints;
-using Alnet.AudioServer.SoundProiders;
+using Alnet.AudioServer.Components.Controllers;
+using Alnet.AudioServer.Components.ServerEndpoints;
+using Alnet.AudioServer.Components.ServerEndpoints.Impl;
+using Alnet.AudioServer.Components.SoundProviders;
 using NAudio.Wave;
 
 namespace Alnet.AudioServer
@@ -66,18 +68,30 @@ namespace Alnet.AudioServer
     {
         static void Main(string[] args)
         {
+            AudioPlayerController controller = new AudioPlayerController();
+            AudioPlayerInfo playerInfo = controller.CreateAudioPlayer("My", new DirectorySoundProvider(@"D:\Music\VKMusic"));
+            playerInfo.Player.EnableSoundCard(0);
+            playerInfo.Player.Play();
+            Console.ReadLine();
+            playerInfo.Player.EnableSoundCard(1);
+            Console.ReadLine();
+            playerInfo.Player.DisableSoundCard(0);
+            Console.ReadLine();
+            return;
+
             IEndpoint endpoint = new WCFEndpoint();
             endpoint.Start();
             Console.ReadLine();
             return;
-            AudioPlayerController controller = new AudioPlayerController();
-            AudioPlayerInfo playerInfo = controller.CreateAudioPlayer("My", new FileSoundProvider(@"D:\Music\VKMusic"));
-            playerInfo.Player.EnableSoundCard(0);
-            playerInfo.Player.Play();
-            Console.ReadLine();
-            playerInfo.Player.EnableSoundCard(0);
-            Console.ReadLine();
-            playerInfo.Player.DisableSoundCard(0);
+            
+            //AudioPlayerController controller = new AudioPlayerController();
+            //AudioPlayerInfo playerInfo = controller.CreateAudioPlayer("My", new DirectorySoundProvider(@"D:\Music\VKMusic"));
+            //playerInfo.Player.EnableSoundCard(0);
+            //playerInfo.Player.Play();
+            //Console.ReadLine();
+            //playerInfo.Player.EnableSoundCard(0);
+            //Console.ReadLine();
+            //playerInfo.Player.DisableSoundCard(0);
             //WaveOutEvent @out = new WaveOutEvent();
             //Mp3FileReader fileReader = new Mp3FileReader(@"D:\Music\VKMusic\2 Chainz (feat. Wiz Khalifa) – We Own It.mp3");
             //Console.WriteLine(WaveOut.DeviceCount);
