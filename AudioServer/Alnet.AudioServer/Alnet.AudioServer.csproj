@@ -55,8 +55,8 @@
     <Compile Include="Components\ServerEndpoints\Impl\IEndpoint.cs" />
     <Compile Include="Components\ServerEndpoints\WCFEndpoint.cs" />
     <Compile Include="Components\AudioPlayer\IPlaylistAudioPlayer.cs" />
-    <Compile Include="Components\SoundProviders\DirectorySoundProvider.cs" />
     <Compile Include="Components\AudioPlayer\IAudioPlayer.cs" />
+    <Compile Include="Components\SoundProviders\DirectorySoundProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\SoundProviders\VKSoundProvider.cs" />
