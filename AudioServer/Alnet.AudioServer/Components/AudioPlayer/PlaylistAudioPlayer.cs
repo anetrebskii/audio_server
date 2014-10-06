@@ -93,6 +93,7 @@ namespace Alnet.AudioServer.Components.AudioPlayer
         {
             if (_currentSound != null)
             {
+                _currentSound.Completed -= currentSoundOnCompleted;
                 _currentSound.Dispose();
             }
         }
