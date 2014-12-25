@@ -21,5 +21,7 @@ namespace Alnet.AudioServer.Components.SoundProviders
         {
             throw new NotImplementedException();
         }
+
+       public event EventHandler SoundListChanged;
     }
 }

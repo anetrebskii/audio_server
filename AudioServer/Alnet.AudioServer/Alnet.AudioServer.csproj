@@ -46,13 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\AudioPlayer\ChannelInfo.cs" />
+    <Compile Include="Components\AudioPlayer\PlayerException.cs" />
     <Compile Include="Components\Controllers\AudioPlayerController.cs" />
     <Compile Include="Components\Controllers\AudioPlayerInfo.cs" />
     <Compile Include="Components\AudioPlayer\ISoundProvider.cs" />
     <Compile Include="Components\AudioPlayer\PlaylistAudioPlayer.cs" />
-    <Compile Include="Components\AudioPlayer\Sound.cs" />
+    <Compile Include="Components\AudioPlayer\WaveSound.cs" />
     <Compile Include="Components\AudioPlayer\SoundInfo.cs" />
-    <Compile Include="Components\ServerEndpoints\Impl\IEndpoint.cs" />
+    <Compile Include="Components\ServerEndpoints\IEndpoint.cs" />
     <Compile Include="Components\ServerEndpoints\WCFEndpoint.cs" />
     <Compile Include="Components\AudioPlayer\IPlaylistAudioPlayer.cs" />
     <Compile Include="Components\AudioPlayer\IAudioPlayer.cs" />
@@ -74,7 +76,9 @@
       <Name>Alnet.AudioServerContract</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Components\ServerEndpoints\Impl\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

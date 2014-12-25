@@ -4,12 +4,12 @@ using NAudio.Wave;
 
 namespace Alnet.AudioServer.Components.AudioPlayer
 {
-    class Sound : IDisposable
+    class WaveSound : IDisposable
     {
         private WaveOutEvent _waveOut = new WaveOutEvent();
         private Mp3FileReader _mp3FileReader;
 
-        public Sound(byte[] soundData)
+        public WaveSound(byte[] soundData)
         {
             _waveOut.NumberOfBuffers = 2;
             _waveOut.DesiredLatency = 100;
@@ -46,8 +46,10 @@ namespace Alnet.AudioServer.Components.AudioPlayer
 
         public void Dispose()
         {
+           
             _waveOut.PlaybackStopped -= waveOutOnPlaybackStopped;
             _waveOut.Dispose();
+            _mp3FileReader.Dispose();
         }
 
         public void EnableSoundCard(int index)

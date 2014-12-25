@@ -1,11 +1,12 @@
 ﻿namespace Alnet.AudioServer.Components.AudioPlayer
 {
-    interface IAudioPlayer
-    {
-        void Play();
-        void Stop();
+   internal interface IAudioPlayer
+   {
+      void Play();
+      void Stop();
 
-        void EnableSoundCard(int index);
-        void DisableSoundCard(int index);
-    }
+      ChannelInfo[] GetChannels();
+      void EnableChannel(int index);
+      void DisableChannel(int index);
+   }
 }

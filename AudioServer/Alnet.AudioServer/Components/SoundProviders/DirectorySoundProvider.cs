@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Alnet.AudioServer.Components.AudioPlayer;
 
@@ -32,5 +33,7 @@ namespace Alnet.AudioServer.Components.SoundProviders
         {
             return File.ReadAllBytes(_sounds[index].Url);
         }
+
+       public event EventHandler SoundListChanged;
     }
 }

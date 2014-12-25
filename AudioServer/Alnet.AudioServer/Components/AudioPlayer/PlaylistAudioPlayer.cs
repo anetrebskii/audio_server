@@ -1,101 +1,155 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using NAudio.Wave;
 
 namespace Alnet.AudioServer.Components.AudioPlayer
 {
-    class PlaylistAudioPlayer : IPlaylistAudioPlayer, IDisposable
-    {
-        private ISoundProvider _soundProvider = null;
-        private int _currentSoundIndex;
-        private Sound _currentSound;
-        private SoundInfo[] _soundList;
+   class PlaylistAudioPlayer : IPlaylistAudioPlayer, IDisposable
+   {
+      private readonly HashSet<int> _soundCards = new HashSet<int>();
+      private readonly ISoundProvider _soundProvider = null;
+      private int _currentSoundIndex;
+      private WaveSound _currentWaveSound;
+      private SoundInfo[] _cachedSoundList;       
 
-        public PlaylistAudioPlayer(ISoundProvider soundProvider)
-        {
-            _soundProvider = soundProvider;
-            _soundList = _soundProvider.GetSoundList();
-        }
+      public PlaylistAudioPlayer(ISoundProvider soundProvider)
+      {
+         _soundProvider = soundProvider;
+         _soundProvider.SoundListChanged += soundProviderOnSoundListChanged;
+         _cachedSoundList = _soundProvider.GetSoundList();
+      }
 
-        public SoundInfo[] GetSounds()
-        {
-            return _soundList;
-        }
+      #region IPlaylistAudioPlayer members
 
-        public void Play()
-        {
-            if (_currentSound == null)
+      public void Play()
+      {
+         if (_currentWaveSound == null)
+         {
+            if (_cachedSoundList.Length == 0)
             {
-                _currentSound = new Sound(_soundProvider.GetSoundData(_currentSoundIndex));
-                _currentSound.Completed += currentSoundOnCompleted;
+               throw new PlayerException("No sounds");
             }
-            _currentSound.Play();
-        }
+            initializeCurrentSound();
+         }         
+         _currentWaveSound.Play();
+      }
 
-        private void currentSoundOnCompleted(object sender, EventArgs eventArgs)
-        {
-            loadNextSound();
-        }
+      public void Stop()
+      {
+         if (_currentWaveSound == null)
+         {
+            return;
+         }
+         _currentWaveSound.Stop();
+      }
 
-        private void loadNextSound()
-        {
-            int nextSoundIndex = _currentSoundIndex + 1;
-            if (nextSoundIndex >= _soundList.Length)
+      public ChannelInfo[] GetChannels()
+      {
+         List<ChannelInfo> returnValue = new List<ChannelInfo>();
+         for (int i = 0; i < WaveOut.DeviceCount; i++)
+         {
+            returnValue.Add(new ChannelInfo()
             {
-                nextSoundIndex = 0;
-            }
-            loadSound(nextSoundIndex);
-        }
+               Index = i,
+               Description = WaveOut.GetCapabilities(i).ProductName
+            });
+         }
+         return returnValue.ToArray();
+      }
 
-        private void loadSound(int soundIndex)
-        {
-            _currentSoundIndex = soundIndex;
-            _currentSound.Completed -= currentSoundOnCompleted;
-            _currentSound.Dispose();
+      public void EnableChannel(int index)
+      {
+         _soundCards.Add(index);
+         if (_currentWaveSound != null)
+         {
+            _currentWaveSound.EnableSoundCard(index);
+         }
+      }
 
-            _currentSound = new Sound(_soundProvider.GetSoundData(_currentSoundIndex));
-            _currentSound.Completed += currentSoundOnCompleted;
-        }
+      public void DisableChannel(int index)
+      {
+         _soundCards.Remove(index);
+         if (_currentWaveSound != null)
+         {
+            _currentWaveSound.DisableSoundCard(index);
+         }
+      }
 
-        public void Stop()
-        {
-            if (_currentSound == null)
-            {
-                return;
-            }
-            _currentSound.Stop();
-        }
+      public void Play(int index)
+      {
+         loadSound(index);
+         _currentWaveSound.Play();
+      }
 
-        public void EnableSoundCard(int index)
-        {
-            if (_currentSound == null)
-            {
-                _currentSound = new Sound(_soundProvider.GetSoundData(_currentSoundIndex));
-                _currentSound.Completed += currentSoundOnCompleted;
-            }
-            _currentSound.EnableSoundCard(index);
-        }
+      public int GetCurrentSoundIndex()
+      {
+         return _currentSoundIndex;
+      }
 
-        public void DisableSoundCard(int index)
-        {
-            if (_currentSound == null)
-            {
-                return;
-            }
-            _currentSound.DisableSoundCard(index);
-        }
+      public SoundInfo[] GetPlayList()
+      {
+         return _cachedSoundList;
+      }
 
-        public void Play(int index)
-        {
-            loadSound(index);
-            _currentSound.Play();
-        }
+      #endregion
 
-        public void Dispose()
-        {
-            if (_currentSound != null)
-            {
-                _currentSound.Completed -= currentSoundOnCompleted;
-                _currentSound.Dispose();
-            }
-        }
-    }
+      #region IDisposable members
+
+      public void Dispose()
+      {
+         _soundProvider.SoundListChanged -= soundProviderOnSoundListChanged;
+         if (_currentWaveSound != null)
+         {
+            _currentWaveSound.Completed -= CurrentWaveSoundOnCompleted;
+            _currentWaveSound.Dispose();
+         }
+      }
+
+      #endregion
+
+      #region Private methods
+
+      private void soundProviderOnSoundListChanged(object sender, EventArgs eventArgs)
+      {
+         _cachedSoundList = _soundProvider.GetSoundList();
+      }
+
+      private void initializeCurrentSound()
+      {
+         _currentWaveSound = new WaveSound(_soundProvider.GetSoundData(_currentSoundIndex));
+         foreach (var soundCard in _soundCards)
+         {
+            _currentWaveSound.EnableSoundCard(soundCard);            
+         }         
+         _currentWaveSound.Completed += CurrentWaveSoundOnCompleted;
+      }
+
+      private void CurrentWaveSoundOnCompleted(object sender, EventArgs eventArgs)
+      {
+         loadNextSound();
+      }
+
+      private void loadNextSound()
+      {
+         int nextSoundIndex = _currentSoundIndex + 1;
+         if (nextSoundIndex >= _cachedSoundList.Length)
+         {
+            nextSoundIndex = 0;
+         }
+         loadSound(nextSoundIndex);
+      }
+
+      private void loadSound(int soundIndex)
+      {
+         _currentSoundIndex = soundIndex;
+         _currentWaveSound.Completed -= CurrentWaveSoundOnCompleted;
+         _currentWaveSound.Dispose();
+
+         initializeCurrentSound();
+      }
+
+      #endregion
+   }
 }
