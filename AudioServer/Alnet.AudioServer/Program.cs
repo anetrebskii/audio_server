@@ -92,6 +92,10 @@ namespace Alnet.AudioServer
          playlistAudioPlayer.EnableChannel(0);
          playlistAudioPlayer.Play();
          Console.ReadLine();
+
+          playlistAudioPlayer.CurrentPosition = playlistAudioPlayer.Length - 2000000;
+
+          Console.ReadLine();
           
          playlistAudioPlayer.EnableChannel(1);
          playlistAudioPlayer.Play(playlistAudioPlayer.GetCurrentSoundIndex() + 1);

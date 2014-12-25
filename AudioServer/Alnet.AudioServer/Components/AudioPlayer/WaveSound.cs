@@ -32,6 +32,12 @@ namespace Alnet.AudioServer.Components.AudioPlayer
         public long CurrentPosition
         {
             get { return _mediaFoundationReader.Position; }
+            set { _mediaFoundationReader.Position = value; }
+        }
+
+        public long Length
+        {
+            get { return _mediaFoundationReader.Length; }
         }
 
         public void Play()

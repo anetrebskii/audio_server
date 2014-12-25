@@ -93,7 +93,25 @@ namespace Alnet.AudioServer.Components.AudioPlayer
          return _cachedSoundList;
       }
 
-      #endregion
+       public long CurrentPosition
+       {
+           get { return _currentWaveSound == null ? 0 : _currentWaveSound.CurrentPosition; }
+           set
+           {
+               if (_currentWaveSound == null)
+               {
+                   return;
+               }
+               _currentWaveSound.CurrentPosition = value;
+           }
+       }
+
+       public long Length
+       {
+           get { return _currentWaveSound == null ? 0 : _currentWaveSound.Length; }
+       }
+
+       #endregion
 
       #region IDisposable members
 
@@ -129,6 +147,7 @@ namespace Alnet.AudioServer.Components.AudioPlayer
       private void CurrentWaveSoundOnCompleted(object sender, EventArgs eventArgs)
       {
          loadNextSound();
+         _currentWaveSound.Play();
       }
 
       private void loadNextSound()
