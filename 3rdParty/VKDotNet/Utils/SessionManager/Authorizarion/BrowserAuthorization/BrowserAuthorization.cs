@@ -41,13 +41,6 @@ namespace ApiCore
                 }
 
                 this.si = new SessionInfo();
-                this.si.AppId = this.AppId;
-                this.si.Permissions = this.Permissions;
-                this.si.MemberId = (string)h["mid"];
-                this.si.SessionId = (string)h["sid"];
-                this.si.Expire = Convert.ToInt32(h["expire"]);
-                this.si.Secret = (string)h["secret"];
-                this.si.Signature = (string)h["sig"];
 
                 this.LoginInfoReceived = true;
                 this.Close();

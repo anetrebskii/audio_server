@@ -9,11 +9,6 @@ namespace ApiCore
 {
     public delegate void ApiManagerLogHandler(object sender, string msg);
 
-    public enum ResponseType
-    {
-        Xml, Json
-    }
-
     /// <summary>
     /// This class provides factory to communicating with vkontakte.api
     /// </summary>
@@ -24,8 +19,6 @@ namespace ApiCore
 
         private XmlDocument apiResponseXml;
         private string apiResponseString;
-
-        private int appId = 0;
 
         /// <summary>
         /// If previous query successed - true, else false
@@ -62,20 +55,11 @@ namespace ApiCore
         public int Timeout = 15000;
 
         /// <summary>
-        /// Sets the type of response.
-        /// ResponseType.Xml - all responses will be returned in XML
-        /// ResponseType.Json - all responses will be returned in JSON
-        /// </summary>
-        public ResponseType ResponseAs = ResponseType.Xml;
-
-        /// <summary>
         /// Init new API manager
         /// </summary>
-        /// <param name="apiId">Registered desktop application id</param>
         /// <param name="si">Session information</param>
         public ApiManager(SessionInfo si)
         {
-            this.appId = si.AppId;
             this.session = si;
         }
 
@@ -104,12 +88,11 @@ namespace ApiCore
         {
             this.MethodSuccessed = false;
             ApiRequest.Timeout = this.Timeout;
-            this.builder = new ApiQueryBuilder(this.appId, this.session);
+            this.builder = new ApiQueryBuilder();
             this.builder.Add("method", methodName);
-            if (this.ResponseAs == ResponseType.Json)
-            {
-                this.builder.Add("format", "json");
-            }
+            this.builder.Add("v", "5.27");
+            this.builder.Add("access_token", session.AccessToken);
+
             this.debugMsg("Method: " + methodName);
             return this;
         }
@@ -133,59 +116,42 @@ namespace ApiCore
         /// <returns>himself</returns>
         public ApiManager Execute()
         {
-            //try
-            //{
-            //BackgroundWorker bw = new BackgroundWorker();
-            //bw.DoWork += (o, e) =>
-            //    {
-                    this.apiResponseXml = null;
-                    string req = this.builder.BuildQuery();
-                    this.OnLog("Request string: " + req);
-                    ApiRequest.Timeout = this.Timeout;
-                    this.apiResponseString = ApiRequest.Send(req);
-                    this.debugMsg(this.apiResponseString);
-                    if (!this.apiResponseString.Equals("") || this.apiResponseString.Length > 0)
+            this.apiResponseXml = null;
+            string req = this.builder.BuildQuery();
+            this.OnLog("Request string: " + req);
+            ApiRequest.Timeout = this.Timeout;
+            this.apiResponseString = ApiRequest.Send(req);
+            this.debugMsg(this.apiResponseString);
+            if (!this.apiResponseString.Equals("") || this.apiResponseString.Length > 0)
+            {
+                this.apiResponseXml = new XmlDocument();
+                this.apiResponseXml.LoadXml(this.apiResponseString);
+                XmlNode isError = this.apiResponseXml.SelectSingleNode("/error");
+                if (isError == null)
+                {
+                    this.MethodSuccessed = true;
+                }
+                else
+                {
+                    int code = Convert.ToInt32(isError.SelectSingleNode("error_code").InnerText);
+                    string msg = isError.SelectSingleNode("error_msg").InnerText;
+                    Hashtable ht = new Hashtable();
+                    XmlNodeList pparams = isError.SelectNodes("request_params/param");
+                    foreach (XmlNode n in pparams)
                     {
-                        this.apiResponseXml = new XmlDocument();
-                        this.apiResponseXml.LoadXml(this.apiResponseString);
-                        XmlNode isError = this.apiResponseXml.SelectSingleNode("/error");
-                        if (isError == null)
-                        {
-                            this.MethodSuccessed = true;
-                        }
-                        else
-                        {
-                            int code = Convert.ToInt32(isError.SelectSingleNode("error_code").InnerText);
-                            string msg = isError.SelectSingleNode("error_msg").InnerText;
-                            Hashtable ht = new Hashtable();
-                            XmlNodeList pparams = isError.SelectNodes("request_params/param");
-                            foreach (XmlNode n in pparams)
-                            {
-                                ht[n.SelectSingleNode("key").InnerText.ToString()] = n.SelectSingleNode("value").InnerText.ToString();
-                            }
+                        ht[n.SelectSingleNode("key").InnerText.ToString()] =
+                            n.SelectSingleNode("value").InnerText.ToString();
+                    }
 
-                            throw new ApiRequestErrorException("Server error occurred", code, msg, ht);
-                        }
-                        //return this;
-                    }
-                    else
-                    {
-                        throw new ApiRequestEmptyAnswerException("API Server returns an empty answer or request timeout");
-                    }
-                    
-                //};
-            //bw.RunWorkerCompleted += (o, e) =>
-            //    {
-                    
-            //    }
-            //bw.WorkerSupportsCancellation = true;
-            //bw.RunWorkerAsync();
+                    throw new ApiRequestErrorException("Server error occurred", code, msg, ht);
+                }
+            }
+            else
+            {
+                throw new ApiRequestEmptyAnswerException("API Server returns an empty answer or request timeout");
+            }
+
             return this;
-            //}
-            //catch(Exception e)
-            //{
-            //    throw new ApiRequestNullResult("source message: "+e.Message);
-            //}
         }
 
         public XmlNode GetResponseXml()

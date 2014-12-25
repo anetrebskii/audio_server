@@ -32,7 +32,7 @@ namespace Alnet.AudioServer.Components.AudioPlayer
                throw new PlayerException("No sounds");
             }
             initializeCurrentSound();
-         }         
+         }
          _currentWaveSound.Play();
       }
 
@@ -118,7 +118,7 @@ namespace Alnet.AudioServer.Components.AudioPlayer
 
       private void initializeCurrentSound()
       {
-         _currentWaveSound = new WaveSound(_soundProvider.GetSoundData(_currentSoundIndex));
+         _currentWaveSound = new WaveSound(_cachedSoundList[_currentSoundIndex]);
          foreach (var soundCard in _soundCards)
          {
             _currentWaveSound.EnableSoundCard(soundCard);            

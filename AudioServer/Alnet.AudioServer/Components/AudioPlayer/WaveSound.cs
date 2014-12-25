@@ -7,15 +7,15 @@ namespace Alnet.AudioServer.Components.AudioPlayer
     class WaveSound : IDisposable
     {
         private WaveOutEvent _waveOut = new WaveOutEvent();
-        private Mp3FileReader _mp3FileReader;
+        private MediaFoundationReader _mediaFoundationReader;
 
-        public WaveSound(byte[] soundData)
+        public WaveSound(SoundInfo soundInfo)
         {
             _waveOut.NumberOfBuffers = 2;
             _waveOut.DesiredLatency = 100;
-            _mp3FileReader = new Mp3FileReader(new MemoryStream(soundData));
-            _waveOut.Init(_mp3FileReader);            
-            _waveOut.PlaybackStopped += waveOutOnPlaybackStopped;
+            _mediaFoundationReader = new MediaFoundationReader(soundInfo.Url);
+            _waveOut.Init(_mediaFoundationReader);            
+            _waveOut.PlaybackStopped += waveOutOnPlaybackStopped;             
         }
 
         private void waveOutOnPlaybackStopped(object sender, StoppedEventArgs stoppedEventArgs)
@@ -31,7 +31,7 @@ namespace Alnet.AudioServer.Components.AudioPlayer
 
         public long CurrentPosition
         {
-            get { return _mp3FileReader.Position; }
+            get { return _mediaFoundationReader.Position; }
         }
 
         public void Play()
@@ -45,11 +45,10 @@ namespace Alnet.AudioServer.Components.AudioPlayer
         }
 
         public void Dispose()
-        {
-           
+        {           
             _waveOut.PlaybackStopped -= waveOutOnPlaybackStopped;
             _waveOut.Dispose();
-            _mp3FileReader.Dispose();
+            _mediaFoundationReader.Dispose();
         }
 
         public void EnableSoundCard(int index)

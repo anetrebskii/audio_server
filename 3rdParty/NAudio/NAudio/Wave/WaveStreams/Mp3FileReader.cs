@@ -163,7 +163,7 @@ namespace NAudio.Wave
             // new DmoMp3FrameDecompressor(this.Mp3WaveFormat); 
             return new AcmMp3FrameDecompressor(mp3Format);
         }
-
+         
         private void CreateTableOfContents()
         {
             try

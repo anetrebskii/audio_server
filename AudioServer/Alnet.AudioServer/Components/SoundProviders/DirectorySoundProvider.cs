@@ -8,12 +8,15 @@ namespace Alnet.AudioServer.Components.SoundProviders
     class DirectorySoundProvider : ISoundProvider
     {
         private readonly string _directoryPath;
-        private SoundInfo[] _sounds;
 
         public DirectorySoundProvider(string directoryPath)
         {
             _directoryPath = directoryPath;
-            _sounds = Directory.GetFiles(_directoryPath)
+        }
+
+        public SoundInfo[] GetSoundList()
+        {
+            return Directory.GetFiles(_directoryPath)
                 .Select(filePath => new FileInfo(filePath))
                 .Where(f => f.Extension.ToUpper() == ".MP3")
                 .Select(f => new SoundInfo()
@@ -22,16 +25,6 @@ namespace Alnet.AudioServer.Components.SoundProviders
                     Url = f.FullName
                 })
                 .ToArray();
-        }
-
-        public SoundInfo[] GetSoundList()
-        {
-            return _sounds;
-        }
-
-        public byte[] GetSoundData(int index)
-        {
-            return File.ReadAllBytes(_sounds[index].Url);
         }
 
        public event EventHandler SoundListChanged;

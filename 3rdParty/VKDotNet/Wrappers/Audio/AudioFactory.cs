@@ -27,7 +27,7 @@ namespace ApiCore.Audio
             {
                 XmlUtils.UseNode(node);
                 AudioEntry a = new AudioEntry();
-                a.Id = XmlUtils.Int("aid");
+                a.Id = XmlUtils.Int("id");
                 a.Duration = XmlUtils.Int("duration");
                 a.Artist = XmlUtils.String("artist");
                 a.Title = XmlUtils.String("title");
@@ -39,7 +39,7 @@ namespace ApiCore.Audio
 
         private List<AudioEntry> buildList(XmlNode data)
         {
-            XmlNodeList nodes = data.SelectNodes("audio");
+            XmlNodeList nodes = data.SelectNodes("//audio");
             List<AudioEntry> audios = new List<AudioEntry>();
             foreach (XmlNode n in nodes)
             {
@@ -50,18 +50,18 @@ namespace ApiCore.Audio
 
         public List<AudioEntry> Get(int? userId, int? groupId, int[] audioIds)
         {
-            this.Manager.Method("audio.get");
+            this.Manager.Method("audio.get.xml");
             if (userId != null)
             {
-                this.Manager.Params("uid", userId);
+                this.Manager.Params("owner_id", userId);
             }
-            if (groupId != null)
+            else if (groupId != null)
             {
-                this.Manager.Params("gid", groupId);
+                this.Manager.Params("owner_id", -groupId);
             }
             if (audioIds != null)
             {
-                this.Manager.Params("aids", string.Join(",", CommonUtils.ArrayIntToString(audioIds)));
+                this.Manager.Params("audio_ids", string.Join(",", CommonUtils.ArrayIntToString(audioIds)));
             }
 
             

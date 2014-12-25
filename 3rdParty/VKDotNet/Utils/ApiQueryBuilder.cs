@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web;
 
@@ -14,22 +15,13 @@ namespace ApiCore
     public class ApiQueryBuilder
     {
         private Dictionary<string, string> paramData;
-        //private string query;
-
-        private int apiId;
-        private SessionInfo session;
 
         /// <summary>
         /// Initializes api query builder
         /// </summary>
-        /// <param name="apiId">Your desktop api id</param>
-        /// <param name="si">Session info, provided by SessionManager</param>
-        public ApiQueryBuilder(int apiId, SessionInfo si)
+        public ApiQueryBuilder()
         {
             this.paramData = new Dictionary<string, string>();
-            this.apiId = apiId;
-            this.session = si;
-            this.Add("api_id", this.apiId.ToString());
         }
 
         /// <summary>
@@ -58,31 +50,11 @@ namespace ApiCore
         /// <returns>Ready query string</returns>
         public string BuildQuery()
         {
-            StringBuilder sb = new StringBuilder("http://api.vkontakte.ru/api.php?");
-            
-            this.Add("v", "3.0");
-            // sorting params
-            List<KeyValuePair<string, string>> myList = new List<KeyValuePair<string, string>>(this.paramData); 
-            myList.Sort( 
-                delegate(KeyValuePair<string, string> keyfirst, 
-                KeyValuePair<string, string> keylast) 
-                { 
-                    return keyfirst.Key.CompareTo(keylast.Key); 
-                } 
-            );
-
-            StringBuilder md5sig = new StringBuilder(this.session.MemberId);
-            foreach (KeyValuePair<string, string> rec in myList)
-            {
-                md5sig.Append(rec.Key + "=" + rec.Value);
-                sb.Append(rec.Key + "=" + rec.Value + "&");
-            }
-
-            md5sig.Append(this.session.Secret);
-            sb.Append("sig=" + CommonUtils.Md5(md5sig.ToString()).ToLower());
-            sb.Append("&sid=" + this.session.SessionId);
-            //sb.Append(
-            return sb.ToString();//this.query;
+            StringBuilder sb = new StringBuilder();
+            string methodName = this.paramData["method"];
+            sb.AppendFormat("https://api.vk.com/method/{0}?", methodName);
+            sb.Append(String.Join("&", paramData.Select(p => String.Format("{0}={1}", p.Key, p.Value))));
+            return sb.ToString();
         }
     }
 }

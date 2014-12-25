@@ -51,7 +51,7 @@ namespace NAudio.Wave
             this.syncContext = SynchronizationContext.Current;
             // set default values up
             this.DeviceNumber = 0;
-            this.DesiredLatency = 300;
+            this.DesiredLatency = 200;
             this.NumberOfBuffers = 2;
 
             this.waveOutLock = new object();
@@ -74,7 +74,7 @@ namespace NAudio.Wave
           // try to allow reuse of this waveOut device
           // n.b. risky if Playback thread has not exited
           DisposeBuffers();
-
+           
           int bufferSize = waveProvider.WaveFormat.ConvertLatencyToByteSize((DesiredLatency + NumberOfBuffers - 1)/NumberOfBuffers);
           _bufferManager = new StreamBufferManager(NumberOfBuffers, bufferSize);
 
