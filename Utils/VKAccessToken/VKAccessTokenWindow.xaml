@@ -1,0 +1,24 @@
+﻿<Window x:Class="VKAccessToken.VKAccessTokenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="VKAccessTokenWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="95*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="103*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Profile id:" Grid.ColumnSpan="2"/>
+        <TextBox Grid.Column="2" Grid.Row="0" x:Name="txtProfileId" IsReadOnly="True" />
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Access token:" Grid.ColumnSpan="2"/>
+        <TextBox Grid.Column="2" Grid.Row="1" x:Name="txtAccessToken" IsReadOnly="True" />
+
+        <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center" Click="btnOk_OnClick" VerticalAlignment="Center" Width="100" Content="Ok" Margin="54,0,53,0"/>
+    </Grid>
+</Window>

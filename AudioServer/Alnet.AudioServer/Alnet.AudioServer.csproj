@@ -69,7 +69,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\3rdParty\NAudio\NAudio\NAudio.csproj">
       <Project>{da4f02e3-0b5e-42cd-b8d9-5583fa51d66e}</Project>
-      <Name>NAudio %283rdParty\NAudio\NAudio%29</Name>
+      <Name>NAudio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdParty\VKDotNet\ApiCore.csproj">
+      <Project>{6885b1cf-b02d-4ab0-9f5c-a3ee4974655c}</Project>
+      <Name>ApiCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alnet.AudioServerContract\Alnet.AudioServerContract.csproj">
       <Project>{AB98AEC4-CA88-4137-8500-2350526D9F03}</Project>
