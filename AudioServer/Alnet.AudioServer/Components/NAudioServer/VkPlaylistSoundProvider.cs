@@ -1,36 +1,76 @@
 ﻿using System;
 using System.Linq;
 using Alnet.AudioServer.Components.AudioServerContract;
+using Alnet.Common;
 using ApiCore;
 using ApiCore.Audio;
 
 namespace Alnet.AudioServer.Components.NAudioServer
 {
-    class VkPlaylistSoundProvider : IPlaylistSoundProvider
+   /// <summary>
+   /// Provide sound playlist from vk.com
+   /// </summary>
+    internal sealed class VkPlaylistSoundProvider : IPlaylistSoundProvider
     {
-        private readonly int _profileId;
-        private ApiManager _manager;
-        private AudioFactory _factory;
+       #region Private fields
 
-        public VkPlaylistSoundProvider(int profileId)
-        {
-            _profileId = profileId;
-            SessionInfo sessionInfo = new SessionInfo()
-            {
-                AccessToken = "12d0be0ca68b000729cb9d79ab7feac9aeaaed1a0bdeb2fa247860d1b47b93d0bde923d0f20569029dbf2"
-            };
-            _manager = new ApiManager(sessionInfo);
-            _factory = new AudioFactory(_manager);
-        }
+       /// <summary>
+       /// The profile identifier in the vk.com
+       /// </summary>
+       private readonly int _vkProfileId;
+
+       /// <summary>
+       /// Provides access to the audio files in the vk.com
+       /// </summary>
+       private readonly AudioFactory _vkAudioProvider;
+
+       #endregion
+
+       #region Constructors
+
+       /// <summary>
+       /// Initializes a new instance of the <see cref="VkPlaylistSoundProvider"/> class.
+       /// </summary>
+       /// <param name="vkProfileId">The profile identifier in the vk.com</param>
+       public VkPlaylistSoundProvider(int vkProfileId)
+       {
+          Guard.VerifyArgument(vkProfileId > 0, "vkProfileId must be more than 0");
+          _vkProfileId = vkProfileId;
+          _vkAudioProvider = createVkAudioFactory();
+       }
+
+      #endregion
+
+        #region IPlaylistSoundProvider members
 
         public SoundInfo[] GetSounds()
         {
-            return _factory
-                .Get(_profileId, null, null)
-                .Select(a => new SoundInfo(a.Title, a.Url))
-                .ToArray();
+           return _vkAudioProvider
+               .Get(_vkProfileId, null, null)
+               .Select(a => new SoundInfo(a.Title, a.Url))
+               .ToArray();
         }
 
-        public event EventHandler SoundsChanged;
+        public event EventHandler SoundsChanged; 
+
+        #endregion
+
+       #region Private methods
+
+        /// <summary>
+        /// Creates the instance for load audios from the vk.com
+        /// </summary>
+        /// <returns></returns>
+        private AudioFactory createVkAudioFactory()
+        {
+           SessionInfo sessionInfo = new SessionInfo()
+           {
+              AccessToken = AppSettings.Default.VkAccessToken
+           };
+           ApiManager vkApiManager = new ApiManager(sessionInfo);
+           return new AudioFactory(vkApiManager);
+        }
+       
+       #endregion
     }
 }

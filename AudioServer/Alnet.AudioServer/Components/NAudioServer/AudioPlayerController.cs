@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Linq;
 using Alnet.AudioServer.Components.AudioServerContract;
 using Alnet.Common;
@@ -14,14 +16,28 @@ namespace Alnet.AudioServer.Components.NAudioServer
         /// <summary>
         /// Available audio players
         /// </summary>
-        private readonly List<AudioPlayerInfo> _audioPlayers = new List<AudioPlayerInfo>();
+       private readonly List<AudioPlayerInfo> _audioPlayers = new List<AudioPlayerInfo>();
+
+       /// <summary>
+       /// The synchronize objecto for <see cref="_audioPlayers"/>.
+       /// </summary>
+       private readonly object _syncAudioPlayers = new object();
 
         /// <summary>
         /// The disposed guard
         /// </summary>
         private readonly DisposedGuard _disposedGuard = new DisposedGuard(typeof(AudioPlayerController));
 
+       private readonly AudioServerConfiguration _audioServerConfiguration;
+
         #endregion
+
+       public AudioPlayerController()
+       {
+          Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+          AudioServerConfiguration audioServerConfiguration = configuration.GetSection("audioServer") as AudioServerConfiguration;
+          _audioServerConfiguration = audioServerConfiguration ?? new AudioServerConfiguration();
+       }
 
         #region IAudioPlayerController
 
@@ -36,28 +52,41 @@ namespace Alnet.AudioServer.Components.NAudioServer
                 Name = name,
                 Player = new PlaylistAudioPlayer(playlistSoundProvider)
             };
-            _audioPlayers.Add(audioPlayerInfo);
-            return audioPlayerInfo;
+           lock (_syncAudioPlayers)
+           {
+              _audioPlayers.Add(audioPlayerInfo);
+           }
+           return audioPlayerInfo;
         }
 
         public AudioPlayerInfo[] GetAllAudioPlayers()
         {
             _disposedGuard.Check();
-            return _audioPlayers.ToArray();
+           lock (_syncAudioPlayers)
+           {
+              return _audioPlayers.ToArray();
+           }
         }
 
         public void DeleteAudioPlayer(Guid id)
         {
             _disposedGuard.Check();
-            AudioPlayerInfo audioPlayerToRemove = _audioPlayers.Single(a => a.Id == id);
-            _audioPlayers.Remove(audioPlayerToRemove);
-            audioPlayerToRemove.Player.DisposeObject();
+           AudioPlayerInfo audioPlayerToRemove;
+           lock (_syncAudioPlayers)
+           {
+              audioPlayerToRemove = _audioPlayers.Single(a => a.Id == id);
+              _audioPlayers.Remove(audioPlayerToRemove);
+           }
+           audioPlayerToRemove.Player.DisposeObject();
         }
 
         public AudioPlayerInfo GetAudioPlayer(Guid id)
         {
             _disposedGuard.Check();
-            return _audioPlayers.Single(a => a.Id == id);
+           lock (_syncAudioPlayers)
+           {
+              return _audioPlayers.Single(a => a.Id == id);
+           }
         }
 
         public ChannelInfo[] GetChannels()
@@ -66,7 +95,16 @@ namespace Alnet.AudioServer.Components.NAudioServer
             List<ChannelInfo> returnValue = new List<ChannelInfo>();
             for (int i = 0; i < WaveOut.DeviceCount; i++)
             {
-                returnValue.Add(new ChannelInfo(i, WaveOut.GetCapabilities(i).ProductName));
+               string channelName = String.Format("Channel-{0}", i);
+               foreach (ChannelElement channel in _audioServerConfiguration.Channels)
+               {
+                  if (channel.Index == i)
+                  {
+                     channelName = channel.Name;
+                     break;
+                  }
+               }
+               returnValue.Add(new ChannelInfo(i, WaveOut.GetCapabilities(i).ProductName, channelName));
             }
             return returnValue.ToArray();
         } 
@@ -78,8 +116,11 @@ namespace Alnet.AudioServer.Components.NAudioServer
         public void Dispose()
         {
             _disposedGuard.Dispose();
-            _audioPlayers.Select(p => p.Player).DisposeCollection();
-            _audioPlayers.Clear();
+           lock (_syncAudioPlayers)
+           {
+              _audioPlayers.Select(p => p.Player).DisposeCollection();
+              _audioPlayers.Clear();
+           }
         } 
 
         #endregion

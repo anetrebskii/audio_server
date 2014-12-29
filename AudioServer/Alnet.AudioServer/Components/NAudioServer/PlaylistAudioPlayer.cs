@@ -180,6 +180,10 @@ namespace Alnet.AudioServer.Components.NAudioServer
         [MethodImpl(MethodImplOptions.Synchronized)]
         private void currentWaveSoundOnCompleted(object sender, EventArgs eventArgs)
         {
+           if (_disposedGuard.IsDisposed)
+           {
+              return;
+           }
             int nextSoundIndex = _currentSoundIndex + 1;
             if (nextSoundIndex >= _cachedSoundList.Length)
             {
@@ -200,6 +204,10 @@ namespace Alnet.AudioServer.Components.NAudioServer
 
         }
 
+        /// <summary>
+        /// Actualizes the <see cref="_currentWaveSound"/> and <see cref="_currentSoundIndex"/> with <paramref cref="soundIndex"/>.
+        /// </summary>
+        /// <param name="soundIndex">Index of the sound.</param>
         private void actualizeCurrentWaveSound(int soundIndex)
         {            
             if (_currentSoundIndex == soundIndex)

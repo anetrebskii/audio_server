@@ -24,7 +24,6 @@
         /// <exception cref="PlayerException"/>
         void EnableChannel(int index);
 
-
         /// <summary>
         /// Disables the audio channel.
         /// </summary>

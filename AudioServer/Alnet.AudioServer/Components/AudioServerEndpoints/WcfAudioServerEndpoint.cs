@@ -3,19 +3,18 @@ using System.Linq;
 using System.ServiceModel;
 using Alnet.AudioServer.Components.AudioServerContract;
 using Alnet.AudioServer.Components.NAudioServer;
-using Alnet.AudioServer.Components.ServerEndpoints.Impl;
 using Alnet.AudioServerContract;
 using Alnet.AudioServerContract.DTO;
 
-namespace Alnet.AudioServer.Components.ServerEndpoints
+namespace Alnet.AudioServer.Components.AudioServerEndpoints
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class WCFEndpoint : IAudioPlayerService, IEndpoint
+    class WcfAudioServerEndpoint : IAudioPlayerService, IAudioServerEndpoint
     {
-        private readonly AudioPlayerController _audioPlayerController = new AudioPlayerController();
+       private readonly IAudioPlayerController _audioPlayerController = ApplicationContext.Instance.AudioPlayerController;
         private readonly ServiceHost _serviceHost;
 
-        public WCFEndpoint()
+        public WcfAudioServerEndpoint()
         {
             _serviceHost = new ServiceHost(this, new Uri("net.pipe://localhost/audioplayer"));      
         }

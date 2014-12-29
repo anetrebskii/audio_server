@@ -37,8 +37,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,17 +50,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppBootstrapper.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ApplicationContext.cs" />
+    <Compile Include="AppSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>AppSettings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Components\AudioServerContract\ChannelInfo.cs" />
     <Compile Include="Components\AudioServerContract\PlayerException.cs" />
     <Compile Include="Components\NAudioServer\AudioPlayerController.cs" />
     <Compile Include="Components\AudioServerContract\AudioPlayerInfo.cs" />
     <Compile Include="Components\AudioServerContract\IPlaylistSoundProvider.cs" />
     <Compile Include="Components\AudioServerContract\IAudioPlayerController.cs" />
+    <Compile Include="Components\NAudioServer\AudioServerConfiguration.cs" />
     <Compile Include="Components\NAudioServer\PlaylistAudioPlayer.cs" />
     <Compile Include="Components\NAudioServer\WaveSound.cs" />
     <Compile Include="Components\AudioServerContract\SoundInfo.cs" />
-    <Compile Include="Components\ServerEndpoints\IEndpoint.cs" />
-    <Compile Include="Components\ServerEndpoints\WCFEndpoint.cs" />
+    <Compile Include="Components\AudioServerEndpoints\IAudioServerEndpoint.cs" />
+    <Compile Include="Components\AudioServerEndpoints\WcfAudioServerEndpoint.cs" />
     <Compile Include="Components\AudioServerContract\IPlaylistAudioPlayer.cs" />
     <Compile Include="Components\AudioServerContract\IAudioPlayer.cs" />
     <Compile Include="Components\NAudioServer\DirectoryPlaylistSoundProvider.cs" />
@@ -66,6 +80,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="AppSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>AppSettings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\3rdParty\NAudio\NAudio\NAudio.csproj">

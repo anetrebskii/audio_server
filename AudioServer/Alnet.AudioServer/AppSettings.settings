@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Alnet.AudioServer" GeneratedClassName="AppSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="VkAccessToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12d0be0ca68b000729cb9d79ab7feac9aeaaed1a0bdeb2fa247860d1b47b93d0bde923d0f20569029dbf2</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
