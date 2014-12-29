@@ -1,9 +1,8 @@
 ﻿using System;
-using Alnet.AudioServer.Components.AudioPlayer;
 
-namespace Alnet.AudioServer.Components.Controllers
+namespace Alnet.AudioServer.Components.AudioServerContract
 {
-    class AudioPlayerInfo
+    internal class AudioPlayerInfo
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

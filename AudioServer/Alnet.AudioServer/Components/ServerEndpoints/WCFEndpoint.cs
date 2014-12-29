@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.ServiceModel;
-using Alnet.AudioServer.Components.AudioPlayer;
-using Alnet.AudioServer.Components.Controllers;
+using Alnet.AudioServer.Components.AudioServerContract;
+using Alnet.AudioServer.Components.NAudioServer;
 using Alnet.AudioServer.Components.ServerEndpoints.Impl;
-using Alnet.AudioServer.Components.SoundProviders;
 using Alnet.AudioServerContract;
 using Alnet.AudioServerContract.DTO;
 
@@ -36,7 +35,7 @@ namespace Alnet.AudioServer.Components.ServerEndpoints
 
         public AudioPlayerInfoDTO CreateFileAudioPlayer(string name, string directoryPath)
         {
-            AudioPlayerInfo newAudioPlayerInfo = _audioPlayerController.CreateAudioPlayer(name, new DirectorySoundProvider(directoryPath));
+            AudioPlayerInfo newAudioPlayerInfo = _audioPlayerController.CreatePlaylistAudioPlayer(name, new DirectoryPlaylistSoundProvider(directoryPath));
             return convertToDTO(newAudioPlayerInfo);
         }
 

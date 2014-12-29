@@ -1,10 +1,10 @@
 ﻿using System;
-using System.IO;
+using Alnet.AudioServer.Components.AudioServerContract;
 using NAudio.Wave;
 
-namespace Alnet.AudioServer.Components.AudioPlayer
+namespace Alnet.AudioServer.Components.NAudioServer
 {
-    class WaveSound : IDisposable
+    internal sealed class WaveSound : IDisposable
     {
         private WaveOutEvent _waveOut = new WaveOutEvent();
         private MediaFoundationReader _mediaFoundationReader;

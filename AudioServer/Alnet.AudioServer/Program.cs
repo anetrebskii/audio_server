@@ -6,11 +6,11 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Alnet.AudioServer.Components.AudioPlayer;
-using Alnet.AudioServer.Components.Controllers;
+using Alnet.AudioServer.Components.AudioServerContract;
+using Alnet.AudioServer.Components.NAudioServer;
 using Alnet.AudioServer.Components.ServerEndpoints;
 using Alnet.AudioServer.Components.ServerEndpoints.Impl;
-using Alnet.AudioServer.Components.SoundProviders;
+using Alnet.Common;
 using NAudio.Wave;
 
 namespace Alnet.AudioServer
@@ -69,14 +69,14 @@ namespace Alnet.AudioServer
    {
       static void Main(string[] args)
       {
-         AudioPlayerController controller = new AudioPlayerController();
+         IAudioPlayerController controller = new AudioPlayerController();
 
-         //AudioPlayerInfo playerInfo = controller.CreateAudioPlayer("My", new DirectorySoundProvider(@"D:\Music\VKMusic"));
-         AudioPlayerInfo playerInfo = controller.CreateAudioPlayer("My", new VKSoundProvider(709939));
+         //AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new DirectoryPlaylistSoundProvider(@"D:\Music\VKMusic"));
+         AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new VkPlaylistSoundProvider(709939));
          
 
          Console.WriteLine("Available channels");
-         foreach (ChannelInfo channelInfo in playerInfo.Player.GetChannels())
+         foreach (ChannelInfo channelInfo in controller.GetChannels())
          {
             Console.WriteLine(channelInfo);
          }
@@ -84,7 +84,7 @@ namespace Alnet.AudioServer
          IPlaylistAudioPlayer playlistAudioPlayer = (IPlaylistAudioPlayer)playerInfo.Player;
 
          //Console.WriteLine("Playlist");
-         //foreach (var sounds in playlistAudioPlayer.GetPlayList())
+         //foreach (var sounds in playlistAudioPlayer.GetSounds())
          //{
          //   Console.WriteLine(sounds.Name);
          //}
@@ -93,7 +93,7 @@ namespace Alnet.AudioServer
          playlistAudioPlayer.Play();
          Console.ReadLine();
 
-          playlistAudioPlayer.CurrentPosition = playlistAudioPlayer.Length - 2000000;
+          playlistAudioPlayer.PlaybackPosition = playlistAudioPlayer.CurrentSoundDuration - 2000000;
 
           Console.ReadLine();
           
@@ -102,7 +102,7 @@ namespace Alnet.AudioServer
          //controller.DeleteAudioPlayer(playerInfo.Id);
          Console.ReadLine();
          
-         controller.Dispose();
+         controller.DisposeObject();
          return;
          
          Console.ReadLine();
@@ -116,7 +116,7 @@ namespace Alnet.AudioServer
          return;
 
          //AudioPlayerController controller = new AudioPlayerController();
-         //AudioPlayerInfo playerInfo = controller.CreateAudioPlayer("My", new DirectorySoundProvider(@"D:\Music\VKMusic"));
+         //AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new DirectoryPlaylistSoundProvider(@"D:\Music\VKMusic"));
          //playerInfo.Player.EnableChannel(0);
          //playerInfo.Player.Play();
          //Console.ReadLine();
@@ -133,7 +133,7 @@ namespace Alnet.AudioServer
 
          ////AudioProvider provider = new AudioProvider();
 
-         ////provider.SeekTo(provider.Length - );
+         ////provider.SeekTo(provider.CurrentSoundDuration - );
 
          //@out.NumberOfBuffers = 2;
          //@out.DesiredLatency = 100;
@@ -155,7 +155,7 @@ namespace Alnet.AudioServer
 
 
          ////@out.Play();
-         ////Console.WriteLine(fileReader.Length);
+         ////Console.WriteLine(fileReader.CurrentSoundDuration);
          ////@out2.Play();
          //Console.ReadLine();
          //@out.Pause();

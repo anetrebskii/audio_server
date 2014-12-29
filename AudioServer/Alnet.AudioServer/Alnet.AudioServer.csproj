@@ -46,22 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\AudioPlayer\ChannelInfo.cs" />
-    <Compile Include="Components\AudioPlayer\PlayerException.cs" />
-    <Compile Include="Components\Controllers\AudioPlayerController.cs" />
-    <Compile Include="Components\Controllers\AudioPlayerInfo.cs" />
-    <Compile Include="Components\AudioPlayer\ISoundProvider.cs" />
-    <Compile Include="Components\AudioPlayer\PlaylistAudioPlayer.cs" />
-    <Compile Include="Components\AudioPlayer\WaveSound.cs" />
-    <Compile Include="Components\AudioPlayer\SoundInfo.cs" />
+    <Compile Include="Components\AudioServerContract\ChannelInfo.cs" />
+    <Compile Include="Components\AudioServerContract\PlayerException.cs" />
+    <Compile Include="Components\NAudioServer\AudioPlayerController.cs" />
+    <Compile Include="Components\AudioServerContract\AudioPlayerInfo.cs" />
+    <Compile Include="Components\AudioServerContract\IPlaylistSoundProvider.cs" />
+    <Compile Include="Components\AudioServerContract\IAudioPlayerController.cs" />
+    <Compile Include="Components\NAudioServer\PlaylistAudioPlayer.cs" />
+    <Compile Include="Components\NAudioServer\WaveSound.cs" />
+    <Compile Include="Components\AudioServerContract\SoundInfo.cs" />
     <Compile Include="Components\ServerEndpoints\IEndpoint.cs" />
     <Compile Include="Components\ServerEndpoints\WCFEndpoint.cs" />
-    <Compile Include="Components\AudioPlayer\IPlaylistAudioPlayer.cs" />
-    <Compile Include="Components\AudioPlayer\IAudioPlayer.cs" />
-    <Compile Include="Components\SoundProviders\DirectorySoundProvider.cs" />
+    <Compile Include="Components\AudioServerContract\IPlaylistAudioPlayer.cs" />
+    <Compile Include="Components\AudioServerContract\IAudioPlayer.cs" />
+    <Compile Include="Components\NAudioServer\DirectoryPlaylistSoundProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Components\SoundProviders\VKSoundProvider.cs" />
+    <Compile Include="Components\NAudioServer\VkPlaylistSoundProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,10 +80,12 @@
       <Project>{AB98AEC4-CA88-4137-8500-2350526D9F03}</Project>
       <Name>Alnet.AudioServerContract</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Alnet.Common\Alnet.Common.csproj">
+      <Project>{5c9f3d94-69c4-4de9-96a3-8a91f7556777}</Project>
+      <Name>Alnet.Common</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\ServerEndpoints\Impl\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

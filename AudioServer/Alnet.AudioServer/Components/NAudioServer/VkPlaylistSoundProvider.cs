@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using Alnet.AudioServer.Components.AudioPlayer;
+using Alnet.AudioServer.Components.AudioServerContract;
 using ApiCore;
 using ApiCore.Audio;
 
-namespace Alnet.AudioServer.Components.SoundProviders
+namespace Alnet.AudioServer.Components.NAudioServer
 {
-    class VKSoundProvider : ISoundProvider
+    class VkPlaylistSoundProvider : IPlaylistSoundProvider
     {
         private readonly int _profileId;
         private ApiManager _manager;
         private AudioFactory _factory;
 
-        public VKSoundProvider(int profileId)
+        public VkPlaylistSoundProvider(int profileId)
         {
             _profileId = profileId;
             SessionInfo sessionInfo = new SessionInfo()
@@ -27,18 +23,14 @@ namespace Alnet.AudioServer.Components.SoundProviders
             _factory = new AudioFactory(_manager);
         }
 
-        public SoundInfo[] GetSoundList()
+        public SoundInfo[] GetSounds()
         {
             return _factory
                 .Get(_profileId, null, null)
-                .Select(a => new SoundInfo()
-                {
-                    Name = a.Title,
-                    Url = a.Url
-                })
+                .Select(a => new SoundInfo(a.Title, a.Url))
                 .ToArray();
         }
 
-        public event EventHandler SoundListChanged;
+        public event EventHandler SoundsChanged;
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30324.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioServer", "AudioServer", "{8B5C2440-F21F-493E-8184-0CF0F9A01C80}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{3CEC8ECB-A5D8-4ABF-915F-65D527C39AEB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VKAccessToken", "Utils\VKAccessToken\VKAccessToken.csproj", "{956D5CA6-ED70-4E6E-8FED-969B8719652F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alnet.Common", "AudioServer\Alnet.Common\Alnet.Common.csproj", "{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,14 @@ Global
 		{956D5CA6-ED70-4E6E-8FED-969B8719652F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{956D5CA6-ED70-4E6E-8FED-969B8719652F}.Release|ARM.ActiveCfg = Release|Any CPU
 		{956D5CA6-ED70-4E6E-8FED-969B8719652F}.Release|x86.ActiveCfg = Release|Any CPU
+		{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}.Release|ARM.ActiveCfg = Release|Any CPU
+		{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,5 +117,6 @@ Global
 		{FB0E4884-2ECE-4174-8517-03CE407240BB} = {15BEB4A7-2E94-4ADD-AFFB-2C3753A038D3}
 		{6885B1CF-B02D-4AB0-9F5C-A3EE4974655C} = {FB0E4884-2ECE-4174-8517-03CE407240BB}
 		{956D5CA6-ED70-4E6E-8FED-969B8719652F} = {3CEC8ECB-A5D8-4ABF-915F-65D527C39AEB}
+		{5C9F3D94-69C4-4DE9-96A3-8A91F7556777} = {8B5C2440-F21F-493E-8184-0CF0F9A01C80}
 	EndGlobalSection
 EndGlobal
