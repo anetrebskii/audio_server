@@ -42,3 +42,46 @@
 .ui-btn-active  {
     text-shadow: none;
 }
+
+#nothing_audio {
+    text-align: center;   
+}
+
+.title {
+    
+}
+
+#a_playback {
+
+}
+
+#a_controls {
+    margin-bottom: 15px;
+}
+
+#a_controls {
+    
+}
+
+.ui-icon-playsound {
+    background: url(themes/base/images/ui-icons_888888_256x240.png);
+    background-position: 0 -160px;    
+}
+
+#a_title {
+    margin-left: 3px;
+    margin-bottom: 5px;
+}
+
+#a_timeline {
+        padding: 0 0 10px 0;
+}
+
+#a_timeline input {
+    display: none;
+}
+
+#a_timeline div.ui-slider {
+    margin-left: 0;
+    width: 100%
+}

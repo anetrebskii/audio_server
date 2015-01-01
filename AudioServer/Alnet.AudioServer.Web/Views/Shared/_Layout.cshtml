@@ -11,12 +11,17 @@
     <body>
         <div data-role="page" data-theme="b">
             <div data-role="header">
-                 Аудио Сервер
+                
+                <span class="ui-title">Аудио сервер</span>
             </div>
             <div data-role="content">
                 @RenderBody()
             </div>
-        </div>
+            <div data-role="footer" data-position="fixed">
+                <span class="ui-title">&nbsp;</span>
+                <a href="/Home/Index" data-icon="home" data-iconpos="notext" class="ui-btn-left">&nbsp;</a>
+            </div>
+</div>
 
         @Scripts.Render("~/bundles/jquery")
         <script>

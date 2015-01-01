@@ -48,9 +48,9 @@ namespace Alnet.AudioServer
       {
          IAudioPlayerController controller = new AudioPlayerController();
 
-         //AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new DirectoryPlaylistSoundProvider(@"D:\Music\VKMusic"));
-         AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new VkPlaylistSoundProvider(709939));
-
+         AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new DirectoryPlaylistSoundProvider(@"D:\Music\VKMusic"));
+         //AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new VkPlaylistSoundProvider(709939));
+         
 
          Console.WriteLine("Available channels");
          foreach (ChannelInfo channelInfo in controller.GetChannels())
@@ -64,8 +64,7 @@ namespace Alnet.AudioServer
          //foreach (var sounds in playlistAudioPlayer.GetSounds())
          //{
          //   Console.WriteLine(sounds.Name);
-         //}
-
+         //}          
          playlistAudioPlayer.EnableChannel(0);
          playlistAudioPlayer.Play();
          Console.ReadLine();

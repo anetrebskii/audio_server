@@ -5,16 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";  
 }
 
-<h2>@ViewBag.Message</h2>
-<p>
-   
-</p>
 
-<ul data-role="listview" data-inset="true">
-    <li data-role="list-divider">Плееры</li>
-    @foreach (var player in @Model.Players)
-    {
-        <li>@Html.ActionLink(player.Current.Name, "View", "Player", new { id = player.PlayerId }, null)</li>
-    }    
-    <li>@Html.ActionLink("Создать", "New", "Player")</li>
-</ul>
+@if (@Model.Players.Count > 0)
+{
+    <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider">Сейчас играет</li>
+        @foreach (var player in @Model.Players)
+        {
+            <li>
+                <a href="/Player/View/@player.PlayerId">
+                    <h3>@player.Current.Name</h3>
+                    <p>Играет в: @player.Current.Index</p>                    
+                </a>                
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div id="nothing_audio">
+        <span>На данный момент не играет ни одна музыка</span>
+    </div>
+}
+
+@Html.ActionLink("Включить музыку", "New", "Player", null, new Dictionary<string, object>() { { "data-icon", "plus" }, {"data-role", "button" }, {"data-theme", "e"} })
+

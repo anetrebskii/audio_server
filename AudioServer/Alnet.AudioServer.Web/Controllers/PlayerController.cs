@@ -55,8 +55,7 @@ namespace Alnet.AudioServer.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult New(string vkId)
+        public ActionResult NewVkPlayer(string vkId)
         {
             return RedirectToAction("View", new { id = Guid.NewGuid() });
         }

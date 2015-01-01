@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.ServiceModel.Activation;
+
 using Alnet.AudioServer.Components.AudioServerContract;
 using Alnet.Common;
 
@@ -64,6 +66,7 @@ namespace Alnet.AudioServer.Components.NAudioServer
         public void Play()
         {
             _disposedGuard.Check();
+            verifyAvailableSoundCards();
             actualizeCurrentWaveSound(_currentSoundIndex);
             _currentWaveSound.Play();
         }
@@ -97,11 +100,13 @@ namespace Alnet.AudioServer.Components.NAudioServer
             {
                 _currentWaveSound.DisableSoundCard(index);
             }
+            verifyAvailableSoundCards();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Play(int soundIndex)
         {
+            verifyAvailableSoundCards();
             actualizeCurrentWaveSound(soundIndex);
             _currentWaveSound.Play();
         }
@@ -161,6 +166,14 @@ namespace Alnet.AudioServer.Components.NAudioServer
         #endregion
 
         #region Private methods
+
+        private void verifyAvailableSoundCards()
+        {
+            if (_soundCards.Count == 0)
+            {
+                throw new PlayerException(PlayerExceptionTypes.NoSoundCards);
+            }
+        }
 
         private SoundInfo getSoundInfoFromPlaylist(int soundIndex)
         {

@@ -1,13 +1,21 @@
 ﻿@{
-    ViewBag.Title = "New";
+    ViewBag.Title = "- что будем слушать?";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("New"))
-{
-    <h2>New</h2>
-    
-    @Html.TextBox("vkId", "1")
+    <span class="title">@ViewBag.Title</span>
 
-    <input type="submit" value="Создать"/>
-}
+    <ul data-role="listview" data-inset="true">
+        <li>
+            <a href="/Player/NewVkPlayer/709939">
+                <h3>Александр Нетребский</h3>
+                <p>Музыка из ВКонтакте</p>
+            </a>
+        </li>
+        <li>
+            <a href="/Player/NewVkPlayer/45289567">
+                <h3>Кристина Нетребская</h3>
+                <p>Музыка из ВКонтакте</p>
+            </a>
+        </li>
+    </ul>

@@ -11,7 +11,6 @@ namespace Alnet.AudioServer.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Ау";
             MainPageModel model = new MainPageModel();
             model.Players = new List<PlayerModel>();
             model.Players.Add(new PlayerModel()

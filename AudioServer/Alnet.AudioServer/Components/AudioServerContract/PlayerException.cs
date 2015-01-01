@@ -5,7 +5,9 @@ namespace Alnet.AudioServer.Components.AudioServerContract
 {
     internal enum PlayerExceptionTypes
     {
-        NoSounds
+        NoSounds,
+
+        NoSoundCards
     }
 
     [Serializable]

@@ -5,39 +5,45 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Плеер</h2>
+<div id="a_playback">
+    <div id="a_title">
+        <span>@Model.Current.Name</span>
+    </div>
+    <div id="a_timeline">
+        <input type="range" name="a-timeline" id="a-timeline" min="0" max="100" value="50" data-mini="true" data-highlight="true">
+    </div>
+</div>
+<div id="a_controls">
+    <div class="ui-grid-c">
+        <div class="ui-block-a"><input type="button" value="Play" /></div>
+        <div class="ui-block-b"><input type="button" value="<" /></div>
+        <div class="ui-block-c"><input type="button" value=">" /></div>
+        <div class="ui-block-d"><a href="#popupVolume" data-role="button" data-rel="popup">Volume</a></div>
+    </div>
+</div>
+<div id="popupVolume" data-role="popup">
+        <form>
+            <fieldset data-role="controlgroup" data-iconpos="left">
+                @foreach (var room in Model.Rooms)
+                {
+                    @Html.Label(room.Id.ToString(), room.Name, new { @for = room.Id.ToString() });
+                    @Html.CheckBox(room.Id.ToString(), room.IsSelected, new { id = room.Id });
+                }
+            </fieldset>
+        </form>    
+</div>
+<div data-role="collapsible" data-inset="false">
+    <h3>Список воспроизведения</h3>
+    <form>
+        <ul data-role="listview" data-inset="true">
+            @foreach (var sound in Model.PlayList)
+            {
+                <li>@sound.Name</li>
+            }
+        </ul>
+    </form>
+</div>
 
-<p>
-    Сейчас играет:
-    <br />
-    @Model.Current.Name
-</p>
 
-<input type="button" value="<"/>
-<input type="button" value="Play"/>
-<input type="button" value=">"/>
 
-<label for="slider-1">Громкость:</label>
-<input type="range" name="slider-1" id="slider-1" min="0" max="100" value="50">
-
-<form>
-    <fieldset data-role="controlgroup" data-iconpos="left">
-        <legend>Комнаты:</legend>
-        @foreach (var room in Model.Rooms)
-        {
-            @Html.Label(room.Id.ToString(), room.Name, new { @for = room.Id.ToString() });
-            @Html.CheckBox(room.Id.ToString(), room.IsSelected, new { id = room.Id });
-        }
-    </fieldset>
-</form>
-
-<form>
-<ul data-role="listview" data-inset="true">
-    <li data-role="list-divider">Плей лист</li>
-    @foreach (var sound in Model.PlayList)
-    {
-        <li>@sound.Name</li>  
-    }
-</ul>
-</form>
 
