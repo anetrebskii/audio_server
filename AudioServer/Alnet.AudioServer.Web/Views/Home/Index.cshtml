@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";  
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -15,8 +15,15 @@
             <li>
                 <a href="/Player/View/@player.PlayerId">
                     <h3>@player.Current.Name</h3>
-                    <p>Играет в: @player.Current.Index</p>                    
-                </a>                
+                    @if (player.Rooms.Any(r => r.IsSelected))
+                    {
+                        <p>Играет в: @System.String.Join(", ", player.Rooms.Where(r => r.IsSelected).Select(s => s.Name))</p>
+                    }
+                    else
+                    {
+                        <p>Не выбраны комнаты</p>
+                    }
+                </a>
             </li>
         }
     </ul>
@@ -28,5 +35,5 @@ else
     </div>
 }
 
-@Html.ActionLink("Включить музыку", "New", "Player", null, new Dictionary<string, object>() { { "data-icon", "plus" }, {"data-role", "button" }, {"data-theme", "e"} })
+@Html.ActionLink("Включить музыку", "New", "Player", null, new Dictionary<string, object>() { { "data-icon", "plus" }, { "data-role", "button" }, { "data-theme", "e" } })
 

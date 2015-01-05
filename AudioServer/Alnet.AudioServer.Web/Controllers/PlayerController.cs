@@ -3,51 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+using Alnet.AudioServer.Web.AudioServerService;
 using Alnet.AudioServer.Web.Models;
+using Alnet.AudioServerContract.DTO;
 
 namespace Alnet.AudioServer.Web.Controllers
 {
     public class PlayerController : Controller
     {
+        private readonly IAudioPlayerService _audioPlayerService = ApplicationContext.Instance.AudioPlayerService;
         //
         // GET: /Player/
 
         public ActionResult View(Guid id)
         {
-            List<SoundModel> playList = new List<SoundModel>();
-            playList.Add(new SoundModel()
-            {
-                Index = 0,
-                Name = "Дискотека Авария"
-            });
-            playList.Add(new SoundModel()
-            {
-                Index = 1,
-                Name = "Бандерос"
-            });
-
-            List<RoomModel> rooms = new List<RoomModel>();
-            rooms.Add(new RoomModel()
-            {
-                Id = 1,
-                IsSelected = true,
-                Name = "Спальня"
-            });
-            rooms.Add(new RoomModel()
-            {
-                Id = 2,
-                IsSelected = true,
-                Name = "Кухня"
-            });
-
-            PlayerModel model = new PlayerModel()
-            {
-                PlayerId = id,
-                Current = playList.First(),
-                PlayList = playList,
-                Rooms = rooms
-            };
-            return View(model);
+            PlaylistAudioPlayerDTO audioPlayer = _audioPlayerService.GetPlaylistAudioPlayer(id);
+            return View(PlayerModel.Parse(audioPlayer));
         }
 
         public ActionResult New()
@@ -55,9 +27,10 @@ namespace Alnet.AudioServer.Web.Controllers
             return View();
         }
 
-        public ActionResult NewVkPlayer(string vkId)
+        public ActionResult NewVkPlayer(int id)
         {
-            return RedirectToAction("View", new { id = Guid.NewGuid() });
+            PlaylistAudioPlayerDTO newAudioPlayer = _audioPlayerService.CreateVKAudioPlayer("vk", id);
+            return RedirectToAction("View", new { id = newAudioPlayer.Id });
         }
     }
 }

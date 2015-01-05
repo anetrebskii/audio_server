@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 namespace Alnet.AudioServerContract.DTO
 {
     [DataContract]
-    public class SoundDTO
+    public class ChannelDTO
     {
+        [DataMember]
+        public int Index { get; set; }
+
         [DataMember]
         public string Name { get; set; }
     }

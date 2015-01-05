@@ -8,14 +8,20 @@ using Alnet.AudioServerContract.DTO;
 
 namespace Alnet.AudioServerContract
 {
-    [ServiceContract()]
+    [ServiceContract(Namespace = "audioserver")]
     public interface IAudioPlayerService
     {
         [OperationContract]
-        AudioPlayerInfoDTO[] GetAudioPlayes();
+        PlaylistAudioPlayerDTO[] GetAudioPlayes();
 
         [OperationContract]
-        AudioPlayerInfoDTO CreateFileAudioPlayer(string name, string directoryPath);
+        PlaylistAudioPlayerDTO CreateFileAudioPlayer(string name, string directoryPath);
+
+        [OperationContract]
+        PlaylistAudioPlayerDTO CreateVKAudioPlayer(string name, int vkProfileId);
+
+        [OperationContract]
+        PlaylistAudioPlayerDTO GetPlaylistAudioPlayer(Guid playerId);
 
         [OperationContract]
         void Play(Guid playerId);

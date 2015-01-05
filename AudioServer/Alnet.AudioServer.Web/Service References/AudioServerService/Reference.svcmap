@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e2bce354-ef6f-4ee4-880f-6758203afc3b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>true</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:11180" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="960a2da8-3181-4183-a648-50d40215522a" SourceId="1" SourceUrl="http://localhost:11180/?xsd=xsd2" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="a755212e-695d-4a72-ae28-1d91eed4ec01" SourceId="1" SourceUrl="http://localhost:11180/?disco" />
+    <MetadataFile FileName="item.wsdl" MetadataType="Wsdl" ID="c2997b23-bc45-47f4-9e26-8a5827c52fe3" SourceId="1" SourceUrl="http://localhost:11180/?wsdl=wsdl0" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="379a2425-2257-4480-8adb-5b22013558cb" SourceId="1" SourceUrl="http://localhost:11180/?xsd=xsd1" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="42a41d92-bb98-4055-8ca9-d142401ad22d" SourceId="1" SourceUrl="http://localhost:11180/?xsd=xsd0" />
+    <MetadataFile FileName="WcfAudioServerEndpoint.wsdl" MetadataType="Wsdl" ID="bd18047f-7e6c-4ada-8728-679931aa244d" SourceId="1" SourceUrl="http://localhost:11180/?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

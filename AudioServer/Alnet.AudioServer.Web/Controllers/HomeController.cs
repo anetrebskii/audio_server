@@ -4,24 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Alnet.AudioServer.Web.Models;
+using Alnet.AudioServer.Web.AudioServerService;
+using Alnet.AudioServerContract.DTO;
 
 namespace Alnet.AudioServer.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IAudioPlayerService _audioPlayerService = ApplicationContext.Instance.AudioPlayerService;
+
         public ActionResult Index()
         {
-            MainPageModel model = new MainPageModel();
-            model.Players = new List<PlayerModel>();
-            model.Players.Add(new PlayerModel()
+            PlaylistAudioPlayerDTO[] playlistAudioPlayers = _audioPlayerService.GetAudioPlayes();
+            MainPageModel model = new MainPageModel
+                                  {
+                                      Players = new List<PlayerModel>()
+                                  };
+            foreach (var audioPlayer in playlistAudioPlayers)
             {
-                Current = new SoundModel()
-                {
-                    Index = 1,
-                    Name = "Бандерос"
-                },
-                PlayerId = Guid.NewGuid()
-            });
+                model.Players.Add(PlayerModel.Parse(audioPlayer));
+            }
             return View(model);
         }
 

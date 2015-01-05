@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Runtime.Serialization;
 
 namespace Alnet.AudioServerContract.DTO
 {
     [DataContract]
-    public class AudioPlayerInfoDTO
+    public class AudioPlayerDTO
     {
         [DataMember]
         public Guid Id { get; set; }
@@ -13,6 +13,6 @@ namespace Alnet.AudioServerContract.DTO
         public string Name { get; set; }
 
         [DataMember]
-        public SoundDTO[] Playlist { get; set; }
+        public ChannelDTO[] Channels { get; set; }
     }
 }

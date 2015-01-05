@@ -26,7 +26,7 @@ namespace Alnet.AudioServer.Components.NAudioServer
         /// <summary>
         /// Index of the current sound in the playlist.
         /// </summary>
-        private int _currentSoundIndex;
+        private int _currentSoundIndex = -1;
 
         /// <summary>
         /// The instance of the current sound in the playlist.
@@ -101,6 +101,11 @@ namespace Alnet.AudioServer.Components.NAudioServer
                 _currentWaveSound.DisableSoundCard(index);
             }
             verifyAvailableSoundCards();
+        }
+
+        public int[] GetEnabledChannels()
+        {
+            return _soundCards.ToArray();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

@@ -44,6 +44,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -142,6 +144,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationContext.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -156,6 +159,11 @@
     <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\SoundModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\AudioServerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\ajax-loader.gif" />
@@ -225,6 +233,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Properties\DataSources\Alnet.AudioServerContract.DTO.AudioPlayerInfoDTO.datasource" />
+    <Content Include="Properties\DataSources\Alnet.AudioServerContract.DTO.SoundDTO.datasource" />
+    <Content Include="Properties\DataSources\Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO.datasource" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -240,6 +251,13 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <None Include="Service References\AudioServerService\item.disco" />
+    <None Include="Service References\AudioServerService\configuration91.svcinfo" />
+    <None Include="Service References\AudioServerService\configuration.svcinfo" />
+    <None Include="Service References\AudioServerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -259,6 +277,17 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Player\View.cshtml" />
     <Content Include="Views\Player\New.cshtml" />
+    <None Include="Service References\AudioServerService\item.wsdl" />
+    <None Include="Service References\AudioServerService\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AudioServerService\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AudioServerService\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AudioServerService\WcfAudioServerEndpoint.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -268,6 +297,15 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alnet.AudioServerContract\Alnet.AudioServerContract.csproj">
+      <Project>{ab98aec4-ca88-4137-8500-2350526d9f03}</Project>
+      <Name>Alnet.AudioServerContract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AudioServerService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

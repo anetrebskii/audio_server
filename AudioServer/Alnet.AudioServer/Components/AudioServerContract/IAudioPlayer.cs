@@ -31,5 +31,12 @@
         /// 
         /// <exception cref="PlayerException"/>
         void DisableChannel(int index);
+
+        /// <summary>
+        /// Returns indexes of the activated channels.
+        /// </summary>
+        /// 
+        /// <exception cref="PlayerException"/>
+        int[] GetEnabledChannels();
     }
 }

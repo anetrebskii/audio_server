@@ -20,7 +20,7 @@ namespace Alnet.AudioServer
       protected override void OnStart()
       {         
          _audioServerEndpoint.Start();
-         debugCode();
+         //debugCode();
       }
 
       protected override void OnStop()
