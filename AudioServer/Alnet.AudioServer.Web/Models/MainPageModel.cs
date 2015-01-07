@@ -7,6 +7,11 @@ namespace Alnet.AudioServer.Web.Models
 {
     public class MainPageModel
     {
-        public List<PlayerModel> Players { get; set; }
+        public MainPageModel()
+        {
+            Players = new List<PlayerShortInfoModel>();
+        }
+
+        public List<PlayerShortInfoModel> Players { get; set; }
     }
 }

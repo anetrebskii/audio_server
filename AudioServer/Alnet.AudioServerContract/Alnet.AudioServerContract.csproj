@@ -42,14 +42,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\AudioPlayerDTO.cs" />
-    <Compile Include="DTO\PlaylistAudioPlayerDTO.cs" />
+    <Compile Include="DTO\PlaybackPositionDTO.cs" />
     <Compile Include="DTO\ChannelDTO.cs" />
     <Compile Include="DTO\SoundDTO.cs" />
-    <Compile Include="IAudioPlayerService.cs" />
+    <Compile Include="IAudioServerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alnet.Common\Alnet.Common.csproj">
+      <Project>{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}</Project>
+      <Name>Alnet.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

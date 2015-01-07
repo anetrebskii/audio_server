@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="audioserver" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WcfAudioServerEndpoint" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsp:Policy wsu:Id="NetNamedPipeBinding_IAudioPlayerService_policy">
+  <wsp:Policy wsu:Id="NetNamedPipeBinding_IAudioServerService_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
@@ -31,20 +31,11 @@
   </wsp:Policy>
   <wsdl:import namespace="audioserver" location="http://localhost:11180/?wsdl=wsdl0" />
   <wsdl:types />
-  <wsdl:binding name="NetNamedPipeBinding_IAudioPlayerService" type="i0:IAudioPlayerService">
-    <wsp:PolicyReference URI="#NetNamedPipeBinding_IAudioPlayerService_policy" />
+  <wsdl:binding name="NetNamedPipeBinding_IAudioServerService" type="i0:IAudioServerService">
+    <wsp:PolicyReference URI="#NetNamedPipeBinding_IAudioServerService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/named-pipe" />
-    <wsdl:operation name="GetAudioPlayes">
-      <soap12:operation soapAction="audioserver/IAudioPlayerService/GetAudioPlayes" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CreateFileAudioPlayer">
-      <soap12:operation soapAction="audioserver/IAudioPlayerService/CreateFileAudioPlayer" style="document" />
+      <soap12:operation soapAction="audioserver/IAudioServerService/CreateFileAudioPlayer" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -53,7 +44,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="CreateVKAudioPlayer">
-      <soap12:operation soapAction="audioserver/IAudioPlayerService/CreateVKAudioPlayer" style="document" />
+      <soap12:operation soapAction="audioserver/IAudioServerService/CreateVKAudioPlayer" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -61,8 +52,62 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPlaylistAudioPlayer">
-      <soap12:operation soapAction="audioserver/IAudioPlayerService/GetPlaylistAudioPlayer" style="document" />
+    <wsdl:operation name="RemoveAudioPlayer">
+      <soap12:operation soapAction="audioserver/IAudioServerService/RemoveAudioPlayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAudioPlayes">
+      <soap12:operation soapAction="audioserver/IAudioServerService/GetAudioPlayes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllChannels">
+      <soap12:operation soapAction="audioserver/IAudioServerService/GetAllChannels" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEnabledChannels">
+      <soap12:operation soapAction="audioserver/IAudioServerService/GetEnabledChannels" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlaybackPosition">
+      <soap12:operation soapAction="audioserver/IAudioServerService/GetPlaybackPosition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSounds">
+      <soap12:operation soapAction="audioserver/IAudioServerService/GetSounds" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAudioPlayer">
+      <soap12:operation soapAction="audioserver/IAudioServerService/GetAudioPlayer" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -71,7 +116,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Play">
-      <soap12:operation soapAction="audioserver/IAudioPlayerService/Play" style="document" />
+      <soap12:operation soapAction="audioserver/IAudioServerService/Play" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -80,7 +125,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="PlayConcrete">
-      <soap12:operation soapAction="audioserver/IAudioPlayerService/PlayConcrete" style="document" />
+      <soap12:operation soapAction="audioserver/IAudioServerService/PlayConcrete" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -89,7 +134,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Stop">
-      <soap12:operation soapAction="audioserver/IAudioPlayerService/Stop" style="document" />
+      <soap12:operation soapAction="audioserver/IAudioServerService/Stop" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -99,7 +144,7 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="WcfAudioServerEndpoint">
-    <wsdl:port name="NetNamedPipeBinding_IAudioPlayerService" binding="tns:NetNamedPipeBinding_IAudioPlayerService">
+    <wsdl:port name="NetNamedPipeBinding_IAudioServerService" binding="tns:NetNamedPipeBinding_IAudioServerService">
       <soap12:address location="net.pipe://localhost/audioserver" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.pipe://localhost/audioserver</wsa10:Address>

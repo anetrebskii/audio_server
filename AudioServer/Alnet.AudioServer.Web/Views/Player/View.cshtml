@@ -1,4 +1,4 @@
-﻿@model Alnet.AudioServer.Web.Models.PlayerModel
+﻿@model Alnet.AudioServer.Web.Models.PlayerFullInfoModel
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,7 @@
 
 <div id="a_playback">
     <div id="a_title">
-        <span>@Model.Current.Name</span>
+        <span>@Model.Playback.SoundName</span>
     </div>
     <div id="a_timeline">
         <input type="range" name="a-timeline" id="a-timeline" min="0" max="100" value="50" data-mini="true" data-highlight="true">
@@ -24,10 +24,11 @@
 <div id="popupVolume" data-role="popup">
         <form>
             <fieldset data-role="controlgroup" data-iconpos="left">
-                @foreach (var room in Model.Rooms)
+                @for (int channelIndex = 0; channelIndex < Model.Channels.Count; channelIndex++)
                 {
-                    @Html.Label(room.Id.ToString(), room.Name, new { @for = room.Id.ToString() });
-                    @Html.CheckBox(room.Id.ToString(), room.IsSelected, new { id = room.Id });
+                    var channel = Model.Channels[channelIndex];
+                    @Html.Label(channelIndex.ToString(), channel.Name, new { @for = channelIndex.ToString() });
+                    @Html.CheckBox(channelIndex.ToString(), channel.IsEnabled, new { id = channelIndex });
                 }
             </fieldset>
         </form>    
@@ -36,9 +37,10 @@
     <h3>Список воспроизведения</h3>
     <form>
         <ul data-role="listview" data-inset="true">
-            @foreach (var sound in Model.PlayList)
+            @for (int soundIndex = 0; soundIndex < Model.Sounds.Count; soundIndex++)
             {
-                <li>@sound.Name</li>
+                string soundName = Model.Sounds[soundIndex];
+                <li>@soundName</li>
             }
         </ul>
     </form>

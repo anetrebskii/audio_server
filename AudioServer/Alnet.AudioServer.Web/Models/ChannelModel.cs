@@ -5,10 +5,10 @@ using System.Web;
 
 namespace Alnet.AudioServer.Web.Models
 {
-    public class RoomModel
+    public class ChannelModel
     {
-        public bool IsSelected { get; set; }
-        public int Id { get; set; }
         public string Name { get; set; }
+
+        public bool IsEnabled { get; set; }
     }
 }

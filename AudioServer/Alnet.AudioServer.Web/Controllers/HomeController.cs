@@ -11,18 +11,26 @@ namespace Alnet.AudioServer.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IAudioPlayerService _audioPlayerService = ApplicationContext.Instance.AudioPlayerService;
+        private readonly IAudioServerService _audioPlayerService = ApplicationContext.Instance.AudioPlayerService;
 
         public ActionResult Index()
         {
-            PlaylistAudioPlayerDTO[] playlistAudioPlayers = _audioPlayerService.GetAudioPlayes();
-            MainPageModel model = new MainPageModel
-                                  {
-                                      Players = new List<PlayerModel>()
-                                  };
-            foreach (var audioPlayer in playlistAudioPlayers)
+            AudioPlayerDTO[] audioPlayers = _audioPlayerService.GetAudioPlayes();
+            MainPageModel model = new MainPageModel();
+            foreach (var audioPlayer in audioPlayers)
             {
-                model.Players.Add(PlayerModel.Parse(audioPlayer));
+                PlaybackPositionDTO playbackPosition = audioPlayer.Type == PlayerTypes.Playlist ?
+                    _audioPlayerService.GetPlaybackPosition(audioPlayer.Id)
+                    : new PlaybackPositionDTO();
+
+                ChannelDTO[] enabledChannels = _audioPlayerService.GetEnabledChannels(audioPlayer.Id);
+                PlayerShortInfoModel playerShortInfo = new PlayerShortInfoModel()
+                                                       {
+                                                           PlayerId = audioPlayer.Id,
+                                                           CurrentSoundName = playbackPosition.SoundName,
+                                                           EnabledChannels = enabledChannels.Select(c => c.Name).ToList()
+                                                       };
+                model.Players.Add(playerShortInfo);
             }
             return View(model);
         }

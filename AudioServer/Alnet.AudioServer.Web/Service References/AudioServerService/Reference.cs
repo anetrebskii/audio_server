@@ -12,109 +12,179 @@ namespace Alnet.AudioServer.Web.AudioServerService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="audioserver", ConfigurationName="AudioServerService.IAudioPlayerService")]
-    internal interface IAudioPlayerService {
+    [System.ServiceModel.ServiceContractAttribute(Namespace="audioserver", ConfigurationName="AudioServerService.IAudioServerService")]
+    internal interface IAudioServerService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/GetAudioPlayes", ReplyAction="audioserver/IAudioPlayerService/GetAudioPlayesResponse")]
-        Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO[] GetAudioPlayes();
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/CreateFileAudioPlayer", ReplyAction="audioserver/IAudioServerService/CreateFileAudioPlayerResponse")]
+        Alnet.AudioServerContract.DTO.AudioPlayerDTO CreateFileAudioPlayer(string name, string directoryPath);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/GetAudioPlayes", ReplyAction="audioserver/IAudioPlayerService/GetAudioPlayesResponse")]
-        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO[]> GetAudioPlayesAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/CreateFileAudioPlayer", ReplyAction="audioserver/IAudioServerService/CreateFileAudioPlayerResponse")]
+        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO> CreateFileAudioPlayerAsync(string name, string directoryPath);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/CreateFileAudioPlayer", ReplyAction="audioserver/IAudioPlayerService/CreateFileAudioPlayerResponse")]
-        Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO CreateFileAudioPlayer(string name, string directoryPath);
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/CreateVKAudioPlayer", ReplyAction="audioserver/IAudioServerService/CreateVKAudioPlayerResponse")]
+        Alnet.AudioServerContract.DTO.AudioPlayerDTO CreateVKAudioPlayer(string name, int vkProfileId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/CreateFileAudioPlayer", ReplyAction="audioserver/IAudioPlayerService/CreateFileAudioPlayerResponse")]
-        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO> CreateFileAudioPlayerAsync(string name, string directoryPath);
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/CreateVKAudioPlayer", ReplyAction="audioserver/IAudioServerService/CreateVKAudioPlayerResponse")]
+        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO> CreateVKAudioPlayerAsync(string name, int vkProfileId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/CreateVKAudioPlayer", ReplyAction="audioserver/IAudioPlayerService/CreateVKAudioPlayerResponse")]
-        Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO CreateVKAudioPlayer(string name, int vkProfileId);
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/RemoveAudioPlayer", ReplyAction="audioserver/IAudioServerService/RemoveAudioPlayerResponse")]
+        void RemoveAudioPlayer(System.Guid playerId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/CreateVKAudioPlayer", ReplyAction="audioserver/IAudioPlayerService/CreateVKAudioPlayerResponse")]
-        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO> CreateVKAudioPlayerAsync(string name, int vkProfileId);
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/RemoveAudioPlayer", ReplyAction="audioserver/IAudioServerService/RemoveAudioPlayerResponse")]
+        System.Threading.Tasks.Task RemoveAudioPlayerAsync(System.Guid playerId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/GetPlaylistAudioPlayer", ReplyAction="audioserver/IAudioPlayerService/GetPlaylistAudioPlayerResponse")]
-        Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO GetPlaylistAudioPlayer(System.Guid playerId);
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAudioPlayes", ReplyAction="audioserver/IAudioServerService/GetAudioPlayesResponse")]
+        Alnet.AudioServerContract.DTO.AudioPlayerDTO[] GetAudioPlayes();
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/GetPlaylistAudioPlayer", ReplyAction="audioserver/IAudioPlayerService/GetPlaylistAudioPlayerResponse")]
-        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO> GetPlaylistAudioPlayerAsync(System.Guid playerId);
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAudioPlayes", ReplyAction="audioserver/IAudioServerService/GetAudioPlayesResponse")]
+        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO[]> GetAudioPlayesAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/Play", ReplyAction="audioserver/IAudioPlayerService/PlayResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAllChannels", ReplyAction="audioserver/IAudioServerService/GetAllChannelsResponse")]
+        Alnet.AudioServerContract.DTO.ChannelDTO[] GetAllChannels();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAllChannels", ReplyAction="audioserver/IAudioServerService/GetAllChannelsResponse")]
+        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.ChannelDTO[]> GetAllChannelsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetEnabledChannels", ReplyAction="audioserver/IAudioServerService/GetEnabledChannelsResponse")]
+        Alnet.AudioServerContract.DTO.ChannelDTO[] GetEnabledChannels(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetEnabledChannels", ReplyAction="audioserver/IAudioServerService/GetEnabledChannelsResponse")]
+        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.ChannelDTO[]> GetEnabledChannelsAsync(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetPlaybackPosition", ReplyAction="audioserver/IAudioServerService/GetPlaybackPositionResponse")]
+        Alnet.AudioServerContract.DTO.PlaybackPositionDTO GetPlaybackPosition(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetPlaybackPosition", ReplyAction="audioserver/IAudioServerService/GetPlaybackPositionResponse")]
+        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaybackPositionDTO> GetPlaybackPositionAsync(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetSounds", ReplyAction="audioserver/IAudioServerService/GetSoundsResponse")]
+        Alnet.AudioServerContract.DTO.SoundDTO[] GetSounds(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetSounds", ReplyAction="audioserver/IAudioServerService/GetSoundsResponse")]
+        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.SoundDTO[]> GetSoundsAsync(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAudioPlayer", ReplyAction="audioserver/IAudioServerService/GetAudioPlayerResponse")]
+        Alnet.AudioServerContract.DTO.AudioPlayerDTO GetAudioPlayer(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAudioPlayer", ReplyAction="audioserver/IAudioServerService/GetAudioPlayerResponse")]
+        System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO> GetAudioPlayerAsync(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/Play", ReplyAction="audioserver/IAudioServerService/PlayResponse")]
         void Play(System.Guid playerId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/Play", ReplyAction="audioserver/IAudioPlayerService/PlayResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/Play", ReplyAction="audioserver/IAudioServerService/PlayResponse")]
         System.Threading.Tasks.Task PlayAsync(System.Guid playerId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/PlayConcrete", ReplyAction="audioserver/IAudioPlayerService/PlayConcreteResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/PlayConcrete", ReplyAction="audioserver/IAudioServerService/PlayConcreteResponse")]
         void PlayConcrete(System.Guid playerId, int soundId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/PlayConcrete", ReplyAction="audioserver/IAudioPlayerService/PlayConcreteResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/PlayConcrete", ReplyAction="audioserver/IAudioServerService/PlayConcreteResponse")]
         System.Threading.Tasks.Task PlayConcreteAsync(System.Guid playerId, int soundId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/Stop", ReplyAction="audioserver/IAudioPlayerService/StopResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/Stop", ReplyAction="audioserver/IAudioServerService/StopResponse")]
         void Stop(System.Guid playerId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioPlayerService/Stop", ReplyAction="audioserver/IAudioPlayerService/StopResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/Stop", ReplyAction="audioserver/IAudioServerService/StopResponse")]
         System.Threading.Tasks.Task StopAsync(System.Guid playerId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal interface IAudioPlayerServiceChannel : Alnet.AudioServer.Web.AudioServerService.IAudioPlayerService, System.ServiceModel.IClientChannel {
+    internal interface IAudioServerServiceChannel : Alnet.AudioServer.Web.AudioServerService.IAudioServerService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal partial class AudioPlayerServiceClient : System.ServiceModel.ClientBase<Alnet.AudioServer.Web.AudioServerService.IAudioPlayerService>, Alnet.AudioServer.Web.AudioServerService.IAudioPlayerService {
+    internal partial class AudioServerServiceClient : System.ServiceModel.ClientBase<Alnet.AudioServer.Web.AudioServerService.IAudioServerService>, Alnet.AudioServer.Web.AudioServerService.IAudioServerService {
         
-        public AudioPlayerServiceClient() {
+        public AudioServerServiceClient() {
         }
         
-        public AudioPlayerServiceClient(string endpointConfigurationName) : 
+        public AudioServerServiceClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public AudioPlayerServiceClient(string endpointConfigurationName, string remoteAddress) : 
+        public AudioServerServiceClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public AudioPlayerServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public AudioServerServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public AudioPlayerServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public AudioServerServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
-        public Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO[] GetAudioPlayes() {
-            return base.Channel.GetAudioPlayes();
-        }
-        
-        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO[]> GetAudioPlayesAsync() {
-            return base.Channel.GetAudioPlayesAsync();
-        }
-        
-        public Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO CreateFileAudioPlayer(string name, string directoryPath) {
+        public Alnet.AudioServerContract.DTO.AudioPlayerDTO CreateFileAudioPlayer(string name, string directoryPath) {
             return base.Channel.CreateFileAudioPlayer(name, directoryPath);
         }
         
-        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO> CreateFileAudioPlayerAsync(string name, string directoryPath) {
+        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO> CreateFileAudioPlayerAsync(string name, string directoryPath) {
             return base.Channel.CreateFileAudioPlayerAsync(name, directoryPath);
         }
         
-        public Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO CreateVKAudioPlayer(string name, int vkProfileId) {
+        public Alnet.AudioServerContract.DTO.AudioPlayerDTO CreateVKAudioPlayer(string name, int vkProfileId) {
             return base.Channel.CreateVKAudioPlayer(name, vkProfileId);
         }
         
-        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO> CreateVKAudioPlayerAsync(string name, int vkProfileId) {
+        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO> CreateVKAudioPlayerAsync(string name, int vkProfileId) {
             return base.Channel.CreateVKAudioPlayerAsync(name, vkProfileId);
         }
         
-        public Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO GetPlaylistAudioPlayer(System.Guid playerId) {
-            return base.Channel.GetPlaylistAudioPlayer(playerId);
+        public void RemoveAudioPlayer(System.Guid playerId) {
+            base.Channel.RemoveAudioPlayer(playerId);
         }
         
-        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaylistAudioPlayerDTO> GetPlaylistAudioPlayerAsync(System.Guid playerId) {
-            return base.Channel.GetPlaylistAudioPlayerAsync(playerId);
+        public System.Threading.Tasks.Task RemoveAudioPlayerAsync(System.Guid playerId) {
+            return base.Channel.RemoveAudioPlayerAsync(playerId);
+        }
+        
+        public Alnet.AudioServerContract.DTO.AudioPlayerDTO[] GetAudioPlayes() {
+            return base.Channel.GetAudioPlayes();
+        }
+        
+        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO[]> GetAudioPlayesAsync() {
+            return base.Channel.GetAudioPlayesAsync();
+        }
+        
+        public Alnet.AudioServerContract.DTO.ChannelDTO[] GetAllChannels() {
+            return base.Channel.GetAllChannels();
+        }
+        
+        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.ChannelDTO[]> GetAllChannelsAsync() {
+            return base.Channel.GetAllChannelsAsync();
+        }
+        
+        public Alnet.AudioServerContract.DTO.ChannelDTO[] GetEnabledChannels(System.Guid playerId) {
+            return base.Channel.GetEnabledChannels(playerId);
+        }
+        
+        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.ChannelDTO[]> GetEnabledChannelsAsync(System.Guid playerId) {
+            return base.Channel.GetEnabledChannelsAsync(playerId);
+        }
+        
+        public Alnet.AudioServerContract.DTO.PlaybackPositionDTO GetPlaybackPosition(System.Guid playerId) {
+            return base.Channel.GetPlaybackPosition(playerId);
+        }
+        
+        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaybackPositionDTO> GetPlaybackPositionAsync(System.Guid playerId) {
+            return base.Channel.GetPlaybackPositionAsync(playerId);
+        }
+        
+        public Alnet.AudioServerContract.DTO.SoundDTO[] GetSounds(System.Guid playerId) {
+            return base.Channel.GetSounds(playerId);
+        }
+        
+        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.SoundDTO[]> GetSoundsAsync(System.Guid playerId) {
+            return base.Channel.GetSoundsAsync(playerId);
+        }
+        
+        public Alnet.AudioServerContract.DTO.AudioPlayerDTO GetAudioPlayer(System.Guid playerId) {
+            return base.Channel.GetAudioPlayer(playerId);
+        }
+        
+        public System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO> GetAudioPlayerAsync(System.Guid playerId) {
+            return base.Channel.GetAudioPlayerAsync(playerId);
         }
         
         public void Play(System.Guid playerId) {

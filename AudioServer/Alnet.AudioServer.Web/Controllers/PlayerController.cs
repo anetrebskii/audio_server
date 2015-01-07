@@ -12,14 +12,38 @@ namespace Alnet.AudioServer.Web.Controllers
 {
     public class PlayerController : Controller
     {
-        private readonly IAudioPlayerService _audioPlayerService = ApplicationContext.Instance.AudioPlayerService;
+        private readonly IAudioServerService _audioServerService = ApplicationContext.Instance.AudioPlayerService;
         //
         // GET: /Player/
 
         public ActionResult View(Guid id)
         {
-            PlaylistAudioPlayerDTO audioPlayer = _audioPlayerService.GetPlaylistAudioPlayer(id);
-            return View(PlayerModel.Parse(audioPlayer));
+            AudioPlayerDTO audioPlayer = _audioServerService.GetAudioPlayer(id);
+            if (audioPlayer.Type != PlayerTypes.Playlist)
+            {
+                throw new NotSupportedException("Supported only playlist player");
+            }
+            SoundDTO[] sounds = _audioServerService.GetSounds(id);
+            ChannelDTO[] allChannels = _audioServerService.GetAllChannels();
+            ChannelDTO[] enabledChannels = _audioServerService.GetEnabledChannels(id);
+            PlaybackPositionDTO playbackPosition = _audioServerService.GetPlaybackPosition(id);
+
+            PlayerFullInfoModel playerInfo = new PlayerFullInfoModel()
+                                             {
+                                                 PlayerId = audioPlayer.Id,
+                                                 Playback = new PlaybackModel()
+                                                            {
+                                                               SoundName = playbackPosition.SoundName,
+                                                               PlaybackPosition = playbackPosition.PlaybackPosition
+                                                            },
+                                                 Sounds = sounds.Select(s => s.Name).ToList(),
+                                                 Channels = allChannels.Select(c => new ChannelModel()
+                                                                                    {
+                                                                                        Name = c.Name,
+                                                                                        IsEnabled = enabledChannels.Any(ec => ec.Index == c.Index)
+                                                                                    }).ToList()
+                                             };
+            return View(playerInfo);
         }
 
         public ActionResult New()
@@ -29,7 +53,7 @@ namespace Alnet.AudioServer.Web.Controllers
 
         public ActionResult NewVkPlayer(int id)
         {
-            PlaylistAudioPlayerDTO newAudioPlayer = _audioPlayerService.CreateVKAudioPlayer("vk", id);
+            AudioPlayerDTO newAudioPlayer = _audioServerService.CreateVKAudioPlayer("vk", id);
             return RedirectToAction("View", new { id = newAudioPlayer.Id });
         }
     }

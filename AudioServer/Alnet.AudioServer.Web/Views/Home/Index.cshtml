@@ -14,10 +14,10 @@
         {
             <li>
                 <a href="/Player/View/@player.PlayerId">
-                    <h3>@player.Current.Name</h3>
-                    @if (player.Rooms.Any(r => r.IsSelected))
+                    <h3>@player.CurrentSoundName</h3>
+                    @if (player.EnabledChannels.Any())
                     {
-                        <p>Играет в: @System.String.Join(", ", player.Rooms.Where(r => r.IsSelected).Select(s => s.Name))</p>
+                        <p>Играет в: @String.Join(", ", player.EnabledChannels)</p>
                     }
                     else
                     {

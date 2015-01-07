@@ -2,18 +2,6 @@
 <xs:schema xmlns:tns="audioserver" elementFormDefault="qualified" targetNamespace="audioserver" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:11180/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" />
   <xs:import schemaLocation="http://localhost:11180/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:element name="GetAudioPlayes">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAudioPlayesResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="GetAudioPlayesResult" nillable="true" type="q1:ArrayOfPlaylistAudioPlayerDTO" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="CreateFileAudioPlayer">
     <xs:complexType>
       <xs:sequence>
@@ -25,7 +13,7 @@
   <xs:element name="CreateFileAudioPlayerResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="CreateFileAudioPlayerResult" nillable="true" type="q2:PlaylistAudioPlayerDTO" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="CreateFileAudioPlayerResult" nillable="true" type="q1:AudioPlayerDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -40,28 +28,106 @@
   <xs:element name="CreateVKAudioPlayerResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="CreateVKAudioPlayerResult" nillable="true" type="q3:PlaylistAudioPlayerDTO" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="CreateVKAudioPlayerResult" nillable="true" type="q2:AudioPlayerDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetPlaylistAudioPlayer">
+  <xs:element name="RemoveAudioPlayer">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q4:guid" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q3:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetPlaylistAudioPlayerResponse">
+  <xs:element name="RemoveAudioPlayerResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAudioPlayes">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAudioPlayesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="GetPlaylistAudioPlayerResult" nillable="true" type="q5:PlaylistAudioPlayerDTO" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="GetAudioPlayesResult" nillable="true" type="q4:ArrayOfAudioPlayerDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllChannels">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllChannelsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="GetAllChannelsResult" nillable="true" type="q5:ArrayOfChannelDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEnabledChannels">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q6:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEnabledChannelsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="GetEnabledChannelsResult" nillable="true" type="q7:ArrayOfChannelDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlaybackPosition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q8:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlaybackPositionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="GetPlaybackPositionResult" nillable="true" type="q9:PlaybackPositionDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSounds">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q10:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSoundsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="GetSoundsResult" nillable="true" type="q11:ArrayOfSoundDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAudioPlayer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q12:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAudioPlayerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" minOccurs="0" name="GetAudioPlayerResult" nillable="true" type="q13:AudioPlayerDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Play">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q6:guid" />
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q14:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -73,7 +139,7 @@
   <xs:element name="PlayConcrete">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q7:guid" />
+        <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q15:guid" />
         <xs:element minOccurs="0" name="soundId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -86,7 +152,7 @@
   <xs:element name="Stop">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q8:guid" />
+        <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q16:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

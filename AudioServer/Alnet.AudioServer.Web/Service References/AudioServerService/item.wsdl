@@ -7,76 +7,126 @@
       <xsd:import schemaLocation="http://localhost:11180/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IAudioPlayerService_GetAudioPlayes_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAudioPlayes" />
-  </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_GetAudioPlayes_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAudioPlayesResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_CreateFileAudioPlayer_InputMessage">
+  <wsdl:message name="IAudioServerService_CreateFileAudioPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateFileAudioPlayer" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_CreateFileAudioPlayer_OutputMessage">
+  <wsdl:message name="IAudioServerService_CreateFileAudioPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateFileAudioPlayerResponse" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_CreateVKAudioPlayer_InputMessage">
+  <wsdl:message name="IAudioServerService_CreateVKAudioPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateVKAudioPlayer" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_CreateVKAudioPlayer_OutputMessage">
+  <wsdl:message name="IAudioServerService_CreateVKAudioPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateVKAudioPlayerResponse" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_GetPlaylistAudioPlayer_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPlaylistAudioPlayer" />
+  <wsdl:message name="IAudioServerService_RemoveAudioPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveAudioPlayer" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_GetPlaylistAudioPlayer_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPlaylistAudioPlayerResponse" />
+  <wsdl:message name="IAudioServerService_RemoveAudioPlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveAudioPlayerResponse" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_Play_InputMessage">
+  <wsdl:message name="IAudioServerService_GetAudioPlayes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAudioPlayes" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetAudioPlayes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAudioPlayesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetAllChannels_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllChannels" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetAllChannels_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllChannelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetEnabledChannels_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEnabledChannels" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetEnabledChannels_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEnabledChannelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetPlaybackPosition_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlaybackPosition" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetPlaybackPosition_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlaybackPositionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetSounds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSounds" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetSounds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSoundsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetAudioPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAudioPlayer" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetAudioPlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAudioPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_Play_InputMessage">
     <wsdl:part name="parameters" element="tns:Play" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_Play_OutputMessage">
+  <wsdl:message name="IAudioServerService_Play_OutputMessage">
     <wsdl:part name="parameters" element="tns:PlayResponse" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_PlayConcrete_InputMessage">
+  <wsdl:message name="IAudioServerService_PlayConcrete_InputMessage">
     <wsdl:part name="parameters" element="tns:PlayConcrete" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_PlayConcrete_OutputMessage">
+  <wsdl:message name="IAudioServerService_PlayConcrete_OutputMessage">
     <wsdl:part name="parameters" element="tns:PlayConcreteResponse" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_Stop_InputMessage">
+  <wsdl:message name="IAudioServerService_Stop_InputMessage">
     <wsdl:part name="parameters" element="tns:Stop" />
   </wsdl:message>
-  <wsdl:message name="IAudioPlayerService_Stop_OutputMessage">
+  <wsdl:message name="IAudioServerService_Stop_OutputMessage">
     <wsdl:part name="parameters" element="tns:StopResponse" />
   </wsdl:message>
-  <wsdl:portType name="IAudioPlayerService">
-    <wsdl:operation name="GetAudioPlayes">
-      <wsdl:input wsaw:Action="audioserver/IAudioPlayerService/GetAudioPlayes" message="tns:IAudioPlayerService_GetAudioPlayes_InputMessage" />
-      <wsdl:output wsaw:Action="audioserver/IAudioPlayerService/GetAudioPlayesResponse" message="tns:IAudioPlayerService_GetAudioPlayes_OutputMessage" />
-    </wsdl:operation>
+  <wsdl:portType name="IAudioServerService">
     <wsdl:operation name="CreateFileAudioPlayer">
-      <wsdl:input wsaw:Action="audioserver/IAudioPlayerService/CreateFileAudioPlayer" message="tns:IAudioPlayerService_CreateFileAudioPlayer_InputMessage" />
-      <wsdl:output wsaw:Action="audioserver/IAudioPlayerService/CreateFileAudioPlayerResponse" message="tns:IAudioPlayerService_CreateFileAudioPlayer_OutputMessage" />
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/CreateFileAudioPlayer" message="tns:IAudioServerService_CreateFileAudioPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/CreateFileAudioPlayerResponse" message="tns:IAudioServerService_CreateFileAudioPlayer_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="CreateVKAudioPlayer">
-      <wsdl:input wsaw:Action="audioserver/IAudioPlayerService/CreateVKAudioPlayer" message="tns:IAudioPlayerService_CreateVKAudioPlayer_InputMessage" />
-      <wsdl:output wsaw:Action="audioserver/IAudioPlayerService/CreateVKAudioPlayerResponse" message="tns:IAudioPlayerService_CreateVKAudioPlayer_OutputMessage" />
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/CreateVKAudioPlayer" message="tns:IAudioServerService_CreateVKAudioPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/CreateVKAudioPlayerResponse" message="tns:IAudioServerService_CreateVKAudioPlayer_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetPlaylistAudioPlayer">
-      <wsdl:input wsaw:Action="audioserver/IAudioPlayerService/GetPlaylistAudioPlayer" message="tns:IAudioPlayerService_GetPlaylistAudioPlayer_InputMessage" />
-      <wsdl:output wsaw:Action="audioserver/IAudioPlayerService/GetPlaylistAudioPlayerResponse" message="tns:IAudioPlayerService_GetPlaylistAudioPlayer_OutputMessage" />
+    <wsdl:operation name="RemoveAudioPlayer">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/RemoveAudioPlayer" message="tns:IAudioServerService_RemoveAudioPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/RemoveAudioPlayerResponse" message="tns:IAudioServerService_RemoveAudioPlayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAudioPlayes">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetAudioPlayes" message="tns:IAudioServerService_GetAudioPlayes_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetAudioPlayesResponse" message="tns:IAudioServerService_GetAudioPlayes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllChannels">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetAllChannels" message="tns:IAudioServerService_GetAllChannels_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetAllChannelsResponse" message="tns:IAudioServerService_GetAllChannels_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEnabledChannels">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetEnabledChannels" message="tns:IAudioServerService_GetEnabledChannels_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetEnabledChannelsResponse" message="tns:IAudioServerService_GetEnabledChannels_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlaybackPosition">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetPlaybackPosition" message="tns:IAudioServerService_GetPlaybackPosition_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetPlaybackPositionResponse" message="tns:IAudioServerService_GetPlaybackPosition_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSounds">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetSounds" message="tns:IAudioServerService_GetSounds_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetSoundsResponse" message="tns:IAudioServerService_GetSounds_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAudioPlayer">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetAudioPlayer" message="tns:IAudioServerService_GetAudioPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetAudioPlayerResponse" message="tns:IAudioServerService_GetAudioPlayer_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Play">
-      <wsdl:input wsaw:Action="audioserver/IAudioPlayerService/Play" message="tns:IAudioPlayerService_Play_InputMessage" />
-      <wsdl:output wsaw:Action="audioserver/IAudioPlayerService/PlayResponse" message="tns:IAudioPlayerService_Play_OutputMessage" />
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/Play" message="tns:IAudioServerService_Play_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/PlayResponse" message="tns:IAudioServerService_Play_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="PlayConcrete">
-      <wsdl:input wsaw:Action="audioserver/IAudioPlayerService/PlayConcrete" message="tns:IAudioPlayerService_PlayConcrete_InputMessage" />
-      <wsdl:output wsaw:Action="audioserver/IAudioPlayerService/PlayConcreteResponse" message="tns:IAudioPlayerService_PlayConcrete_OutputMessage" />
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/PlayConcrete" message="tns:IAudioServerService_PlayConcrete_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/PlayConcreteResponse" message="tns:IAudioServerService_PlayConcrete_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Stop">
-      <wsdl:input wsaw:Action="audioserver/IAudioPlayerService/Stop" message="tns:IAudioPlayerService_Stop_InputMessage" />
-      <wsdl:output wsaw:Action="audioserver/IAudioPlayerService/StopResponse" message="tns:IAudioPlayerService_Stop_OutputMessage" />
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/Stop" message="tns:IAudioServerService_Stop_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/StopResponse" message="tns:IAudioServerService_Stop_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
 </wsdl:definitions>

@@ -21,7 +21,7 @@ namespace Alnet.AudioServer.Web
         /// </summary>
         private ApplicationContext()
         {
-            AudioPlayerService = new AudioPlayerServiceClient("audioServer");
+            AudioPlayerService = new AudioServerServiceClient();
         }
 
         /// <summary>
@@ -34,6 +34,6 @@ namespace Alnet.AudioServer.Web
 
         #endregion
 
-        public IAudioPlayerService AudioPlayerService { get; private set; }
+        public IAudioServerService AudioPlayerService { get; private set; }
     }
 }

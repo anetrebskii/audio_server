@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:11180/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:complexType name="ArrayOfPlaylistAudioPlayerDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlaylistAudioPlayerDTO" nillable="true" type="tns:PlaylistAudioPlayerDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfPlaylistAudioPlayerDTO" nillable="true" type="tns:ArrayOfPlaylistAudioPlayerDTO" />
-  <xs:complexType name="PlaylistAudioPlayerDTO">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:AudioPlayerDTO">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="CurrentSoundIndex" type="xs:int" />
-          <xs:element minOccurs="0" name="Sounds" nillable="true" type="tns:ArrayOfSoundDTO" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="PlaylistAudioPlayerDTO" nillable="true" type="tns:PlaylistAudioPlayerDTO" />
   <xs:complexType name="AudioPlayerDTO">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Channels" nillable="true" type="tns:ArrayOfChannelDTO" />
       <xs:element minOccurs="0" name="Id" type="ser:guid" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" type="tns:PlayerTypes" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AudioPlayerDTO" nillable="true" type="tns:AudioPlayerDTO" />
+  <xs:simpleType name="PlayerTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Playlist" />
+      <xs:enumeration value="Stream" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PlayerTypes" nillable="true" type="tns:PlayerTypes" />
+  <xs:complexType name="ArrayOfAudioPlayerDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AudioPlayerDTO" nillable="true" type="tns:AudioPlayerDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAudioPlayerDTO" nillable="true" type="tns:ArrayOfAudioPlayerDTO" />
   <xs:complexType name="ArrayOfChannelDTO">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ChannelDTO" nillable="true" type="tns:ChannelDTO" />
@@ -39,6 +35,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ChannelDTO" nillable="true" type="tns:ChannelDTO" />
+  <xs:complexType name="PlaybackPositionDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PlaybackPosition" type="xs:double" />
+      <xs:element minOccurs="0" name="SoundIndex" type="xs:int" />
+      <xs:element minOccurs="0" name="SoundName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlaybackPositionDTO" nillable="true" type="tns:PlaybackPositionDTO" />
   <xs:complexType name="ArrayOfSoundDTO">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="SoundDTO" nillable="true" type="tns:SoundDTO" />
