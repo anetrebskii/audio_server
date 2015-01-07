@@ -16,6 +16,36 @@ namespace Alnet.AudioServer.Web.Controllers
         //
         // GET: /Player/
 
+        public ActionResult Play(Guid id)
+        {
+            _audioServerService.Play(id);
+            return new EmptyResult();
+        }
+
+        public ActionResult MoveNextSound(Guid id)
+        {
+            _audioServerService.MoveNextSound(id);
+            return new EmptyResult();
+        }
+
+        public ActionResult MovePrevSound(Guid id)
+        {
+            _audioServerService.MovePrevSound(id);
+            return new EmptyResult();
+        }
+
+        public ActionResult EnableChannel(Guid id, int otherId)
+        {
+            _audioServerService.ChangeChannelState(id, otherId, true);
+            return new EmptyResult();
+        }
+
+        public ActionResult DisableChannel(Guid id, int otherId)
+        {
+            _audioServerService.ChangeChannelState(id, otherId, false);
+            return new EmptyResult();
+        }
+
         public ActionResult View(Guid id)
         {
             AudioPlayerDTO audioPlayer = _audioServerService.GetAudioPlayer(id);

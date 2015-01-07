@@ -26,6 +26,7 @@
     <MetadataFile FileName="item.disco" MetadataType="Disco" ID="a755212e-695d-4a72-ae28-1d91eed4ec01" SourceId="1" SourceUrl="http://localhost:11180/?disco" />
     <MetadataFile FileName="item.wsdl" MetadataType="Wsdl" ID="c2997b23-bc45-47f4-9e26-8a5827c52fe3" SourceId="1" SourceUrl="http://localhost:11180/?wsdl=wsdl0" />
     <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="379a2425-2257-4480-8adb-5b22013558cb" SourceId="1" SourceUrl="http://localhost:11180/?xsd=xsd1" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="2ca1ec5a-2107-4c5e-8b17-38dc006ab408" SourceId="1" SourceUrl="http://localhost:11180/?xsd=xsd3" />
     <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="42a41d92-bb98-4055-8ca9-d142401ad22d" SourceId="1" SourceUrl="http://localhost:11180/?xsd=xsd0" />
     <MetadataFile FileName="WcfAudioServerEndpoint.wsdl" MetadataType="Wsdl" ID="bd18047f-7e6c-4ada-8728-679931aa244d" SourceId="1" SourceUrl="http://localhost:11180/?wsdl" />
   </Metadata>

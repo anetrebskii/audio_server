@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Description;
@@ -24,6 +26,8 @@ namespace Alnet.AudioServer.Components.AudioServerEndpoints
         /// </summary>
         private readonly DisposedGuard _disposedGuard = new DisposedGuard(typeof(WcfAudioServerEndpoint));
 
+        private readonly Dictionary<PlayerExceptionTypes, FaultCodes> _mappingErrorCodes = new Dictionary<PlayerExceptionTypes, FaultCodes>(); 
+
         #endregion
 
         #region Constructors
@@ -31,6 +35,9 @@ namespace Alnet.AudioServer.Components.AudioServerEndpoints
         public WcfAudioServerEndpoint()
         {
             _serviceHost = new ServiceHost(this);
+
+            _mappingErrorCodes.Add(PlayerExceptionTypes.NoSounds, FaultCodes.NoSounds);
+            _mappingErrorCodes.Add(PlayerExceptionTypes.NoSoundCards, FaultCodes.NoChannels);
         }
 
         #endregion
@@ -50,119 +57,181 @@ namespace Alnet.AudioServer.Components.AudioServerEndpoints
         void IAudioServerService.RemoveAudioPlayer(Guid playerId)
         {
             _disposedGuard.Check();
-            _audioPlayerController.DeleteAudioPlayer(playerId);
+            handleRequest(() => _audioPlayerController.DeleteAudioPlayer(playerId));
         }
 
         ChannelDTO[] IAudioServerService.GetAllChannels()
         {
             _disposedGuard.Check();
-            return _audioPlayerController
-                .GetChannels()
-                .Select(convertToDTO)
-                .ToArray();
+            return handleRequest(() =>
+                          {
+                              return _audioPlayerController
+                                  .GetChannels()
+                                  .Select(convertToDTO)
+                                  .ToArray();
+                          });
         }
 
         ChannelDTO[] IAudioServerService.GetEnabledChannels(Guid playerId)
         {
             _disposedGuard.Check();
-            AudioPlayerInfo audioPlayerInfo = _audioPlayerController.GetAudioPlayer(playerId);
-            ChannelInfo[] channels = _audioPlayerController.GetChannels();
-            return audioPlayerInfo.Player
-                .GetEnabledChannels()
-                .Select(channelIndex => convertToDTO(channels[channelIndex]))
-                .ToArray();
+            return handleRequest(() =>
+                          {
+                              AudioPlayerInfo audioPlayerInfo = getAudioPlayerInfo(playerId);
+                              ChannelInfo[] allChannels = _audioPlayerController.GetChannels();
+                              return audioPlayerInfo.Player
+                                  .GetEnabledChannels()
+                                  .Where(channelIndex => channelIndex < allChannels.Length)
+                                  .Select(channelIndex => convertToDTO(allChannels[channelIndex]))
+                                  .ToArray();
+                          });
         }
 
         PlaybackPositionDTO IAudioServerService.GetPlaybackPosition(Guid playerId)
         {
+            //TODO: Provide correct playback position
             _disposedGuard.Check();
-            AudioPlayerInfo audioPlayerInfo = _audioPlayerController.GetAudioPlayer(playerId);
-            IPlaylistAudioPlayer playlistAudioPlayer = audioPlayerInfo.Player as IPlaylistAudioPlayer;
-            if (playlistAudioPlayer != null)
-            {
-                SoundInfo[] sounds = playlistAudioPlayer.GetSounds();
-                int soundIndex = playlistAudioPlayer.GetCurrentSoundIndex();
-                return new PlaybackPositionDTO()
-                       {              
-                           SoundName = soundIndex > -1 && soundIndex < sounds.Length ? sounds[soundIndex].Name : null,
-                           SoundIndex = soundIndex,
-                           PlaybackPosition = playlistAudioPlayer.CurrentSoundDuration > 0 ?
-                                    playlistAudioPlayer.PlaybackPosition / playlistAudioPlayer.CurrentSoundDuration
-                                    : 0
-                       };
-            }
-            throw new InvalidOperationException("Player not support playlist");
+            return handleRequest(() =>
+                                 {
+                                     IPlaylistAudioPlayer playlistAudioPlayer = getPlaylistAudioPlayer(playerId);
+                                     SoundInfo[] sounds = playlistAudioPlayer.GetSounds();
+                                     if (sounds.Length == 0)
+                                     {
+                                         throw new FaultException<FaultCodes>(FaultCodes.NoSounds);
+                                     }
+                                     int soundIndex = playlistAudioPlayer.CurrentSoundIndex;
+                                     SoundInfo soundInfo = playlistAudioPlayer.CurrentSound;
+                                     string soundName = soundInfo == null ? null : soundInfo.Name;
+                                     return new PlaybackPositionDTO()
+                                            {
+                                                SoundName = soundName,
+                                                SoundIndex = soundIndex,
+                                                PlaybackPosition = playlistAudioPlayer.PlaybackPosition
+                                            };
+                                 });
         }
 
         SoundDTO[] IAudioServerService.GetSounds(Guid playerId)
         {
             _disposedGuard.Check();
-            AudioPlayerInfo audioPlayerInfo = _audioPlayerController.GetAudioPlayer(playerId);
-            IPlaylistAudioPlayer playlistAudioPlayer = audioPlayerInfo.Player as IPlaylistAudioPlayer;
-            if (playlistAudioPlayer != null)
-            {
-                return playlistAudioPlayer
-                    .GetSounds()
-                    .Select(convertToDTO)
-                    .ToArray();
-            }
-            throw new InvalidOperationException("Player not support playlist");
+            return handleRequest(() =>
+                                 {
+                                     IPlaylistAudioPlayer playlistAudioPlayer = getPlaylistAudioPlayer(playerId);
+                                     return playlistAudioPlayer
+                                         .GetSounds()
+                                         .Select(convertToDTO)
+                                         .ToArray();
+                                 });
         }
 
         AudioPlayerDTO[] IAudioServerService.GetAudioPlayes()
         {
             _disposedGuard.Check();
-            return _audioPlayerController
-                .GetAllAudioPlayers()
-                .Select(convertToDTO)
-                .ToArray();
+            return handleRequest(() =>
+                                 {
+                                     return _audioPlayerController
+                                         .GetAllAudioPlayers()
+                                         .Select(convertToDTO)
+                                         .ToArray();
+                                 });
         }
 
         AudioPlayerDTO IAudioServerService.CreateFileAudioPlayer(string name, string directoryPath)
         {
             _disposedGuard.Check();
-            AudioPlayerInfo newAudioPlayerInfo = _audioPlayerController.CreatePlaylistAudioPlayer(name, new DirectoryPlaylistSoundProvider(directoryPath));
-            return convertToDTO(newAudioPlayerInfo);
+            return handleRequest(() =>
+                          {
+                              IPlaylistSoundProvider soundProvider = new DirectoryPlaylistSoundProvider(directoryPath);
+                              AudioPlayerInfo newAudioPlayerInfo = _audioPlayerController.CreatePlaylistAudioPlayer(name, soundProvider);
+                              return convertToDTO(newAudioPlayerInfo);
+                          });
         }
 
         AudioPlayerDTO IAudioServerService.CreateVKAudioPlayer(string name, int vkProfileId)
         {
             _disposedGuard.Check();
-            AudioPlayerInfo newAudioPlayerInfo = _audioPlayerController.CreatePlaylistAudioPlayer(name, new VkPlaylistSoundProvider(vkProfileId));
-            return convertToDTO(newAudioPlayerInfo);
+            return handleRequest(() =>
+                                 {
+                                     IPlaylistSoundProvider soundProvider = new VkPlaylistSoundProvider(vkProfileId);
+                                     AudioPlayerInfo newAudioPlayerInfo = _audioPlayerController.CreatePlaylistAudioPlayer(name, soundProvider);
+                                     return convertToDTO(newAudioPlayerInfo);
+                                 });
         }
 
         AudioPlayerDTO IAudioServerService.GetAudioPlayer(Guid playerId)
         {
             _disposedGuard.Check();
-            AudioPlayerInfo audioPlayer = _audioPlayerController.GetAudioPlayer(playerId);
-            return convertToDTO(audioPlayer);
+            return handleRequest(() =>
+                                 {
+                                     AudioPlayerInfo audioPlayer = getAudioPlayerInfo(playerId);
+                                     return convertToDTO(audioPlayer);
+                                 });
         }
 
         void IAudioServerService.Play(Guid playerId)
         {
             _disposedGuard.Check();
-            IAudioPlayer audioPlayer = _audioPlayerController.GetAudioPlayer(playerId).Player;
-            audioPlayer.Play();
+            handleRequest(() =>
+                          {
+                              IAudioPlayer audioPlayer = getAudioPlayerInfo(playerId).Player;
+                              audioPlayer.Play();
+                          });
         }
 
         void IAudioServerService.PlayConcrete(Guid playerId, int soundIndex)
         {
             _disposedGuard.Check();
-            AudioPlayerInfo audioPlayerInfo = _audioPlayerController.GetAudioPlayer(playerId);
-            IPlaylistAudioPlayer playlistAudioPlayer = audioPlayerInfo.Player as IPlaylistAudioPlayer;
-            if (playlistAudioPlayer != null)
-            {
-                playlistAudioPlayer.Play(soundIndex);
-            }
-            throw new InvalidOperationException("Player not support playlist");
+            handleRequest(() =>
+                          {
+                              IPlaylistAudioPlayer playlistAudioPlayer = getPlaylistAudioPlayer(playerId);
+                              playlistAudioPlayer.Play(soundIndex);
+                          });
+        }
+
+        public void MoveNextSound(Guid playerId)
+        {
+            _disposedGuard.Check();
+            handleRequest(() =>
+                          {
+                              IPlaylistAudioPlayer playlistAudioPlayer = getPlaylistAudioPlayer(playerId);
+                              playlistAudioPlayer.Play(playlistAudioPlayer.CurrentSoundIndex + 1);
+                          });
+        }
+
+        public void MovePrevSound(Guid playerId)
+        {
+            _disposedGuard.Check();
+            handleRequest(() =>
+                          {
+                              IPlaylistAudioPlayer playlistAudioPlayer = getPlaylistAudioPlayer(playerId);
+                              playlistAudioPlayer.Play(playlistAudioPlayer.CurrentSoundIndex - 1);
+                          });
         }
 
         void IAudioServerService.Stop(Guid playerId)
         {
             _disposedGuard.Check();
-            IAudioPlayer audioPlayer = _audioPlayerController.GetAudioPlayer(playerId).Player;
-            audioPlayer.Stop();
+            handleRequest(() =>
+                          {
+                              IAudioPlayer audioPlayer = getAudioPlayerInfo(playerId).Player;
+                              audioPlayer.Stop();
+                          });
+        }
+
+        void IAudioServerService.ChangeChannelState(Guid playerId, int channelIndex, bool newState)
+        {
+            handleRequest(() =>
+                          {
+                              IAudioPlayer audioPlayer = getAudioPlayerInfo(playerId).Player;
+                              if (newState)
+                              {
+                                  audioPlayer.EnableChannel(channelIndex);
+                              }
+                              else
+                              {
+                                  audioPlayer.DisableChannel(channelIndex);
+                              }
+                          });
         }
 
         #endregion
@@ -204,6 +273,72 @@ namespace Alnet.AudioServer.Components.AudioServerEndpoints
                 Index = channelInfo.Index,
                 Name = channelInfo.Desciption
             };
+        }
+
+        private TReturn handleRequest<TReturn>(Func<TReturn> callback)
+        {
+            try
+            {
+                return callback();
+            }
+            catch (Exception ex)
+            {
+                Guard.RethrowIfFatal(ex);
+                handleResponseError(ex);
+                return default(TReturn);
+            }
+        }
+
+        private void handleRequest(Action callback)
+        {
+            try
+            {
+                callback();
+            }                
+            catch (Exception ex)
+            {
+                Guard.RethrowIfFatal(ex);
+                handleResponseError(ex);
+            }
+        }
+
+        private void handleResponseError(Exception ex)
+        {
+            if (ex is FaultException<FaultCodes>)
+            {
+                throw ex;
+            }
+            if (ex is PlayerException)
+            {
+                PlayerException playerException = (PlayerException)ex;
+                FaultCodes faultCode;
+                if (_mappingErrorCodes.TryGetValue(playerException.Type, out faultCode))
+                {
+                    throw new FaultException<FaultCodes>(faultCode);
+                }
+            }
+            throw new FaultException<FaultCodes>(FaultCodes.Uknown);
+        }
+
+        private AudioPlayerInfo getAudioPlayerInfo(Guid playerId)
+        {
+            AudioPlayerInfo audioPlayerInfo = _audioPlayerController.GetAudioPlayer(playerId);
+            if (audioPlayerInfo == null)
+            {
+                throw new FaultException<FaultCodes>(FaultCodes.NoPlayer);
+            }
+            return audioPlayerInfo;
+        }
+
+        private IPlaylistAudioPlayer getPlaylistAudioPlayer(Guid playerId)
+        {
+            AudioPlayerInfo audioPlayerInfo = getAudioPlayerInfo(playerId);
+            IPlaylistAudioPlayer playlistAudioPlayer = audioPlayerInfo.Player as IPlaylistAudioPlayer;
+            if (playlistAudioPlayer == null)
+            {
+                throw new FaultException<FaultCodes>(FaultCodes.IncorrectPlayerType);
+            }
+            return playlistAudioPlayer;
         }
 
         #endregion

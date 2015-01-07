@@ -16,76 +16,109 @@ namespace Alnet.AudioServer.Web.AudioServerService {
     internal interface IAudioServerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/CreateFileAudioPlayer", ReplyAction="audioserver/IAudioServerService/CreateFileAudioPlayerResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/CreateFileAudioPlayerFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         Alnet.AudioServerContract.DTO.AudioPlayerDTO CreateFileAudioPlayer(string name, string directoryPath);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/CreateFileAudioPlayer", ReplyAction="audioserver/IAudioServerService/CreateFileAudioPlayerResponse")]
         System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO> CreateFileAudioPlayerAsync(string name, string directoryPath);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/CreateVKAudioPlayer", ReplyAction="audioserver/IAudioServerService/CreateVKAudioPlayerResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/CreateVKAudioPlayerFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         Alnet.AudioServerContract.DTO.AudioPlayerDTO CreateVKAudioPlayer(string name, int vkProfileId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/CreateVKAudioPlayer", ReplyAction="audioserver/IAudioServerService/CreateVKAudioPlayerResponse")]
         System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO> CreateVKAudioPlayerAsync(string name, int vkProfileId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/RemoveAudioPlayer", ReplyAction="audioserver/IAudioServerService/RemoveAudioPlayerResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/RemoveAudioPlayerFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         void RemoveAudioPlayer(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/RemoveAudioPlayer", ReplyAction="audioserver/IAudioServerService/RemoveAudioPlayerResponse")]
         System.Threading.Tasks.Task RemoveAudioPlayerAsync(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAudioPlayes", ReplyAction="audioserver/IAudioServerService/GetAudioPlayesResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/GetAudioPlayesFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         Alnet.AudioServerContract.DTO.AudioPlayerDTO[] GetAudioPlayes();
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAudioPlayes", ReplyAction="audioserver/IAudioServerService/GetAudioPlayesResponse")]
         System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO[]> GetAudioPlayesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAllChannels", ReplyAction="audioserver/IAudioServerService/GetAllChannelsResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/GetAllChannelsFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         Alnet.AudioServerContract.DTO.ChannelDTO[] GetAllChannels();
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAllChannels", ReplyAction="audioserver/IAudioServerService/GetAllChannelsResponse")]
         System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.ChannelDTO[]> GetAllChannelsAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetEnabledChannels", ReplyAction="audioserver/IAudioServerService/GetEnabledChannelsResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/GetEnabledChannelsFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         Alnet.AudioServerContract.DTO.ChannelDTO[] GetEnabledChannels(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetEnabledChannels", ReplyAction="audioserver/IAudioServerService/GetEnabledChannelsResponse")]
         System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.ChannelDTO[]> GetEnabledChannelsAsync(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetPlaybackPosition", ReplyAction="audioserver/IAudioServerService/GetPlaybackPositionResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/GetPlaybackPositionFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         Alnet.AudioServerContract.DTO.PlaybackPositionDTO GetPlaybackPosition(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetPlaybackPosition", ReplyAction="audioserver/IAudioServerService/GetPlaybackPositionResponse")]
         System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.PlaybackPositionDTO> GetPlaybackPositionAsync(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetSounds", ReplyAction="audioserver/IAudioServerService/GetSoundsResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/GetSoundsFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         Alnet.AudioServerContract.DTO.SoundDTO[] GetSounds(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetSounds", ReplyAction="audioserver/IAudioServerService/GetSoundsResponse")]
         System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.SoundDTO[]> GetSoundsAsync(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAudioPlayer", ReplyAction="audioserver/IAudioServerService/GetAudioPlayerResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/GetAudioPlayerFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         Alnet.AudioServerContract.DTO.AudioPlayerDTO GetAudioPlayer(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/GetAudioPlayer", ReplyAction="audioserver/IAudioServerService/GetAudioPlayerResponse")]
         System.Threading.Tasks.Task<Alnet.AudioServerContract.DTO.AudioPlayerDTO> GetAudioPlayerAsync(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/Play", ReplyAction="audioserver/IAudioServerService/PlayResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/PlayFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         void Play(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/Play", ReplyAction="audioserver/IAudioServerService/PlayResponse")]
         System.Threading.Tasks.Task PlayAsync(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/PlayConcrete", ReplyAction="audioserver/IAudioServerService/PlayConcreteResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/PlayConcreteFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         void PlayConcrete(System.Guid playerId, int soundId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/PlayConcrete", ReplyAction="audioserver/IAudioServerService/PlayConcreteResponse")]
         System.Threading.Tasks.Task PlayConcreteAsync(System.Guid playerId, int soundId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/MoveNextSound", ReplyAction="audioserver/IAudioServerService/MoveNextSoundResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/MoveNextSoundFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
+        void MoveNextSound(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/MoveNextSound", ReplyAction="audioserver/IAudioServerService/MoveNextSoundResponse")]
+        System.Threading.Tasks.Task MoveNextSoundAsync(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/MovePrevSound", ReplyAction="audioserver/IAudioServerService/MovePrevSoundResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/MovePrevSoundFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
+        void MovePrevSound(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/MovePrevSound", ReplyAction="audioserver/IAudioServerService/MovePrevSoundResponse")]
+        System.Threading.Tasks.Task MovePrevSoundAsync(System.Guid playerId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/Stop", ReplyAction="audioserver/IAudioServerService/StopResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/StopFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
         void Stop(System.Guid playerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/Stop", ReplyAction="audioserver/IAudioServerService/StopResponse")]
         System.Threading.Tasks.Task StopAsync(System.Guid playerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/ChangeChannelState", ReplyAction="audioserver/IAudioServerService/ChangeChannelStateResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Alnet.AudioServerContract.FaultCodes), Action="audioserver/IAudioServerService/ChangeChannelStateFaultCodesFault", Name="FaultCodes", Namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract")]
+        void ChangeChannelState(System.Guid playerId, int channelIndex, bool newState);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="audioserver/IAudioServerService/ChangeChannelState", ReplyAction="audioserver/IAudioServerService/ChangeChannelStateResponse")]
+        System.Threading.Tasks.Task ChangeChannelStateAsync(System.Guid playerId, int channelIndex, bool newState);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -203,12 +236,36 @@ namespace Alnet.AudioServer.Web.AudioServerService {
             return base.Channel.PlayConcreteAsync(playerId, soundId);
         }
         
+        public void MoveNextSound(System.Guid playerId) {
+            base.Channel.MoveNextSound(playerId);
+        }
+        
+        public System.Threading.Tasks.Task MoveNextSoundAsync(System.Guid playerId) {
+            return base.Channel.MoveNextSoundAsync(playerId);
+        }
+        
+        public void MovePrevSound(System.Guid playerId) {
+            base.Channel.MovePrevSound(playerId);
+        }
+        
+        public System.Threading.Tasks.Task MovePrevSoundAsync(System.Guid playerId) {
+            return base.Channel.MovePrevSoundAsync(playerId);
+        }
+        
         public void Stop(System.Guid playerId) {
             base.Channel.Stop(playerId);
         }
         
         public System.Threading.Tasks.Task StopAsync(System.Guid playerId) {
             return base.Channel.StopAsync(playerId);
+        }
+        
+        public void ChangeChannelState(System.Guid playerId, int channelIndex, bool newState) {
+            base.Channel.ChangeChannelState(playerId, channelIndex, newState);
+        }
+        
+        public System.Threading.Tasks.Task ChangeChannelStateAsync(System.Guid playerId, int channelIndex, bool newState) {
+            return base.Channel.ChangeChannelStateAsync(playerId, channelIndex, newState);
         }
     }
 }

@@ -3,6 +3,7 @@
   <wsdl:types>
     <xsd:schema targetNamespace="audioserver/Imports">
       <xsd:import schemaLocation="http://localhost:11180/?xsd=xsd0" namespace="audioserver" />
+      <xsd:import schemaLocation="http://localhost:11180/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" />
       <xsd:import schemaLocation="http://localhost:11180/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:11180/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract.DTO" />
     </xsd:schema>
@@ -13,11 +14,17 @@
   <wsdl:message name="IAudioServerService_CreateFileAudioPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateFileAudioPlayerResponse" />
   </wsdl:message>
+  <wsdl:message name="IAudioServerService_CreateFileAudioPlayer_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q1:FaultCodes" />
+  </wsdl:message>
   <wsdl:message name="IAudioServerService_CreateVKAudioPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateVKAudioPlayer" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_CreateVKAudioPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateVKAudioPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_CreateVKAudioPlayer_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q2:FaultCodes" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_RemoveAudioPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:RemoveAudioPlayer" />
@@ -25,11 +32,17 @@
   <wsdl:message name="IAudioServerService_RemoveAudioPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveAudioPlayerResponse" />
   </wsdl:message>
+  <wsdl:message name="IAudioServerService_RemoveAudioPlayer_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q3:FaultCodes" />
+  </wsdl:message>
   <wsdl:message name="IAudioServerService_GetAudioPlayes_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAudioPlayes" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_GetAudioPlayes_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAudioPlayesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetAudioPlayes_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q4:FaultCodes" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_GetAllChannels_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllChannels" />
@@ -37,11 +50,17 @@
   <wsdl:message name="IAudioServerService_GetAllChannels_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllChannelsResponse" />
   </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetAllChannels_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q5:FaultCodes" />
+  </wsdl:message>
   <wsdl:message name="IAudioServerService_GetEnabledChannels_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEnabledChannels" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_GetEnabledChannels_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEnabledChannelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetEnabledChannels_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q6:FaultCodes" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_GetPlaybackPosition_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPlaybackPosition" />
@@ -49,11 +68,17 @@
   <wsdl:message name="IAudioServerService_GetPlaybackPosition_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlaybackPositionResponse" />
   </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetPlaybackPosition_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q7:FaultCodes" />
+  </wsdl:message>
   <wsdl:message name="IAudioServerService_GetSounds_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSounds" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_GetSounds_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSoundsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetSounds_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q8:FaultCodes" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_GetAudioPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAudioPlayer" />
@@ -61,11 +86,17 @@
   <wsdl:message name="IAudioServerService_GetAudioPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAudioPlayerResponse" />
   </wsdl:message>
+  <wsdl:message name="IAudioServerService_GetAudioPlayer_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q9:FaultCodes" />
+  </wsdl:message>
   <wsdl:message name="IAudioServerService_Play_InputMessage">
     <wsdl:part name="parameters" element="tns:Play" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_Play_OutputMessage">
     <wsdl:part name="parameters" element="tns:PlayResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_Play_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q10:FaultCodes" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_PlayConcrete_InputMessage">
     <wsdl:part name="parameters" element="tns:PlayConcrete" />
@@ -73,60 +104,120 @@
   <wsdl:message name="IAudioServerService_PlayConcrete_OutputMessage">
     <wsdl:part name="parameters" element="tns:PlayConcreteResponse" />
   </wsdl:message>
+  <wsdl:message name="IAudioServerService_PlayConcrete_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q11:FaultCodes" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_MoveNextSound_InputMessage">
+    <wsdl:part name="parameters" element="tns:MoveNextSound" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_MoveNextSound_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MoveNextSoundResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_MoveNextSound_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q12:FaultCodes" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_MovePrevSound_InputMessage">
+    <wsdl:part name="parameters" element="tns:MovePrevSound" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_MovePrevSound_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MovePrevSoundResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_MovePrevSound_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q13:FaultCodes" />
+  </wsdl:message>
   <wsdl:message name="IAudioServerService_Stop_InputMessage">
     <wsdl:part name="parameters" element="tns:Stop" />
   </wsdl:message>
   <wsdl:message name="IAudioServerService_Stop_OutputMessage">
     <wsdl:part name="parameters" element="tns:StopResponse" />
   </wsdl:message>
+  <wsdl:message name="IAudioServerService_Stop_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q14:FaultCodes" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_ChangeChannelState_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeChannelState" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_ChangeChannelState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeChannelStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAudioServerService_ChangeChannelState_FaultCodesFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" name="detail" element="q15:FaultCodes" />
+  </wsdl:message>
   <wsdl:portType name="IAudioServerService">
     <wsdl:operation name="CreateFileAudioPlayer">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/CreateFileAudioPlayer" message="tns:IAudioServerService_CreateFileAudioPlayer_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/CreateFileAudioPlayerResponse" message="tns:IAudioServerService_CreateFileAudioPlayer_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/CreateFileAudioPlayerFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_CreateFileAudioPlayer_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="CreateVKAudioPlayer">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/CreateVKAudioPlayer" message="tns:IAudioServerService_CreateVKAudioPlayer_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/CreateVKAudioPlayerResponse" message="tns:IAudioServerService_CreateVKAudioPlayer_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/CreateVKAudioPlayerFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_CreateVKAudioPlayer_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="RemoveAudioPlayer">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/RemoveAudioPlayer" message="tns:IAudioServerService_RemoveAudioPlayer_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/RemoveAudioPlayerResponse" message="tns:IAudioServerService_RemoveAudioPlayer_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/RemoveAudioPlayerFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_RemoveAudioPlayer_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetAudioPlayes">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetAudioPlayes" message="tns:IAudioServerService_GetAudioPlayes_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetAudioPlayesResponse" message="tns:IAudioServerService_GetAudioPlayes_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/GetAudioPlayesFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_GetAudioPlayes_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetAllChannels">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetAllChannels" message="tns:IAudioServerService_GetAllChannels_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetAllChannelsResponse" message="tns:IAudioServerService_GetAllChannels_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/GetAllChannelsFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_GetAllChannels_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetEnabledChannels">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetEnabledChannels" message="tns:IAudioServerService_GetEnabledChannels_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetEnabledChannelsResponse" message="tns:IAudioServerService_GetEnabledChannels_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/GetEnabledChannelsFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_GetEnabledChannels_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPlaybackPosition">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetPlaybackPosition" message="tns:IAudioServerService_GetPlaybackPosition_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetPlaybackPositionResponse" message="tns:IAudioServerService_GetPlaybackPosition_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/GetPlaybackPositionFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_GetPlaybackPosition_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetSounds">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetSounds" message="tns:IAudioServerService_GetSounds_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetSoundsResponse" message="tns:IAudioServerService_GetSounds_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/GetSoundsFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_GetSounds_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetAudioPlayer">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/GetAudioPlayer" message="tns:IAudioServerService_GetAudioPlayer_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/GetAudioPlayerResponse" message="tns:IAudioServerService_GetAudioPlayer_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/GetAudioPlayerFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_GetAudioPlayer_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="Play">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/Play" message="tns:IAudioServerService_Play_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/PlayResponse" message="tns:IAudioServerService_Play_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/PlayFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_Play_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="PlayConcrete">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/PlayConcrete" message="tns:IAudioServerService_PlayConcrete_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/PlayConcreteResponse" message="tns:IAudioServerService_PlayConcrete_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/PlayConcreteFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_PlayConcrete_FaultCodesFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MoveNextSound">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/MoveNextSound" message="tns:IAudioServerService_MoveNextSound_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/MoveNextSoundResponse" message="tns:IAudioServerService_MoveNextSound_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/MoveNextSoundFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_MoveNextSound_FaultCodesFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MovePrevSound">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/MovePrevSound" message="tns:IAudioServerService_MovePrevSound_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/MovePrevSoundResponse" message="tns:IAudioServerService_MovePrevSound_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/MovePrevSoundFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_MovePrevSound_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="Stop">
       <wsdl:input wsaw:Action="audioserver/IAudioServerService/Stop" message="tns:IAudioServerService_Stop_InputMessage" />
       <wsdl:output wsaw:Action="audioserver/IAudioServerService/StopResponse" message="tns:IAudioServerService_Stop_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/StopFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_Stop_FaultCodesFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeChannelState">
+      <wsdl:input wsaw:Action="audioserver/IAudioServerService/ChangeChannelState" message="tns:IAudioServerService_ChangeChannelState_InputMessage" />
+      <wsdl:output wsaw:Action="audioserver/IAudioServerService/ChangeChannelStateResponse" message="tns:IAudioServerService_ChangeChannelState_OutputMessage" />
+      <wsdl:fault wsaw:Action="audioserver/IAudioServerService/ChangeChannelStateFaultCodesFault" name="FaultCodesFault" message="tns:IAudioServerService_ChangeChannelState_FaultCodesFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
 </wsdl:definitions>

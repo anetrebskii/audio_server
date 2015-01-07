@@ -45,6 +45,7 @@
     <Compile Include="DTO\PlaybackPositionDTO.cs" />
     <Compile Include="DTO\ChannelDTO.cs" />
     <Compile Include="DTO\SoundDTO.cs" />
+    <Compile Include="FaultCodes.cs" />
     <Compile Include="IAudioServerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

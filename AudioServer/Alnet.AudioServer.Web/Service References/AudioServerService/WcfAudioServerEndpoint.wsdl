@@ -42,6 +42,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="CreateVKAudioPlayer">
       <soap12:operation soapAction="audioserver/IAudioServerService/CreateVKAudioPlayer" style="document" />
@@ -51,6 +54,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="RemoveAudioPlayer">
       <soap12:operation soapAction="audioserver/IAudioServerService/RemoveAudioPlayer" style="document" />
@@ -60,6 +66,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetAudioPlayes">
       <soap12:operation soapAction="audioserver/IAudioServerService/GetAudioPlayes" style="document" />
@@ -69,6 +78,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetAllChannels">
       <soap12:operation soapAction="audioserver/IAudioServerService/GetAllChannels" style="document" />
@@ -78,6 +90,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetEnabledChannels">
       <soap12:operation soapAction="audioserver/IAudioServerService/GetEnabledChannels" style="document" />
@@ -87,6 +102,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetPlaybackPosition">
       <soap12:operation soapAction="audioserver/IAudioServerService/GetPlaybackPosition" style="document" />
@@ -96,6 +114,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetSounds">
       <soap12:operation soapAction="audioserver/IAudioServerService/GetSounds" style="document" />
@@ -105,6 +126,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetAudioPlayer">
       <soap12:operation soapAction="audioserver/IAudioServerService/GetAudioPlayer" style="document" />
@@ -114,6 +138,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="Play">
       <soap12:operation soapAction="audioserver/IAudioServerService/Play" style="document" />
@@ -123,6 +150,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="PlayConcrete">
       <soap12:operation soapAction="audioserver/IAudioServerService/PlayConcrete" style="document" />
@@ -132,6 +162,33 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="MoveNextSound">
+      <soap12:operation soapAction="audioserver/IAudioServerService/MoveNextSound" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="MovePrevSound">
+      <soap12:operation soapAction="audioserver/IAudioServerService/MovePrevSound" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="Stop">
       <soap12:operation soapAction="audioserver/IAudioServerService/Stop" style="document" />
@@ -141,6 +198,21 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeChannelState">
+      <soap12:operation soapAction="audioserver/IAudioServerService/ChangeChannelState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultCodesFault">
+        <soap12:fault use="literal" name="FaultCodesFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="WcfAudioServerEndpoint">

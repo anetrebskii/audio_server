@@ -149,14 +149,52 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="Stop">
+  <xs:element name="MoveNextSound">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q16:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="MoveNextSoundResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MovePrevSound">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q17:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MovePrevSoundResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Stop">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q18:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="StopResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeChannelState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playerId" type="q19:guid" />
+        <xs:element minOccurs="0" name="channelIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="newState" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeChannelStateResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

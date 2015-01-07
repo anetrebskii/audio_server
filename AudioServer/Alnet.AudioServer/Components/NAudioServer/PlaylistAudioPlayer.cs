@@ -26,7 +26,7 @@ namespace Alnet.AudioServer.Components.NAudioServer
         /// <summary>
         /// Index of the current sound in the playlist.
         /// </summary>
-        private int _currentSoundIndex = -1;
+        private int _currentSoundIndex;
 
         /// <summary>
         /// The instance of the current sound in the playlist.
@@ -36,16 +36,12 @@ namespace Alnet.AudioServer.Components.NAudioServer
         /// <summary>
         /// The cached sound list from the <see cref="_playlistSoundProvider"/>
         /// </summary>
-        /// 
-        /// <remarks>
-        /// Get access to it's items via the method <see cref="getSoundInfoFromPlaylist"/>
-        /// </remarks>
         private SoundInfo[] _cachedSoundList;
-        
+
         /// <summary>
         /// The disposed guard
         /// </summary>
-        private readonly DisposedGuard _disposedGuard = new DisposedGuard(typeof(PlaylistAudioPlayer));    
+        private readonly DisposedGuard _disposedGuard = new DisposedGuard(typeof(PlaylistAudioPlayer));
 
         #endregion
 
@@ -56,7 +52,7 @@ namespace Alnet.AudioServer.Components.NAudioServer
             _playlistSoundProvider = Guard.EnsureArgumentNotNull(playlistSoundProvider, "playlistSoundProvider");
             _playlistSoundProvider.SoundsChanged += playlistSoundProviderOnPlaylistSoundsChanged;
             _cachedSoundList = _playlistSoundProvider.GetSounds();
-        } 
+        }
 
         #endregion
 
@@ -85,6 +81,10 @@ namespace Alnet.AudioServer.Components.NAudioServer
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void EnableChannel(int index)
         {
+            if (_soundCards.Contains(index))
+            {
+                return;
+            }
             _soundCards.Add(index);
             if (_currentWaveSound != null)
             {
@@ -95,12 +95,24 @@ namespace Alnet.AudioServer.Components.NAudioServer
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DisableChannel(int index)
         {
+            if (!_soundCards.Contains(index))
+            {
+                return;
+            }
             _soundCards.Remove(index);
             if (_currentWaveSound != null)
             {
-                _currentWaveSound.DisableSoundCard(index);
-            }
-            verifyAvailableSoundCards();
+                if (_soundCards.Count == 0)
+                {
+                    // Wave sound doesn't exists without channels.
+                    disposeWaveSound(_currentWaveSound);
+                    _currentWaveSound = null;
+                }
+                else
+                {
+                    _currentWaveSound.DisableSoundCard(index);   
+                }
+            }            
         }
 
         public int[] GetEnabledChannels()
@@ -116,10 +128,23 @@ namespace Alnet.AudioServer.Components.NAudioServer
             _currentWaveSound.Play();
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public int GetCurrentSoundIndex()
+        public int CurrentSoundIndex
         {
-            return _currentSoundIndex;
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            get { return _currentSoundIndex; }
+        }
+
+        public SoundInfo CurrentSound
+        {
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            get
+            {
+                if (_currentWaveSound == null)
+                {
+                    return null;
+                }
+                return _currentWaveSound.SoundInfo;
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -128,29 +153,24 @@ namespace Alnet.AudioServer.Components.NAudioServer
             return _cachedSoundList.ToArray();
         }
 
-        public long PlaybackPosition
+        public double PlaybackPosition
         {
             [MethodImpl(MethodImplOptions.Synchronized)]
             get
             {
-                return _currentWaveSound == null ? 0 : _currentWaveSound.CurrentPosition;
+                return _currentWaveSound == null ? 0 : (double)_currentWaveSound.CurrentPosition / _currentWaveSound.Length;
             }
 
             [MethodImpl(MethodImplOptions.Synchronized)]
             set
             {
+                Guard.VerifyArgumentInRange(value, 0, 1, "Playback position must be in bounds [0..1]");
                 if (_currentWaveSound == null)
                 {
                     return;
                 }
-                _currentWaveSound.CurrentPosition = value;
+                _currentWaveSound.CurrentPosition = (long)(value * _currentWaveSound.Length);
             }
-        }
-
-        public long CurrentSoundDuration
-        {
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            get { return _currentWaveSound == null ? 0 : _currentWaveSound.Length; }
         }
 
         #endregion
@@ -163,8 +183,8 @@ namespace Alnet.AudioServer.Components.NAudioServer
             _playlistSoundProvider.SoundsChanged -= playlistSoundProviderOnPlaylistSoundsChanged;
             if (_currentWaveSound != null)
             {
-                _currentWaveSound.Completed -= currentWaveSoundOnCompleted;
-                _currentWaveSound.Dispose();
+                disposeWaveSound(_currentWaveSound);
+                _currentWaveSound = null;
             }
         }
 
@@ -180,16 +200,7 @@ namespace Alnet.AudioServer.Components.NAudioServer
             }
         }
 
-        private SoundInfo getSoundInfoFromPlaylist(int soundIndex)
-        {
-            SoundInfo[] sounds = _cachedSoundList.ToArray();
-            if (sounds.Length == 0)
-            {
-                throw new PlayerException(PlayerExceptionTypes.NoSounds);
-            }
-            return soundIndex < sounds.Length ? sounds[soundIndex] : sounds.Last();
-        }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void playlistSoundProviderOnPlaylistSoundsChanged(object sender, EventArgs eventArgs)
         {
             _cachedSoundList = _playlistSoundProvider.GetSounds();
@@ -198,25 +209,20 @@ namespace Alnet.AudioServer.Components.NAudioServer
         [MethodImpl(MethodImplOptions.Synchronized)]
         private void currentWaveSoundOnCompleted(object sender, EventArgs eventArgs)
         {
-           if (_disposedGuard.IsDisposed)
-           {
-              return;
-           }
-            int nextSoundIndex = _currentSoundIndex + 1;
-            if (nextSoundIndex >= _cachedSoundList.Length)
+            if (_disposedGuard.IsDisposed)
             {
-                nextSoundIndex = 0;
+                return;
             }
             try
             {
-                actualizeCurrentWaveSound(nextSoundIndex);
+                actualizeCurrentWaveSound(_currentSoundIndex + 1);
                 _currentWaveSound.Play();
             }
             catch (PlayerException ex)
             {
                 if (ex.Type != PlayerExceptionTypes.NoSounds)
                 {
-                    throw;   
+                    throw;
                 }
             }
 
@@ -227,24 +233,53 @@ namespace Alnet.AudioServer.Components.NAudioServer
         /// </summary>
         /// <param name="soundIndex">Index of the sound.</param>
         private void actualizeCurrentWaveSound(int soundIndex)
-        {            
-            if (_currentSoundIndex == soundIndex)
+        {
+            if (_cachedSoundList.Length == 0)
+            {
+                throw new PlayerException(PlayerExceptionTypes.NoSounds);
+            }
+            int correctedSoundIndex = correctSoundIndex(soundIndex);
+            bool needToInitializeNewSound = false;
+            if (_currentSoundIndex == correctedSoundIndex)
             {
                 if (_currentWaveSound == null)
                 {
-                    _currentWaveSound = initializeWaveSound(getSoundInfoFromPlaylist(soundIndex));
+                    needToInitializeNewSound = true;
                 }
             }
             else
             {
-                _currentSoundIndex = soundIndex;
+                _currentSoundIndex = correctedSoundIndex;
                 if (_currentWaveSound != null)
-                {                    
-                    _currentWaveSound.Completed -= currentWaveSoundOnCompleted;
-                    _currentWaveSound.Dispose();
+                {
+                    disposeWaveSound(_currentWaveSound);
+                    _currentWaveSound = null;
                 }
-                _currentWaveSound = initializeWaveSound(getSoundInfoFromPlaylist(soundIndex));
+                needToInitializeNewSound = true;
             }
+            if (needToInitializeNewSound)
+            {
+                _currentWaveSound = initializeWaveSound(_cachedSoundList[correctedSoundIndex]);
+            }
+        }
+
+        private void disposeWaveSound(WaveSound waveSound)
+        {
+            waveSound.Completed -= currentWaveSoundOnCompleted;
+            waveSound.Dispose();
+        }
+
+        private int correctSoundIndex(int soundIndex)
+        {
+            if (soundIndex < 0)
+            {
+                return _cachedSoundList.Length - 1;
+            }
+            if (soundIndex >= _cachedSoundList.Length)
+            {
+                return 0;
+            }
+            return soundIndex;
         }
 
         private WaveSound initializeWaveSound(SoundInfo soundInfo)

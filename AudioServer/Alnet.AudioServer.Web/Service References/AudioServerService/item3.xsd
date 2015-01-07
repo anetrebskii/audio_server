@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Alnet.AudioServerContract" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="FaultCodes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Uknown" />
+      <xs:enumeration value="NoPlayer" />
+      <xs:enumeration value="IncorrectPlayerType" />
+      <xs:enumeration value="NoSounds" />
+      <xs:enumeration value="NoChannels" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="FaultCodes" nillable="true" type="tns:FaultCodes" />
+</xs:schema>

@@ -5,6 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnPlay").bind("click", function (event, ui) {
+            $.ajax("/Player/Play/@Model.PlayerId");
+        });
+
+        $("#btnNextSound").bind("click", function(event, ui) {
+            $.ajax("/Player/MoveNextSound/@Model.PlayerId");
+        });
+
+        $("#btnPrevSound").bind("click", function (event, ui) {
+            $.ajax("/Player/MovePrevSound/@Model.PlayerId");
+        });
+
+        $("input.chkChannel").bind("change", function (event, ui) {
+            var channelIndex = $(this).attr("id");
+            var newIsChannelEnabled = $(this).is(":checked");
+            if (newIsChannelEnabled) {
+                $.ajax("/Player/EnableChannel/@Model.PlayerId/" + channelIndex);
+            } else {
+                $.ajax("/Player/DisableChannel/@Model.PlayerId/" + channelIndex);
+            }
+        });
+    });
+</script>
+
 <div id="a_playback">
     <div id="a_title">
         <span>@Model.Playback.SoundName</span>
@@ -15,23 +41,23 @@
 </div>
 <div id="a_controls">
     <div class="ui-grid-c">
-        <div class="ui-block-a"><input type="button" value="Play" /></div>
-        <div class="ui-block-b"><input type="button" value="<" /></div>
-        <div class="ui-block-c"><input type="button" value=">" /></div>
+        <div class="ui-block-a"><input id="btnPlay" name="btnPlay" type="button" value="Play" /></div>
+        <div class="ui-block-b"><input id="btnPrevSound" name="btnPrevSound" type="button" value="<" /></div>
+        <div class="ui-block-c"><input id="btnNextSound" name="btnNextSound" type="button" value=">" /></div>
         <div class="ui-block-d"><a href="#popupVolume" data-role="button" data-rel="popup">Volume</a></div>
     </div>
 </div>
 <div id="popupVolume" data-role="popup">
-        <form>
-            <fieldset data-role="controlgroup" data-iconpos="left">
-                @for (int channelIndex = 0; channelIndex < Model.Channels.Count; channelIndex++)
-                {
-                    var channel = Model.Channels[channelIndex];
-                    @Html.Label(channelIndex.ToString(), channel.Name, new { @for = channelIndex.ToString() });
-                    @Html.CheckBox(channelIndex.ToString(), channel.IsEnabled, new { id = channelIndex });
-                }
-            </fieldset>
-        </form>    
+    <form>
+        <fieldset data-role="controlgroup" data-iconpos="left">
+            @for (int channelIndex = 0; channelIndex < Model.Channels.Count; channelIndex++)
+            {
+                var channel = Model.Channels[channelIndex];
+                @Html.Label(channelIndex.ToString(), channel.Name, new { @for = channelIndex.ToString() });
+                @Html.CheckBox(channelIndex.ToString(), channel.IsEnabled, new { id = channelIndex, @class = "chkChannel" });
+            }
+        </fieldset>
+    </form>
 </div>
 <div data-role="collapsible" data-inset="false">
     <h3>Список воспроизведения</h3>

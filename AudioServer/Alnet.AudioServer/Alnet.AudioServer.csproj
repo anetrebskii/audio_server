@@ -60,12 +60,14 @@
       <DependentUpon>AppSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="Components\AudioServerContract\ChannelInfo.cs" />
+    <Compile Include="Components\AudioServerContract\PlayerControllerException.cs" />
     <Compile Include="Components\AudioServerContract\PlayerException.cs" />
     <Compile Include="Components\NAudioServer\AudioPlayerController.cs" />
     <Compile Include="Components\AudioServerContract\AudioPlayerInfo.cs" />
     <Compile Include="Components\AudioServerContract\IPlaylistSoundProvider.cs" />
     <Compile Include="Components\AudioServerContract\IAudioPlayerController.cs" />
     <Compile Include="Components\NAudioServer\AudioServerConfiguration.cs" />
+    <Compile Include="Components\NAudioServer\Exceptions\ChannelsChangedException.cs" />
     <Compile Include="Components\NAudioServer\PlaylistAudioPlayer.cs" />
     <Compile Include="Components\NAudioServer\WaveSound.cs" />
     <Compile Include="Components\AudioServerContract\SoundInfo.cs" />

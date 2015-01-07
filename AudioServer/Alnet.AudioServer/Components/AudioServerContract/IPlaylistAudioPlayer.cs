@@ -7,14 +7,7 @@
         /// </summary>
         /// 
         /// <exception cref="PlayerException"/>
-        long PlaybackPosition { get; set; }
-
-        /// <summary>
-        /// Returns duration of the current playing sound.
-        /// </summary>
-        /// 
-        /// <exception cref="PlayerException"/>
-        long CurrentSoundDuration { get; }
+        double PlaybackPosition { get; set; }
 
         /// <summary>
         /// Starts playing the sound with index in the playlist.
@@ -36,6 +29,13 @@
         /// </summary>
         /// 
         /// <exception cref="PlayerException"/>
-        int GetCurrentSoundIndex();
+        int CurrentSoundIndex { get; }
+
+        /// <summary>
+        /// Returns information about current sound
+        /// </summary>
+        /// 
+        /// <exception cref="PlayerException"/>
+        SoundInfo CurrentSound { get; }
     }
 }

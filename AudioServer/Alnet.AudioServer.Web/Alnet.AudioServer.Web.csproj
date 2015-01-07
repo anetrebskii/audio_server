@@ -259,6 +259,9 @@
     <None Include="Service References\AudioServerService\item.disco" />
     <None Include="Service References\AudioServerService\configuration91.svcinfo" />
     <None Include="Service References\AudioServerService\configuration.svcinfo" />
+    <None Include="Service References\AudioServerService\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\AudioServerService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

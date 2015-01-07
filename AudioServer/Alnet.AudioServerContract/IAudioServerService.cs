@@ -14,12 +14,15 @@ namespace Alnet.AudioServerContract
         #region Creates/removes players
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         AudioPlayerDTO CreateFileAudioPlayer(string name, string directoryPath);
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         AudioPlayerDTO CreateVKAudioPlayer(string name, int vkProfileId);
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         void RemoveAudioPlayer(Guid playerId);
 
         #endregion
@@ -27,12 +30,15 @@ namespace Alnet.AudioServerContract
         #region Methods for gets information for players
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         AudioPlayerDTO[] GetAudioPlayes();
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         ChannelDTO[] GetAllChannels();
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         ChannelDTO[] GetEnabledChannels(Guid playerId);
 
         /// <summary>
@@ -41,12 +47,15 @@ namespace Alnet.AudioServerContract
         /// <param name="playerId">The player identifier.</param>
         /// <remarks>Only for Playlistaudioplayers</remarks>
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         PlaybackPositionDTO GetPlaybackPosition(Guid playerId);
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         SoundDTO[] GetSounds(Guid playerId);
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         AudioPlayerDTO GetAudioPlayer(Guid playerId);
 
         #endregion
@@ -54,13 +63,28 @@ namespace Alnet.AudioServerContract
         #region Commands for players
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         void Play(Guid playerId);
 
         [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
         void PlayConcrete(Guid playerId, int soundId);
 
         [OperationContract]
-        void Stop(Guid playerId); 
+        [FaultContract(typeof(FaultCodes))]
+        void MoveNextSound(Guid playerId);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
+        void MovePrevSound(Guid playerId);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
+        void Stop(Guid playerId);
+
+        [OperationContract]
+        [FaultContract(typeof(FaultCodes))]
+        void ChangeChannelState(Guid playerId, int channelIndex, bool newState);
 
         #endregion
     }

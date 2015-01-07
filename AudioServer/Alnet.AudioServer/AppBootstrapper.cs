@@ -12,84 +12,94 @@ using Alnet.Common;
 namespace Alnet.AudioServer
 {
 
-   [RunInstaller(true)]
-   public sealed class AppBootstrapper : Bootstrapper
-   {
-      private IAudioServerEndpoint _audioServerEndpoint = new WcfAudioServerEndpoint();
+    [RunInstaller(true)]
+    public sealed class AppBootstrapper : Bootstrapper
+    {
+        private IAudioServerEndpoint _audioServerEndpoint = new WcfAudioServerEndpoint();
 
-      protected override void OnStart()
-      {         
-         _audioServerEndpoint.Start();
-         //debugCode();
-      }
+        protected override void OnStart()
+        {
+            _audioServerEndpoint.Start();
+            logAudioChannelsInfo();
+            debugCode();
+        }
 
-      protected override void OnStop()
-      {
-         _audioServerEndpoint.Dispose();
-         _audioServerEndpoint = null;
-      }
+        private void logAudioChannelsInfo()
+        {
+            Console.WriteLine("Available channels:");
+            foreach (ChannelInfo channelInfo in ApplicationContext.Instance.AudioPlayerController.GetChannels())
+            {
+                Console.WriteLine(channelInfo);
+            }
+        }
 
-      protected override string Name
-      {
-         get { return "Alnet.AudioServer"; }
-      }
+        protected override void OnStop()
+        {
+            _audioServerEndpoint.Dispose();
+            _audioServerEndpoint = null;
+        }
 
-      protected override string DisplayName
-      {
-         get { return "Audio Server"; }
-      }
+        protected override string Name
+        {
+            get { return "Alnet.AudioServer"; }
+        }
 
-      protected override string Description
-      {
-         get { return "Audio server for playing sounds synchronously on different audio cards."; }
-      }
+        protected override string DisplayName
+        {
+            get { return "Audio Server"; }
+        }
 
-      private void debugCode()
-      {
-         IAudioPlayerController controller = new AudioPlayerController();
+        protected override string Description
+        {
+            get { return "Audio server for playing sounds synchronously on different audio cards."; }
+        }
 
-         AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new DirectoryPlaylistSoundProvider(@"D:\Music\VKMusic"));
-         //AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new VkPlaylistSoundProvider(709939));
-         
+        private void debugCode()
+        {
+            IAudioPlayerController controller = ApplicationContext.Instance.AudioPlayerController;
 
-         Console.WriteLine("Available channels");
-         foreach (ChannelInfo channelInfo in controller.GetChannels())
-         {
-            Console.WriteLine(channelInfo);
-         }
+            //AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new DirectoryPlaylistSoundProvider(@"D:\Music\VKMusic"));
+            AudioPlayerInfo playerInfo = controller.CreatePlaylistAudioPlayer("My", new VkPlaylistSoundProvider(709939));
+            return;
 
-         IPlaylistAudioPlayer playlistAudioPlayer = (IPlaylistAudioPlayer)playerInfo.Player;
+            Console.WriteLine("Available channels");
+            foreach (ChannelInfo channelInfo in controller.GetChannels())
+            {
+                Console.WriteLine(channelInfo);
+            }
 
-         //Console.WriteLine("Playlist");
-         //foreach (var sounds in playlistAudioPlayer.GetSounds())
-         //{
-         //   Console.WriteLine(sounds.Name);
-         //}          
-         playlistAudioPlayer.EnableChannel(0);
-         playlistAudioPlayer.Play();
-         Console.ReadLine();
+            IPlaylistAudioPlayer playlistAudioPlayer = (IPlaylistAudioPlayer)playerInfo.Player;
 
-         playlistAudioPlayer.PlaybackPosition = playlistAudioPlayer.CurrentSoundDuration - 2000000;
+            //Console.WriteLine("Playlist");
+            //foreach (var sounds in playlistAudioPlayer.GetSounds())
+            //{
+            //   Console.WriteLine(sounds.Name);
+            //}          
+            playlistAudioPlayer.EnableChannel(0);
+            playlistAudioPlayer.Play();
+            Console.ReadLine();
 
-         Console.ReadLine();
+            playlistAudioPlayer.PlaybackPosition = 0.90;
 
-         playlistAudioPlayer.EnableChannel(1);
-         playlistAudioPlayer.Play(playlistAudioPlayer.GetCurrentSoundIndex() + 1);
-         //controller.DeleteAudioPlayer(playerInfo.Id);
-         Console.ReadLine();
+            Console.ReadLine();
 
-         controller.DisposeObject();
-         return;
+            playlistAudioPlayer.EnableChannel(1);
+            playlistAudioPlayer.Play(playlistAudioPlayer.CurrentSoundIndex + 1);
+            //controller.DeleteAudioPlayer(playerInfo.Id);
+            Console.ReadLine();
 
-         Console.ReadLine();
-         playerInfo.Player.DisableChannel(0);
-         Console.ReadLine();
-         return;
+            controller.DisposeObject();
+            return;
 
-         IAudioServerEndpoint audioServerEndpoint = new WcfAudioServerEndpoint();
-         audioServerEndpoint.Start();
-         Console.ReadLine();
-         return;
-      }
-   }
+            Console.ReadLine();
+            playerInfo.Player.DisableChannel(0);
+            Console.ReadLine();
+            return;
+
+            IAudioServerEndpoint audioServerEndpoint = new WcfAudioServerEndpoint();
+            audioServerEndpoint.Start();
+            Console.ReadLine();
+            return;
+        }
+    }
 }

@@ -9,6 +9,15 @@
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
+        @Scripts.Render("~/bundles/jquery")
+        <script>
+            $(document).on("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
+        @Scripts.Render("~/bundles/jquerymobile")
+        @RenderSection("scripts", required: false)
+
         <div data-role="page" data-theme="b">
             <div data-role="header">
                 
@@ -21,15 +30,8 @@
                 <span class="ui-title">&nbsp;</span>
                 <a href="/Home/Index" data-icon="home" data-iconpos="notext" class="ui-btn-left">&nbsp;</a>
             </div>
-</div>
+        </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        <script>
-            $(document).on("mobileinit", function () {
-                $.mobile.ajaxEnabled = false;
-            });
-        </script>
-        @Scripts.Render("~/bundles/jquerymobile")
-        @RenderSection("scripts", required: false)
+
     </body>
 </html>
