@@ -52,6 +52,10 @@ namespace Alnet.AudioServer.Components.NAudioServer
             _playlistSoundProvider = Guard.EnsureArgumentNotNull(playlistSoundProvider, "playlistSoundProvider");
             _playlistSoundProvider.SoundsChanged += playlistSoundProviderOnPlaylistSoundsChanged;
             _cachedSoundList = _playlistSoundProvider.GetSounds();
+            if (_cachedSoundList.Length > 0)
+            {
+                actualizeCurrentWaveSound(_currentSoundIndex);
+            }
         }
 
         #endregion
