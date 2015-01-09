@@ -8,6 +8,9 @@ namespace Alnet.AudioServerContract.DTO
     public sealed class PlaybackPositionDTO
     {
         [DataMember]
+        public bool IsPlaying { get; set; }
+
+        [DataMember]
         public string SoundName { get; set; }
 
         /// <summary>

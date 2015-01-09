@@ -104,6 +104,7 @@ namespace Alnet.AudioServer.Components.AudioServerEndpoints
                                      string soundName = soundInfo == null ? null : soundInfo.Name;
                                      return new PlaybackPositionDTO()
                                             {
+                                                IsPlaying = playlistAudioPlayer.IsPlaying,
                                                 SoundName = soundName,
                                                 SoundIndex = soundIndex,
                                                 PlaybackPosition = playlistAudioPlayer.PlaybackPosition

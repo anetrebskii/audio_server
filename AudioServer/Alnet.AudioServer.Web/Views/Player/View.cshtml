@@ -6,26 +6,90 @@
 }
 
 <script type="text/javascript">
+    function updateData() {
+        $.ajax({
+            url: "/Player/GetPlaybackPositionJson/@Model.PlayerId",
+            complete: function (data, textStatus) {
+
+            },
+            success: function (data) {
+                $("#a_soundname").text(data.SoundName);
+                if (data.IsPlaying) {
+                    $("#btnPlay .ui-btn-text").text("||");
+                    $("#btnPlay").addClass("played");
+                } else {
+                    $("#btnPlay .ui-btn-text").text(">");
+                    $("#btnPlay").removeClass("played");
+                }
+            }
+        });
+    }
+
     $(document).ready(function () {
+        updateData();
+
         $("#btnPlay").bind("click", function (event, ui) {
-            $.ajax("/Player/Play/@Model.PlayerId");
+            var alreadyPlayed = $(this).hasClass("played");
+            var url;
+            if (alreadyPlayed) {
+                url = "/Player/Stop/@Model.PlayerId";
+            } else {
+                url = "/Player/Play/@Model.PlayerId";
+            }
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    updateData();
+                }
+            });
         });
 
-        $("#btnNextSound").bind("click", function(event, ui) {
-            $.ajax("/Player/MoveNextSound/@Model.PlayerId");
+        $("#btnNextSound").bind("click", function (event, ui) {
+            $.ajax({
+                url: "/Player/MoveNextSound/@Model.PlayerId",
+                success: function (data) {
+                    updateData();
+                }
+            });
+        });
+
+        $(".pl_c_sound").bind("click", function(event, ui) {
+            var soundIndex = $(this).attr("sound-index");
+            $.ajax({
+                url: "/Player/PlayConcrete/@Model.PlayerId/" + soundIndex,
+                success: function (data) {
+                    updateData();
+                }
+            });
         });
 
         $("#btnPrevSound").bind("click", function (event, ui) {
-            $.ajax("/Player/MovePrevSound/@Model.PlayerId");
+            $.ajax({
+                url: "/Player/MovePrevSound/@Model.PlayerId",
+                success: function (data) {
+                    updateData();
+                }
+            });
+            updateData();
         });
 
         $("input.chkChannel").bind("change", function (event, ui) {
             var channelIndex = $(this).attr("id");
             var newIsChannelEnabled = $(this).is(":checked");
             if (newIsChannelEnabled) {
-                $.ajax("/Player/EnableChannel/@Model.PlayerId/" + channelIndex);
+                $.ajax({
+                    url: "/Player/EnableChannel/@Model.PlayerId/" + channelIndex,
+                    success: function (data) {
+                        updateData();
+                    }
+                });
             } else {
-                $.ajax("/Player/DisableChannel/@Model.PlayerId/" + channelIndex);
+                $.ajax({
+                    url: "/Player/DisableChannel/@Model.PlayerId/" + channelIndex,
+                    success: function (data) {
+                        updateData();
+                    }
+                });
             }
         });
     });
@@ -33,19 +97,15 @@
 
 <div id="a_playback">
     <div id="a_title">
-        <span>@Model.Playback.SoundName</span>
-    </div>
-    <div id="a_timeline">
-        <input type="range" name="a-timeline" id="a-timeline" min="0" max="100" value="50" data-mini="true" data-highlight="true">
+        <span style="font-weight: bold">Сейчас играет:</span>
+        <span id="a_soundname"> @Model.Playback.SoundName</span>
     </div>
 </div>
 <div id="a_controls">
-    <div class="ui-grid-c">
-        <div class="ui-block-a"><input id="btnPlay" name="btnPlay" type="button" value="Play" /></div>
-        <div class="ui-block-b"><input id="btnPrevSound" name="btnPrevSound" type="button" value="<" /></div>
-        <div class="ui-block-c"><input id="btnNextSound" name="btnNextSound" type="button" value=">" /></div>
-        <div class="ui-block-d"><a href="#popupVolume" data-role="button" data-rel="popup">Volume</a></div>
-    </div>
+        <a id="btnPlay" data-role="button" data-inline="true">></a>
+        <a id="btnPrevSound" data-role="button" data-inline="true"><<</a>
+        <a id="btnNextSound" data-role="button" data-inline="true">>></a>
+        <a href="#popupVolume" data-role="button" data-rel="popup" data-inline="true">Volume</a>
 </div>
 <div id="popupVolume" data-role="popup">
     <form>
@@ -59,18 +119,17 @@
         </fieldset>
     </form>
 </div>
-<div data-role="collapsible" data-inset="false">
-    <h3>Список воспроизведения</h3>
-    <form>
-        <ul data-role="listview" data-inset="true">
-            @for (int soundIndex = 0; soundIndex < Model.Sounds.Count; soundIndex++)
-            {
-                string soundName = Model.Sounds[soundIndex];
-                <li>@soundName</li>
-            }
-        </ul>
-    </form>
-</div>
+
+<span style="font-weight: bold">Список воспроизведения:</span>
+
+@for (int soundIndex = 0; soundIndex < Model.Sounds.Count; soundIndex++)
+{
+    string soundName = Model.Sounds[soundIndex];
+    <div style="padding: 5px 0">
+        <a href="#" class="pl_c_sound" sound-index="@soundIndex" data-role="button" data-mini="true" data-inline="true">Play</a>
+        <span>@soundName</span>
+    </div>
+}
 
 
 

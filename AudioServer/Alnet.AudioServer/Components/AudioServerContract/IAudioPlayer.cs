@@ -3,6 +3,11 @@
     internal interface IAudioPlayer
     {
         /// <summary>
+        /// Indicates that plauyer is playing a sound.s
+        /// </summary>
+        bool IsPlaying { get; }
+
+        /// <summary>
         /// Starts the playing a sounds.
         /// </summary>
         /// 

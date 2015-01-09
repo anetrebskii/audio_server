@@ -16,5 +16,7 @@ namespace Alnet.AudioServer.Web.Models
         /// IN bounds [0..1]
         /// </remarks>
         public double PlaybackPosition { get; set; }
+
+        public bool IsPlaying { get; set; }
     }
 }

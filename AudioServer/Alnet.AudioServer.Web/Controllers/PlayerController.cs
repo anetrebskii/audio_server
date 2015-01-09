@@ -16,9 +16,33 @@ namespace Alnet.AudioServer.Web.Controllers
         //
         // GET: /Player/
 
+        public ActionResult Stop(Guid id)
+        {
+            _audioServerService.Stop(id);
+            return new EmptyResult();
+        }
+
+        public ActionResult GetPlaybackPositionJson(Guid id)
+        {
+            PlaybackPositionDTO playbackPosition = _audioServerService.GetPlaybackPosition(id);
+
+            return Json(new PlaybackModel()
+                        {
+                            IsPlaying = playbackPosition.IsPlaying,
+                            SoundName = playbackPosition.SoundName,
+                            PlaybackPosition = playbackPosition.PlaybackPosition
+                        }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Play(Guid id)
         {
             _audioServerService.Play(id);
+            return new EmptyResult();
+        }
+
+        public ActionResult PlayConcrete(Guid id, int otherId)
+        {
+            _audioServerService.PlayConcrete(id, otherId);
             return new EmptyResult();
         }
 
@@ -63,8 +87,9 @@ namespace Alnet.AudioServer.Web.Controllers
                                                  PlayerId = audioPlayer.Id,
                                                  Playback = new PlaybackModel()
                                                             {
-                                                               SoundName = playbackPosition.SoundName,
-                                                               PlaybackPosition = playbackPosition.PlaybackPosition
+                                                                IsPlaying = playbackPosition.IsPlaying,
+                                                                SoundName = playbackPosition.SoundName,
+                                                                PlaybackPosition = playbackPosition.PlaybackPosition
                                                             },
                                                  Sounds = sounds.Select(s => s.Name).ToList(),
                                                  Channels = allChannels.Select(c => new ChannelModel()

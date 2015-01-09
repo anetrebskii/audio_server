@@ -43,6 +43,11 @@ namespace Alnet.AudioServer.Components.NAudioServer
         /// </summary>
         private readonly DisposedGuard _disposedGuard = new DisposedGuard(typeof(PlaylistAudioPlayer));
 
+        /// <summary>
+        /// Indicates that sound are playing.
+        /// </summary>
+        private bool _isPlaying;
+
         #endregion
 
         #region Constructors
@@ -62,24 +67,31 @@ namespace Alnet.AudioServer.Components.NAudioServer
 
         #region IPlaylistAudioPlayer members
 
+        public bool IsPlaying
+        {
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            get { return _isPlaying; }
+        }
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Play()
         {
-            _disposedGuard.Check();
-            verifyAvailableSoundCards();
+            _disposedGuard.Check();            
+            verifyAvailableSoundCards();            
             actualizeCurrentWaveSound(_currentSoundIndex);
             _currentWaveSound.Play();
+            _isPlaying = true;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Stop()
         {
-            _disposedGuard.Check();
-            if (_currentWaveSound == null)
+            _disposedGuard.Check();            
+            if (_currentWaveSound != null)
             {
-                return;
-            }
-            _currentWaveSound.Stop();
+                _currentWaveSound.Stop();
+                _isPlaying = false;
+            }            
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -109,14 +121,11 @@ namespace Alnet.AudioServer.Components.NAudioServer
                 if (_soundCards.Count == 0)
                 {
                     // Wave sound doesn't exists without channels.
-                    disposeWaveSound(_currentWaveSound);
-                    _currentWaveSound = null;
+                    _isPlaying = false;
+                    _currentWaveSound.Stop();
                 }
-                else
-                {
-                    _currentWaveSound.DisableSoundCard(index);   
-                }
-            }            
+                _currentWaveSound.DisableSoundCard(index);
+            }
         }
 
         public int[] GetEnabledChannels()
@@ -127,9 +136,10 @@ namespace Alnet.AudioServer.Components.NAudioServer
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Play(int soundIndex)
         {
-            verifyAvailableSoundCards();
+            verifyAvailableSoundCards();            
             actualizeCurrentWaveSound(soundIndex);
             _currentWaveSound.Play();
+            _isPlaying = true;
         }
 
         public int CurrentSoundIndex
@@ -214,6 +224,10 @@ namespace Alnet.AudioServer.Components.NAudioServer
         private void currentWaveSoundOnCompleted(object sender, EventArgs eventArgs)
         {
             if (_disposedGuard.IsDisposed)
+            {
+                return;
+            }
+            if (!_isPlaying)
             {
                 return;
             }
