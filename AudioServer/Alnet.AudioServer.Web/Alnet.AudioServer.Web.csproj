@@ -168,8 +168,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\251.png" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\icons-18-black.png" />
+    <Content Include="Content\images\icons-18-custom.png" />
     <Content Include="Content\images\icons-18-white.png" />
     <Content Include="Content\images\icons-36-black.png" />
     <Content Include="Content\images\icons-36-white.png" />
@@ -241,6 +243,7 @@
     <Content Include="Properties\DataSources\Alnet.AudioServerContract.DTO.AudioPlayerDTO.datasource" />
     <Content Include="Properties\DataSources\Alnet.AudioServerContract.DTO.ChannelDTO.datasource" />
     <Content Include="Properties\DataSources\Alnet.AudioServerContract.DTO.PlaybackPositionDTO.datasource" />
+    <Content Include="Content\images\icons-18-custom.psd" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

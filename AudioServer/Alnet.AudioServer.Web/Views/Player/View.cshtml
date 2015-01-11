@@ -15,10 +15,10 @@
             success: function (data) {
                 $("#a_soundname").text(data.SoundName);
                 if (data.IsPlaying) {
-                    $("#btnPlay .ui-btn-text").text("||");
+                    //$("#btnPlay .ui-btn-text").text("||");
                     $("#btnPlay").addClass("played");
                 } else {
-                    $("#btnPlay .ui-btn-text").text(">");
+                    //$("#btnPlay .ui-btn-text").text(">");
                     $("#btnPlay").removeClass("played");
                 }
             }
@@ -102,10 +102,10 @@
     </div>
 </div>
 <div id="a_controls">
-        <a id="btnPlay" data-role="button" data-inline="true">></a>
-        <a id="btnPrevSound" data-role="button" data-inline="true"><<</a>
-        <a id="btnNextSound" data-role="button" data-inline="true">>></a>
-        <a href="#popupVolume" data-role="button" data-rel="popup" data-inline="true">Volume</a>
+    <a id="btnPlay" data-role="button" data-inline="true" data-iconpos="notext" data-icon="playsound">играть</a>
+    <a id="btnPrevSound" data-role="button" data-inline="true" data-iconpos="notext" data-icon="prevsound">предыдущая песня</a>
+    <a id="btnNextSound" data-role="button" data-inline="true" data-iconpos="notext" data-icon="nextsound">следующая песня</a>
+        <a href="#popupVolume" data-role="button" data-rel="popup" data-inline="true">Звук</a>
 </div>
 <div id="popupVolume" data-role="popup">
     <form>
@@ -126,7 +126,7 @@
 {
     string soundName = Model.Sounds[soundIndex];
     <div style="padding: 5px 0">
-        <a href="#" class="pl_c_sound" sound-index="@soundIndex" data-role="button" data-mini="true" data-inline="true">Play</a>
+        <a href="#" class="pl_c_sound" sound-index="@soundIndex" data-role="button" data-inline="true" data-iconpos="notext" data-icon="playsound">Play</a>
         <span>@soundName</span>
     </div>
 }

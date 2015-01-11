@@ -69,7 +69,7 @@ namespace Alnet.AudioServer.Web.Controllers
             _audioServerService.ChangeChannelState(id, otherId, false);
             return new EmptyResult();
         }
-
+        
         public ActionResult View(Guid id)
         {
             AudioPlayerDTO audioPlayer = _audioServerService.GetAudioPlayer(id);
