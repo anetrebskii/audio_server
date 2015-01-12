@@ -15,29 +15,33 @@
             success: function (data) {
                 $("#a_soundname").text(data.SoundName);
                 if (data.IsPlaying) {
-                    //$("#btnPlay .ui-btn-text").text("||");
-                    $("#btnPlay").addClass("played");
+                    $("#btnPlay").hide();
+                    $("#btnStop").show();
                 } else {
-                    //$("#btnPlay .ui-btn-text").text(">");
-                    $("#btnPlay").removeClass("played");
+                    $("#btnPlay").show();
+                    $("#btnStop").hide();
                 }
             }
         });
     }
 
     $(document).ready(function () {
+        $("#btnStop").hide();
+
         updateData();
 
         $("#btnPlay").bind("click", function (event, ui) {
-            var alreadyPlayed = $(this).hasClass("played");
-            var url;
-            if (alreadyPlayed) {
-                url = "/Player/Stop/@Model.PlayerId";
-            } else {
-                url = "/Player/Play/@Model.PlayerId";
-            }
             $.ajax({
-                url: url,
+                url: "/Player/Play/@Model.PlayerId",
+                success: function (data) {
+                    updateData();
+                }
+            });
+        });
+
+        $("#btnStop").bind("click", function (event, ui) {
+            $.ajax({
+                url: "/Player/Stop/@Model.PlayerId",
                 success: function (data) {
                     updateData();
                 }
@@ -69,8 +73,27 @@
                 success: function (data) {
                     updateData();
                 }
-            });
-            updateData();
+            });            
+        });
+
+        $(".sliderChannel").bind("change", function (event, ui) {
+            var channelIndex = $(this).attr("id");
+            var newIsChannelEnabled = $(this).val() == 'on';
+            if (newIsChannelEnabled) {
+                $.ajax({
+                    url: "/Player/EnableChannel/@Model.PlayerId/" + channelIndex,
+                    success: function (data) {
+                        updateData();
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "/Player/DisableChannel/@Model.PlayerId/" + channelIndex,
+                    success: function (data) {
+                        updateData();
+                    }
+                });
+            }
         });
 
         $("input.chkChannel").bind("change", function (event, ui) {
@@ -97,27 +120,33 @@
 
 <div id="a_playback">
     <div id="a_title">
-        <span style="font-weight: bold">Сейчас играет:</span>
-        <span id="a_soundname"> @Model.Playback.SoundName</span>
+        <span style="font-weight: bold">Сейчас играет: </span>
+        <span id="a_soundname">@Model.Playback.SoundName</span>
     </div>
 </div>
 <div id="a_controls">
     <a id="btnPlay" data-role="button" data-inline="true" data-iconpos="notext" data-icon="playsound">играть</a>
+    <a id="btnStop" data-role="button" data-inline="true" data-iconpos="notext" data-icon="stopsound">стоп</a>
     <a id="btnPrevSound" data-role="button" data-inline="true" data-iconpos="notext" data-icon="prevsound">предыдущая песня</a>
     <a id="btnNextSound" data-role="button" data-inline="true" data-iconpos="notext" data-icon="nextsound">следующая песня</a>
-        <a href="#popupVolume" data-role="button" data-rel="popup" data-inline="true">Звук</a>
 </div>
-<div id="popupVolume" data-role="popup">
-    <form>
-        <fieldset data-role="controlgroup" data-iconpos="left">
-            @for (int channelIndex = 0; channelIndex < Model.Channels.Count; channelIndex++)
-            {
-                var channel = Model.Channels[channelIndex];
-                @Html.Label(channelIndex.ToString(), channel.Name, new { @for = channelIndex.ToString() });
-                @Html.CheckBox(channelIndex.ToString(), channel.IsEnabled, new { id = channelIndex, @class = "chkChannel" });
-            }
-        </fieldset>
-    </form>
+
+<span style="font-weight: bold;">Звук в комнатах:</span>
+<div style="margin-bottom: 10px">
+    <div>
+        @for (int channelIndex = 0; channelIndex < Model.Channels.Count; channelIndex++)
+        {
+            var channel = Model.Channels[channelIndex];
+            <div style="display: table; ">
+                <span style="width: auto; vertical-align: middle; display: table-cell; padding-right: 15px">@channel.Name:</span>
+                <select class="sliderChannel" id="@channelIndex" data-role="slider" data-mini="true">                            
+                    @Html.Raw(@"<option value='off'>Выкл.</option>")
+                    @Html.Raw(String.Format(@"<option value='on' {0}>Вкл.</option>", channel.IsEnabled ? "selected" : ""))
+                </select>
+            </div>
+
+        }
+    </div>
 </div>
 
 <span style="font-weight: bold">Список воспроизведения:</span>

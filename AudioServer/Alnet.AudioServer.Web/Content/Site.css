@@ -69,6 +69,12 @@
     background-position: 0 0;
 }
 
+.ui-icon-stopsound {
+    /*background: url(images/icons_18_custom.png);*/
+    background-image: url(images/icons-18-custom.png);
+    background-position: -18px 0;
+}
+
 .ui-icon-nextsound {
     background-image: url(images/icons-18-custom.png);
     background-position: -36px 0;
