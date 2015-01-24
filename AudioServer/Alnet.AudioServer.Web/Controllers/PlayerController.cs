@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
 
-using Alnet.AudioServer.Web.AudioServerService;
+using Alnet.AudioServer.Web.Components.AudioServerService;
 using Alnet.AudioServer.Web.Models;
+using Alnet.AudioServerContract;
 using Alnet.AudioServerContract.DTO;
+
+using IAudioServerService = Alnet.AudioServer.Web.AudioServerService.IAudioServerService;
 
 namespace Alnet.AudioServer.Web.Controllers
 {
@@ -69,36 +73,48 @@ namespace Alnet.AudioServer.Web.Controllers
             _audioServerService.ChangeChannelState(id, otherId, false);
             return new EmptyResult();
         }
-        
+
         public ActionResult View(Guid id)
         {
-            AudioPlayerDTO audioPlayer = _audioServerService.GetAudioPlayer(id);
-            if (audioPlayer.Type != PlayerTypes.Playlist)
+            try
             {
-                throw new NotSupportedException("Supported only playlist player");
-            }
-            SoundDTO[] sounds = _audioServerService.GetSounds(id);
-            ChannelDTO[] allChannels = _audioServerService.GetAllChannels();
-            ChannelDTO[] enabledChannels = _audioServerService.GetEnabledChannels(id);
-            PlaybackPositionDTO playbackPosition = _audioServerService.GetPlaybackPosition(id);
+                AudioPlayerDTO audioPlayer = _audioServerService.GetAudioPlayer(id);
+                if (audioPlayer.Type != PlayerTypes.Playlist)
+                {
+                    throw new NotSupportedException("Supported only playlist player");
+                }
+                SoundDTO[] sounds = _audioServerService.GetSounds(id);
+                ChannelDTO[] allChannels = _audioServerService.GetAllChannels();
+                ChannelDTO[] enabledChannels = _audioServerService.GetEnabledChannels(id);
+                PlaybackPositionDTO playbackPosition = _audioServerService.GetPlaybackPosition(id);
 
-            PlayerFullInfoModel playerInfo = new PlayerFullInfoModel()
-                                             {
-                                                 PlayerId = audioPlayer.Id,
-                                                 Playback = new PlaybackModel()
-                                                            {
-                                                                IsPlaying = playbackPosition.IsPlaying,
-                                                                SoundName = playbackPosition.SoundName,
-                                                                PlaybackPosition = playbackPosition.PlaybackPosition
-                                                            },
-                                                 Sounds = sounds.Select(s => s.Name).ToList(),
-                                                 Channels = allChannels.Select(c => new ChannelModel()
-                                                                                    {
-                                                                                        Name = c.Name,
-                                                                                        IsEnabled = enabledChannels.Any(ec => ec.Index == c.Index)
-                                                                                    }).ToList()
-                                             };
-            return View(playerInfo);
+                PlayerFullInfoModel playerInfo = new PlayerFullInfoModel()
+                                                 {
+                                                     PlayerId = audioPlayer.Id,
+                                                     Playback = new PlaybackModel()
+                                                                {
+                                                                    IsPlaying = playbackPosition.IsPlaying,
+                                                                    SoundName = playbackPosition.SoundName,
+                                                                    PlaybackPosition = playbackPosition.PlaybackPosition
+                                                                },
+                                                     Sounds = sounds.Select(s => s.Name).ToList(),
+                                                     Channels = allChannels.Select(c => new ChannelModel()
+                                                                                        {
+                                                                                            Name = c.Name,
+                                                                                            IsEnabled = enabledChannels.Any(ec => ec.Index == c.Index)
+                                                                                        }).ToList()
+                                                 };
+                return View(playerInfo);
+            }
+            catch (ServiceException)
+            {
+                return RedirectToAction("Error", "Home", new { message = "Ну вот, у меня проблема с подключение к аудио серверу. Пожалуйста, скажи администратору.", returnUrl = Request.Url});
+            }
+            catch (FaultException<FaultCodes>)
+            {
+
+                return RedirectToAction("Error", "Home", new { message = "Возникла ошибка и я не знаю, что с ней делать. Пожалуйста, скажи администратору.", returnUrl = Request.Url });
+            }
         }
 
         public ActionResult New()

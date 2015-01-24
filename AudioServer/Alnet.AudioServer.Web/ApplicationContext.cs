@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 
 using Alnet.AudioServer.Web.AudioServerService;
+using Alnet.AudioServer.Web.Components.AudioServerService;
 
 namespace Alnet.AudioServer.Web
 {
@@ -21,7 +22,7 @@ namespace Alnet.AudioServer.Web
         /// </summary>
         private ApplicationContext()
         {
-            AudioPlayerService = new AudioServerServiceClient();
+            AudioPlayerService = new AudioServerServiceProxy();
         }
 
         /// <summary>

@@ -149,6 +149,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Components\AudioServerService\AudioServerServiceProxy.cs" />
+    <Compile Include="Components\AudioServerService\ServiceException.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Global.asax.cs">
@@ -279,8 +281,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -299,6 +299,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AudioServerService\WcfAudioServerEndpoint.wsdl" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -313,6 +314,10 @@
     <ProjectReference Include="..\Alnet.AudioServerContract\Alnet.AudioServerContract.csproj">
       <Project>{ab98aec4-ca88-4137-8500-2350526d9f03}</Project>
       <Name>Alnet.AudioServerContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alnet.Common\Alnet.Common.csproj">
+      <Project>{5C9F3D94-69C4-4DE9-96A3-8A91F7556777}</Project>
+      <Name>Alnet.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -336,7 +341,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>37639</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5615/</IISUrl>
+          <IISUrl>http://localhost:15615/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

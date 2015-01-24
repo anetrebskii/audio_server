@@ -13,6 +13,6 @@ namespace Alnet.AudioServer.Web.Models
 
         public string CurrentSoundName { get; set; }
 
-        public List<string> EnabledChannels { get; set; } 
+        public List<string> EnabledChannels { get; set; }  
     }
 }

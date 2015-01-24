@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Упс! Возникла ошибка...</h2>
+
+<p>@ViewBag.Message</p>
+<a href="@ViewBag.ReturnUrl" data-role="button">Я попробую еще раз</a>

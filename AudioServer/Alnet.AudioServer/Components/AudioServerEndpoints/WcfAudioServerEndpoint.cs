@@ -19,6 +19,7 @@ namespace Alnet.AudioServer.Components.AudioServerEndpoints
         #region Private fields
 
         private readonly IAudioPlayerController _audioPlayerController = ApplicationContext.Instance.AudioPlayerController;
+
         private readonly ServiceHost _serviceHost;
 
         /// <summary>
